@@ -1,10 +1,10 @@
-<import src="/modules/mpvue-wxparse/src/wxParse.vue.wxml" /><template name="db8a81ca">
-  <view class="_div data-v-6c6c8a85 goods-detail" wx:if="{{goods}}">
+<import src="/modules/mpvue-wxparse/src/wxParse.vue.wxml" /><template name="094f3288">
+  <view class="_div data-v-6c6c8a85 goods-detail" wx:if="{{goods.id}}">
     <view class="_div data-v-6c6c8a85 slide">
       <swiper class="_swiper data-v-6c6c8a85 swiper" indicator-dots="{{false}}" autoplay bindchange="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}">
         <swiper-item wx:key="index" key="{{index}}" bindtap="handleProxy" data-eventid="{{'0-'+index}}" data-comkey="{{$k}}" wx:for="{{slides}}" wx:for-index="index" wx:for-item="item" class="_swiper-item data-v-6c6c8a85">
           <view class="_a data-v-6c6c8a85 slide-url">
-            <image src="{{item}}" class="_img data-v-6c6c8a85 slide-image" mode="aspectFill"></image>
+            <image lazy-load src="{{item}}" class="_img data-v-6c6c8a85 slide-image" mode="aspectFill"></image>
           </view>
         </swiper-item>
       </swiper>
@@ -42,18 +42,18 @@
         <view class="_div data-v-6c6c8a85 goods-comment__item" wx:key="commentIdx" key="{{commentIdx}}" wx:for="{{goods.comments}}" wx:for-index="commentIdx" wx:for-item="comment">
           <view class="_div data-v-6c6c8a85 goods-comment__left">
             <view class="_div data-v-6c6c8a85 g-flex g-flex__updown-center">
-              <image class="_img data-v-6c6c8a85 u-head__img"></image>
+              <image lazy-load class="_img data-v-6c6c8a85 u-head__img" src="{{comment.headimgurl}}"></image>
               <view class="_p data-v-6c6c8a85 goods-comment__name">{{comment.username}}</view>
             </view>
             <view class="_p data-v-6c6c8a85 goods-comment__text">{{comment.content}}</view>
           </view>
           <view class="_div data-v-6c6c8a85 goods-comment__right">
-            <image class="_img data-v-6c6c8a85 u-goods__img" src="{{slides[0]}}"></image>
+            <image lazy-load class="_img data-v-6c6c8a85 u-goods__img" src="{{slides[0]}}"></image>
           </view>
         </view>
       </scroll-view>
     </view>
-    <view class="_div data-v-6c6c8a85 goods-detail__pic"><template bindpreview="handleProxy" bindnavigate="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'1'], $root}}" is="1f5164af"></template></view>
+    <view class="_div data-v-6c6c8a85 goods-detail__pic"><template bindpreview="handleProxy" bindnavigate="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'1'], $root}}" is="27e5e53c"></template></view>
     <view class="_div data-v-6c6c8a85 bottom-bar"><button open-type="contact" class="_button data-v-6c6c8a85 bottom-bar__service">
         <view class="_div data-v-6c6c8a85 bottom-bar__icon"></view>
         <view class="_p data-v-6c6c8a85 bottom-bar__tt">客服</view>
@@ -63,7 +63,7 @@
         <view class="_div data-v-6c6c8a85 bottom-bar__icon--active" hidden="{{!(isCollect)}}"></view>
         <view class="_p data-v-6c6c8a85 bottom-bar__tt">收藏</view>
       </view>
-      <navigator url="../cart/main" open-type="switchTab" class="_a data-v-6c6c8a85 bottom-bar__cart">
+      <navigator url="../cart/index" open-type="switchTab" class="_a data-v-6c6c8a85 bottom-bar__cart">
         <view class="_div data-v-6c6c8a85 bottom-bar__icon"><label wx:if="{{cartNum>0}}" class="_span data-v-6c6c8a85 weui-badge" style="position: absolute;top: -.2em;right: -.4em;">{{cartNum}}</label></view>
         <view class="_p data-v-6c6c8a85 bottom-bar__tt">购物车</view>
       </navigator> <button class="_button data-v-6c6c8a85 u-button u-button--border" bindtap="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}">加入购物车</button> <button bindtap="handleProxy" class="_button data-v-6c6c8a85 u-button u-button--primary" data-eventid="{{'7'}}" data-comkey="{{$k}}">立即购买</button>

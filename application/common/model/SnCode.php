@@ -144,7 +144,7 @@ class SnCode extends Base
             array_unshift($ids, $cache_id);
             S($key, $ids, 86400);
         } else if ($ids === false || $update) {
-            $ids = $this->where(wp_where($map))->column('id');
+            $ids = $this->where(wp_where($map))->order('id desc,is_use asc')->column('id');
             S($key, $ids, 86400);
         }
         

@@ -293,7 +293,7 @@ class ApiData extends Base
         }
         $info = D('Coupon')->getInfo($id);
         $member = explode(',', $info ['member']);
-        if (! in_array(0, $member)) {
+        if (! in_array(0, $member) && is_install('card')) {
             // 判断是否为会员
             $card_map ['wpid'] = get_wpid();
             $card_map ['uid'] = $this->mid;
@@ -406,13 +406,16 @@ class ApiData extends Base
         $log['input']=input();
         $log['session']=$_SESSION;
         addWeixinLog($log,'coupon_data_'.$uid.'_'.session_id());
-        
+        $info = D('Coupon')->getInfo($id);
         $mylist = D('common/SnCode')->getMyList($uid, $id);
-        if (! empty($mylist [0])) {
-            $param ['sn_id'] = $mylist [0] ['id'];
-            return $this->success('',U('show', $param));
+        if (! empty($mylist [0]) ) {
+        	if ( $mylist[0]['is_use']==0 || count($mylist) >= $info['max_num'] && $info['max_num'] != 0){
+        		//已经领取且未使用的，或没有领取次数的
+        		$param ['sn_id'] = $mylist [0] ['id'];
+        		return $this->success('',U('show', $param));
+        	}
         }
-        $info = $public_info = get_pbid_appinfo();
+        $public_info = get_pbid_appinfo();
         
         $url = U("set_sn_code", $param);
         $data ['jumpURL'] = $url;
@@ -425,7 +428,7 @@ class ApiData extends Base
             $data ['shop_list'] = $shop_list;
         }
         
-        $info = D('Coupon')->getInfo($id);
+       
         
         $data ['info'] = $info;
         $data ['public_info'] = $public_info;
@@ -558,7 +561,13 @@ class ApiData extends Base
                 NOW_TIME
         );
         // 获取用户的会员等级
-        $levelInfo = D('Card/CardLevel')->getCardMemberLevel($this->mid);
+        if (is_install('card')){
+        	$levelInfo = D('Card/CardLevel')->getCardMemberLevel($this->mid);
+        }else {
+        	//不被会员等级限制
+        	$levelInfo[0]=1;
+        }
+       
         // 读取模型数据列表
         // dump($map);
         $data = $dao->field('id,member')->where(wp_where($map))->order($order)->paginate($row);

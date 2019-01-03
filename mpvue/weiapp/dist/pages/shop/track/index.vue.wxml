@@ -1,4 +1,4 @@
-<template name="2d8c8074">
+<template name="0982c60e">
   <view class="_div data-v-ba2943d4 track">
     <view class="_div data-v-ba2943d4 card-list">
       <view class="_div data-v-ba2943d4 card-list__item" wx:key="index" key="{{index}}" wx:for="{{datas}}" wx:for-index="index" wx:for-item="item">
@@ -6,8 +6,8 @@
           <view class="_p data-v-ba2943d4 card-list__tt">{{item[0]}}</view>
         </view>
         <view class="_div data-v-ba2943d4 card-list__bd">
-          <view url="{{'../goods_detail/main?id=' + goods.id}}" class="_div data-v-ba2943d4 goods-line" wx:key="idx" key="{{idx}}" wx:for="{{item[1]}}" wx:for-index="idx" wx:for-item="goods">
-            <image class="_img data-v-ba2943d4 u-goods__img" src="{{goods.cover}}"></image>
+          <view url="{{'../goods_detail/index?id=' + goods.id}}" class="_div data-v-ba2943d4 goods-line" wx:key="idx" key="{{idx}}" wx:for="{{item[1]}}" wx:for-index="idx" wx:for-item="goods">
+            <image lazy-load class="_img data-v-ba2943d4 u-goods__img" src="{{goods.cover}}"></image>
             <view class="_div data-v-ba2943d4 goods-line__right">
               <view class="_p data-v-ba2943d4 u-goods__tt overflow-dot">{{goods.title}}</view>
               <view class="_div data-v-ba2943d4 goods-line__ft">

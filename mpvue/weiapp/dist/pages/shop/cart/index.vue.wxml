@@ -1,25 +1,25 @@
-<template name="1edc273e">
+<template name="22b31cce">
   <view class="_div data-v-0529e4cb cart">
     <view class="_i data-v-0529e4cb iconfont icon-shanchu" bindtap="handleProxy" hidden="{{!(carts.length>0)}}" data-eventid="{{'0'}}" data-comkey="{{$k}}"></view>
     <view class="_div data-v-0529e4cb cart-goods" wx:if="{{carts.length>0}}">
-      <navigator url="{{'../goods_detail/main?id=' + item.goods.id}}" hover-class="none" class="_a data-v-0529e4cb cart-goods__item g-flex" wx:key="item.id" key="{{item.id}}" wx:for="{{carts}}" wx:for-index="index" wx:for-item="item">
-        <van-checkbox catchtap value="{{item.isCheck}}" bindchange="handleProxy" data-index="{{index}}" data-eventid="{{'1-'+index}}" data-comkey="{{$k}}" class="_van-checkbox data-v-0529e4cb"></van-checkbox>
-        <image class="_img data-v-0529e4cb cart-goods__img u-goods__img" src="{{item.goods.cover}}"></image>
+      <view hover-class="none" class="_div data-v-0529e4cb cart-goods__item g-flex" wx:key="item.id" key="{{item.id}}" wx:for="{{carts}}" wx:for-index="index" wx:for-item="item">
+        <van-checkbox value="{{item.isCheck}}" bindchange="handleProxy" data-index="{{index}}" data-eventid="{{'1-'+index}}" data-comkey="{{$k}}" class="_van-checkbox data-v-0529e4cb"></van-checkbox>
+        <image lazy-load class="_img data-v-0529e4cb cart-goods__img u-goods__img" src="{{item.goods.cover}}"></image>
         <view class="_div data-v-0529e4cb cart-goods__info">
           <view class="_p data-v-0529e4cb u-goods__tt overflow-dot">{{item.goods_name}}</view>
           <view class="_div data-v-0529e4cb g-flex cart-goods__ft">
             <view class="_div data-v-0529e4cb cart-goods__price">¥ {{item.price}}</view>
             <view class="_div data-v-0529e4cb cart-goods__count">
-              <van-stepper catchtap value="{{item.num}}" integer bindchange="handleProxy" data-index="{{index}}" data-eventid="{{'2-'+index}}" data-comkey="{{$k}}" class="_van-stepper data-v-0529e4cb"></van-stepper>
+              <van-stepper value="{{item.num}}" integer bindchange="handleProxy" data-index="{{index}}" data-eventid="{{'2-'+index}}" data-comkey="{{$k}}" class="_van-stepper data-v-0529e4cb"></van-stepper>
             </view>
           </view>
         </view>
-      </navigator>
+      </view>
     </view>
     <view class="_div data-v-0529e4cb hint-page" wx:else>
-      <image src="/static/img/null.png" alt class="_img data-v-0529e4cb"></image>
+      <image lazy-load src="https://leyao.tv/yi/images/null.png" alt class="_img data-v-0529e4cb"></image>
       <view class="_p data-v-0529e4cb hint-page__text">购物车空空如也</view>
-      <navigator url="../index/main" open-type="switchTab" class="_a data-v-0529e4cb u-button u-button--primary">随便逛逛</navigator>
+      <navigator url="../index/index" open-type="switchTab" class="_a data-v-0529e4cb u-button u-button--primary">随便逛逛</navigator>
     </view>
     <view class="_div data-v-0529e4cb closing-bar" wx:if="{{carts.length > 0}}">
       <van-checkbox value="{{isCheckAll}}" bindchange="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-checkbox data-v-0529e4cb">全选</van-checkbox>

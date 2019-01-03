@@ -7,11 +7,22 @@ export default new vuex.Store({
         cartShopNum:0,
         allOrder: [],
         waitPayNum: 0,
-        activeOrderParams: ''   // 活动订单参数
+        activeOrderParams: '',   // 活动订单参数
+        interval: 0,
+        Interval: 0,
+        groupmoreinterval: 0
     },
     mutations: {
         getCartShopNum (state, opt) {
             state.cartShopNum = opt.num
+            if(state.cartShopNum > 0) {
+                wx.setTabBarBadge({
+                    index: 2,
+                    text: state.cartShopNum + ''
+                })
+            } else {
+                wx.hideTabBarRedDot({index: 2})
+            }
         },
         // 保存订单
         saveOrder (state, opt) {
@@ -50,7 +61,7 @@ export default new vuex.Store({
         waitComment (state) {
             let arr = []
             state.allOrder.forEach(item => {
-                if(item.status_code > 3 && item.status_code != 7) {
+                if(item.status_code > 3 && item.status_code != 7 && item.refund == 0) {
                     arr.push(item)
                 }
             })

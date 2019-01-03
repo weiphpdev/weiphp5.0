@@ -42,7 +42,7 @@ export default {
       return this.$store.state.cartShopNum
     }
   }
-
+  
 };
 </script>
 

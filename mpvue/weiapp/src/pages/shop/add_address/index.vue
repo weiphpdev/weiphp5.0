@@ -29,6 +29,7 @@
 import {post, get} from '@/utils'
 import Toast from "@/../static/vant/toast/toast";
 export default {
+  mpType: 'page',
   data () {
     return {
       name: '',
@@ -84,12 +85,12 @@ export default {
         // 从订单页进来的
         if(this.type == 1) {
           wx.navigateBack({
-            url: '../confirm_order/main'
+            url: '../confirm_order/index'
           })
           
         } else {
           wx.switchTab({
-            url: '../center/main'
+            url: '../center/index'
           })
         }
         wx.setStorageSync('address', obj)

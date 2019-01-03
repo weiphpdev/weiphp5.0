@@ -1,8 +1,3 @@
-<import src="/components/active/activeSlide.vue.wxml" />
-<import src="/components/active/activeBanner.vue.wxml" />
-<import src="/components/active/activeBanner.vue.wxml" />
-<import src="/components/active/activeContent.vue.wxml" />
-<import src="/components/active/payment.vue.wxml" />
 <import src="/components/shop/search.vue.wxml" />
 <import src="/components/slide.vue.wxml" />
 <import src="/components/shop/goodsList.vue.wxml" />

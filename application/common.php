@@ -1603,7 +1603,7 @@ function parse_field_attr($string)
         // 采用函数定义
         return eval(substr($string, 1) . ';');
     }
-    $array = array_filter(preg_split('/[;\r\n]+/', $string));
+    $array = array_filter(preg_split('/[ ;\r\n]+/', $string));
     // dump($array);
     if (strpos($string, ':')) {
         $value = [];
@@ -2286,6 +2286,9 @@ function add_money($uid, $money, $log = [])
     if (empty($uid) || empty($money)) {
         return false;
     }
+	if (!is_install('card')){
+		return false;
+	}
 
     return D('Card/Card')->addMoney($uid, $money, $log);
 }

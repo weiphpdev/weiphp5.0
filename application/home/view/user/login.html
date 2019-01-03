@@ -44,7 +44,9 @@
                                             <div class="controls pl-2" style="padding: 0 !important;">
                                               <input class="align-middle" type="checkbox" id="remember" name="remember" value="1" style="height:14px;width:14px;margin-top:3px;margin-left:100px;"/><label class="ml-1 align-middle" for="remember" style="margin-bottom: 0;color:black;">下次自动登录</label>
 
+                                                {php} if(config('IS_QRCODE_LOGIN')){ {/php}
                                                 <a href='javascript:;' onclick='code_login()' style="position:absolute;top:2px;margin-left:100px;">扫码登录</a>
+                                                {php} } {/php}
                                             </div>
                                           </div>
                                           {php}if(config('WEB_SITE_VERIFY')) { {/php}

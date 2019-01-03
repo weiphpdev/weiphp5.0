@@ -768,6 +768,20 @@ class ApiData extends Base
             return $this->error('获取openid失败,请在微信里打开!');
         }
         $info = session('confirm_order');
+        //判断商品是否下架
+        $dao = D('ShopGoods');
+        foreach ($info['lists'] as $lists) {
+        	foreach ($lists as $g) {
+        		$gg = $dao->getInfo($g['shop_goods_id']);
+        		if ($gg['is_delete'] == 1) {
+        			return $this->error('抱歉，' . $gg['title'] . ' 商品已删除！');
+        		} elseif ($gg['is_show'] == 0) {
+        			return $this->error('抱歉，' . $gg['title'] . ' 商品已下架！');
+        		}
+        	}
+        }
+        //商品对应配送类型
+        $goodsSendType = input('goods_send_type');
         
         $sendType = input('send_type');
         $stores_id = input('stores_id');
@@ -775,13 +789,19 @@ class ApiData extends Base
             return $this->error('请先选择门店');
         }
         if (empty($this->mid)){
-        	return $this->error('获取不到当前用户，请在微信里打开!');
+        	$this->mid=get_uid_by_openid(true,$openid);
+        	if (empty($this->mid))
+        		return $this->error('获取不到当前用户，请在微信里打开!');
         }
 
         $goods_ids = $ids = [];
         // 启动事务
         Db::startTrans();
         try {
+        	// 邮寄商品一个订单，提取出自提的商品组成一个新订单
+        	$ziti = $express = [];
+        	$ziti_price = $express_price = $mail_money = 0;
+        	
             $stockDao = D('Shop/Stock');
             foreach ($info['lists'] as $lists) {
             	foreach ($lists as $goods) {
@@ -789,14 +809,25 @@ class ApiData extends Base
             			$stockDao->beforeOrder($goods['num'], $goods['id'], $info['event_type']);
             		}
             		$goods_ids[] = $goods['id'];
+            		
+            		//根据商品的配送方式保存到对应的数组
+            		if (isset($goodsSendType[$goods['id']])){
+           				$goods['send_type']=$goodsSendType[$goods['id']] ;
+            			if ($goodsSendType[$goods['id']] == 1){
+            				//邮寄
+            				$express[]=$goods;
+							$express_price += $goods ['sale_price'] * intval ( $goods['num']);
+							$mail_money += $goods['express'];
+            			}else{
+            				//自提
+            				$ziti[]=$goods;
+            				$ziti_price += $goods ['sale_price'] * intval ( $goods['num']);
+            			}
+            		}
             	}
             }
 
-            // 邮寄商品一个订单，提取出自提的商品组成一个新订单
-            $ziti = $express = [];
-            $ziti_price = $express_price = $mail_money = 0;
-
-            if (isset($info['lists'][1])) {
+            /* if (isset($info['lists'][1])) {
                 $express = $info['lists'][1];
                 $express_price = $info['total_price'][1];
                 $mail_money = $info['total_express'][1];
@@ -814,7 +845,7 @@ class ApiData extends Base
                     $express_price += $info['total_price'][3];
                     $mail_money += $info['total_express'][3];
                 }
-            }
+            } */
             $total_price = array_sum($info['total_price']);
 
             $data['event_type'] = $info['event_type'];
@@ -836,12 +867,14 @@ class ApiData extends Base
             if (!empty($ziti) && empty($data['stores_id'])) {
                 exception('请选择门店!!!');
             }
-
-            // 使用优惠券
-            $data['dec_money'] = 0;
+				
+				// 使用优惠券
+			$data ['dec_money'] = 0;
             $can_use_coupon = !empty($ziti) && !empty($express) ? false : true; // 不同配送方式时不能使用优惠券
+            $can_use_coupon=true;//暂时可以试试
             if ($can_use_coupon && $data['pay_type'] != 90 && $data['event_type'] == SHOP_EVENT_TYPE) { // 活动不能使用优惠券
                 $sn_id = I('sn_id');
+//                 addWeixinLog($sn_id,'addeatadafdksf_11sncoupon');
                 if ($sn_id > 0) {
                     $dao = D('common/SnCode');
                     $coupons = $dao->getMyAll($this->mid);
@@ -875,6 +908,20 @@ class ApiData extends Base
             if (isset($extArr)) {
                 $data['extra'] = json_encode($extArr);
             }
+//             addWeixinLog($data['dec_money'],'addeatadafdksf_decmoney');
+//             addWeixinLog($ziti,'addeatadafdksf_allz');
+//             addWeixinLog($express,'addeatadafdksf_alle');
+            $ziti_dec = $express_dec = $data ['dec_money'];
+            if ($data['dec_money']>0 && !empty($ziti) && !empty($express)){
+            	//计算分单使用优惠券获得可减金额比例
+            	//自提可减金额
+            	$ziti_dec=($ziti_price/($ziti_price+$express_price))*$data['dec_money'];
+            	//保留两位数字
+            	$ziti_dec = round ( $ziti_dec, 2 );
+            	$ziti_dec = $ziti_dec >= $data ['dec_money'] ? $data ['dec_money'] : $ziti_dec;
+            	//剩下的就给邮寄
+            	$express_dec = $data ['dec_money'] - $ziti_dec;
+            }
 
             if (!empty($ziti)) {
                 $data['order_number'] = date('YmdHis') . substr(uniqid(), 4);
@@ -882,6 +929,7 @@ class ApiData extends Base
                 $data['goods_datas'] = json_encode($ziti);
                 $data['total_price'] = $ziti_price > 0 ? $ziti_price : 0;
                 $data['send_type'] = 2;
+                $data['dec_money']=$ziti_dec;
                 $data['pay_money'] = $data['total_price'] - $data['dec_money'];
                 $data['pay_money'] < 0 && $data['pay_money'] = 0;
                 if (isset($info['shop_order_id']) && $info['shop_order_id'] > 0) {
@@ -889,6 +937,7 @@ class ApiData extends Base
                     D('Shop/Order')->updateOrder($id, $data);
                 } else {
                     $ids[] = $id = D('Shop/Order')->addOrder($data);
+                	addWeixinLog($data,'addeatadafdksf_ziti_'.$id);
                 }
                 if (!$id) {
                     exception('生成订单失败');
@@ -901,6 +950,7 @@ class ApiData extends Base
                 $data['goods_datas'] = json_encode($express);
                 $data['total_price'] = $express_price > 0 ? $express_price : 0;
                 $data['send_type'] = 1;
+                $data['dec_money']=$express_dec;
                 $data['pay_money'] = $data['total_price'] + $mail_money - $data['dec_money'];
                 $data['pay_money'] < 0 && $data['pay_money'] = 0;
                 if (isset($info['shop_order_id']) && $info['shop_order_id'] > 0) {
@@ -908,6 +958,7 @@ class ApiData extends Base
                     D('Shop/Order')->updateOrder($id, $data);
                 } else {
                     $ids[] = $id = D('Shop/Order')->addOrder($data);
+                    addWeixinLog($data,'addeatadafdksf_youji_'.$id);
                 }
                 if (!$id) {
                     exception('生成订单失败');
@@ -1057,11 +1108,12 @@ class ApiData extends Base
 //                 dump(444);
                 return $this->error('还没配置支付信息');
             }
+            $total_fee=0.01;//TODO 测试期间先固定1分钱
             $product = [
                 'openid' => $orderInfo['openid'],
                 'body' => '商品购买',
                 'out_trade_no' => $orderInfo['out_trade_no'],
-                'total_fee' => 1//$total_fee * 100 // $total_fee * 100 //TODO 测试期间先固定1分钱
+                'total_fee' => $total_fee * 100 // $total_fee * 100 
             ];
             $callback = 'shop/Order/payOk';
             add_debug_log($info, 'is_weiapp_'.$is_weiapp);

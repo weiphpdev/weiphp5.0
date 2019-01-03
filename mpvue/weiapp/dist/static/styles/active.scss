@@ -3,7 +3,7 @@ $theme_color: #ff0204;
 
 //（秒杀、砍价、拼团）首页
 /*activeBanner*/
-.active,.active_detail{font-size:$font_size;
+.active,.active_detail,.my_collage{font-size:$font_size;
   .active_bg{width:100%;height:200px;}
 }
 /*activeContent*/
@@ -23,7 +23,7 @@ $theme_color: #ff0204;
           .tag{background:#ff0204;color:white;margin:3px 5px;padding:0 5px;font-size:10px;line-height:16px;animation: twinkle1 1.5s infinite;border-radius:10px;}
           .market_price{text-decoration:line-through;}
         }
-        .active-btn{width:auto;text-align:center;line-height:25px;margin:auto;padding:0 15px;color:white;background:linear-gradient(90deg, #ff0204 60%, #ffb3b3);border-radius:12.5px;}
+        .active-btn{width:auto;text-align:center;line-height:34px;margin:auto;padding:0 24px;color:white;background:linear-gradient(90deg, #ff0204 60%, #ffb3b3);border-radius:17px;}
       }
     }
   }
@@ -35,10 +35,10 @@ $theme_color: #ff0204;
 }
 //（秒杀、砍价、拼团）详情页&&砍价帮砍页
 /*活动信息*/
-.active_detail,.bargain_help{
+.active_detail, .haggle_help{
   .active_name{text-align: center;padding:10px 0 0;}
   .active_img{height:200px;}
-  .active_time,.invite_bargain{background: #feedd6;text-align: center;width:90%;height: 30px;line-height: 30px;margin:5px auto;font-size:12px;
+  .active_time,.invite_haggle{background: #feedd6;text-align: center;width:90%;height: 30px;line-height: 30px;margin:5px auto;font-size:12px;
     .active_price{float:left;margin-left:5px;}
     .countdown,.active_timeout,.active_not_begin{float:right;color:#aaa;margin-right:5px;}
   }
@@ -76,6 +76,7 @@ $theme_color: #ff0204;
   .van_tab {padding-bottom:50px;}
   .detail{padding: 5px 10px 50px;}
   .estimate {text-align: center;padding: 5px 10px 50px;}
+  .estimate_content{padding-bottom: 50px}
   .null_img {width:80%;height:300px;margin:auto;}
   /*活动按钮*/
   .bottom-btn{text-align:center;color:white;position:fixed;width:100%;bottom:0;display:inline-flex;z-index:2;}

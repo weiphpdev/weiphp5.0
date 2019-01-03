@@ -1,9 +1,9 @@
 <import src="/components/shop/search.vue.wxml" />
-<import src="/components/shop/goodsList.vue.wxml" /><template name="18ba5d90">
+<import src="/components/shop/goodsList.vue.wxml" /><template name="2abf3ac3">
   <view class="_div data-v-5b280840 lists">
-    <view class="_div data-v-5b280840 g-flex"><template data="{{...$root[$kk+'0'], $root}}" is="bd645aca"></template> <label class="_span data-v-5b280840 icon-filter" bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}"></label></view> <template wx:if="{{goods[0]}}" data="{{...$root[$kk+'1'], $root}}" is="1a0af971"></template>
+    <view class="_div data-v-5b280840 g-flex"><template data="{{...$root[$kk+'0'], $root}}" is="995aa064"></template> <label class="_span data-v-5b280840 icon-filter" bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}"></label></view> <template wx:if="{{goods[0]}}" data="{{...$root[$kk+'1'], $root}}" is="03d7a944"></template>
     <view class="_div data-v-5b280840 hint-page" wx:else>
-      <image src="/static/img/nothing.png" class="_img data-v-5b280840"></image>
+      <image lazy-load src="https://leyao.tv/yi/images/nothing.png" class="_img data-v-5b280840"></image>
       <view class="_p data-v-5b280840 hint-page__text">还没有任何商品</view>
     </view>
     <van-popup show="{{isPopup}}" position="right" bindclose="handleProxy" class="_van-popup data-v-5b280840 popup" data-eventid="{{'6'}}" data-comkey="{{$k}}">

@@ -3,6 +3,7 @@ import vuex from 'vuex'
 Vue.use(vuex)
 
 export default new vuex.Store({
+
     state:{
         cartShopNum:0,
         allOrder: [],
@@ -28,33 +29,24 @@ export default new vuex.Store({
     getters: {
         // 待支付
         waitPay (state) {
-            let arr = []
-            state.allOrder.forEach(item => {
-                if(item.status_code == 0) {
-                    arr.push(item)
-                }
-            })
-            return arr
+            function isPay(item) {
+                return item.status_code == 0
+            }
+            return state.allOrder.filter(isPay)
         },
         // 待收货
         waitCollect (state) {
-            let arr = []
-            state.allOrder.forEach(item => {
-                if(item.status_code > 0 && item.status_code < 4 && item.refund == 0 ) {
-                    arr.push(item)
-                }
-            })
-            return arr
+            function isCollect(item) {
+                return item.status_code > 0 && item.status_code < 4 && item.refund == 0
+            }
+            return state.allOrder.filter(isCollect)
         },
         // 待评价
         waitComment (state) {
-            let arr = []
-            state.allOrder.forEach(item => {
-                if(item.status_code > 3 && item.status_code != 7) {
-                    arr.push(item)
-                }
-            })
-            return arr
+            function isComment (item) {
+                return item.status_code > 3 && item.status_code != 7 && item.refund == 0
+            }
+            return state.allOrder.filter(isComment)
         }
     },
 

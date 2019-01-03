@@ -1,60 +1,59 @@
 <template>
   <div class="goods-detail" ref="top_div">
     <navbar :text="goods.title"></navbar>
-
-    <!-- 商品图 -->
-    <div class="slide">
-      <van-swipe show-indicators @change="toggleSwiper">
-        <van-swipe-item v-for="(item,index) in slides" :key="index">
-          <a class="slide-url pic-align-center" @click="pvwImg(index)">
-            <lazy-component>
-              <img class="slide-image" mode="aspectFill" v-lazy="item">
-            </lazy-component>
-          </a>
-        </van-swipe-item>
-        <div class="custom-indicator" slot="indicator">{{ current + 1 }}/{{slides.length}}</div>
-      </van-swipe>
-    </div>
-
-    <!-- 商品信息 -->
-    <div class="goods-detail__info">
-      <p class="goods-detail__price s-red">
-        <span class="icon-price">¥</span>
-        {{goods.sale_price}}
-      </p>
-      <p
-        class="goods__price-cost"
-        v-if="goods.market_price>goods.sale_price"
-      >¥{{goods.market_price}}</p>
-      <p class="s-gray goods-detail__stock">库存{{goods.stock_active}}件</p>
-      <p class="goods-detail__tt">{{goods.title}}</p>
-    </div>
-
-    <div @click="jump(goods.id, goods.tab)" class="m-list link g-flex" v-if="goods.tab">
-      <div class="m-list__l g-flex__item">同款</div>
-      <i class="iconfont icon-fanhui right"></i>
-    </div>
-
-    <!-- switch卡片 -->
-    <div class="switch-card" v-if="goods.goods_param">
-      <div class="switch-card__hd">
-        <p class="switch-card__tt">产品参数</p>
-        <p class="switch-card__icon iconfont icon-fanhui" :class="arrowDir" @click="toggleArrow"></p>
+    <div v-if="goods.id">
+      <!-- 商品图 -->
+      <div class="slide">
+        <van-swipe show-indicators @change="toggleSwiper">
+          <van-swipe-item v-for="(item,index) in slides" :key="index">
+            <a class="slide-url pic-align-center" @click="pvwImg(index)">
+              <lazy-component>
+                <img class="slide-image" mode="aspectFill" v-lazy="item">
+              </lazy-component>
+            </a>
+          </van-swipe-item>
+          <div
+            v-if="slides.length>0"
+            class="custom-indicator"
+            slot="indicator"
+          >{{ current + 1 }}/{{totalSwiperNum}}</div>
+        </van-swipe>
       </div>
-      <div class="switch-card__bd" v-show="arrowDir == 'top'">
-        <div
-          class="switch-card__item"
-          v-for="(param, paramIdx) in goods.goods_param"
-          :key="paramIdx"
-        >
-          <p class="switch-card__param overflow-dot_row">{{param.title}}</p>
-          <p class="switch-card__attr overflow-dot_row">{{param.param_value}}</p>
+
+      <!-- 商品信息 -->
+      <div class="goods-detail__info" v-if="goods.sale_price">
+        <p class="goods-detail__price s-red">
+          <span class="icon-price">¥</span>
+          {{goods.sale_price}}
+        </p>
+        <p
+          class="goods__price-cost"
+          v-if="goods.market_price>goods.sale_price"
+        >¥{{goods.market_price}}</p>
+        <p class="s-gray goods-detail__stock">库存{{goods.stock_active}}件</p>
+        <p class="goods-detail__tt">{{goods.title}}</p>
+      </div>
+
+      <div @click="jump(goods.id, goods.tab)" class="m-list link g-flex" v-if="goods.tab">
+        <div class="m-list__l g-flex__item">同款</div>
+        <i class="iconfont icon-fanhui right"></i>
+      </div>
+
+      <!-- switch卡片 -->
+      <div class="switch-card" v-if="goodsParam.length>0">
+        <div class="switch-card__hd">
+          <p class="switch-card__tt">产品参数</p>
+          <p class="switch-card__icon iconfont icon-fanhui" :class="arrowDir" @click="toggleArrow"></p>
+        </div>
+        <div class="switch-card__bd" v-show="arrowDir == 'top'">
+          <div class="switch-card__item" v-for="(param, paramIdx) in goodsParam" :key="paramIdx">
+            <p class="switch-card__param overflow-dot_row">{{param.title}}</p>
+            <p class="switch-card__attr overflow-dot_row">{{param.param_value}}</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 评价 -->
-    
+      <!-- 评价 -->
       <div class="goods-comment" v-if="goods.comment_count>0">
         <div class="m-list link">
           <div class="m-list__l">评价1</div>
@@ -62,7 +61,6 @@
           <i class="iconfont icon-fanhui right" v-show="goods.comment_count>10"></i>
         </div>
         <div class="goods-comment__bd">
-
           <div
             class="goods-comment__item"
             v-for="(comment, commentIdx) in goods.comments"
@@ -70,7 +68,7 @@
           >
             <div class="goods-comment__left">
               <div class="g-flex g-flex__updown-center">
-                <img class="u-head__img">
+                <img class="u-head__img" :src="comment.headimgurl">
                 <p class="goods-comment__name">{{comment.username}}</p>
               </div>
               <p class="goods-comment__text">{{comment.content}}</p>
@@ -81,50 +79,17 @@
             </div>
           </div>
         </div>
-        
       </div>
-    
 
-    <!-- 详情图片 -->
-    <div v-html="goods.content" class="goods-detail__pic" v-if="goods.content"></div>
-    <!--自定义页面-->
-    <div class="diypage" v-for="item in diypage">
-        <!--副文本-->
-        <div v-html="item.params.content" v-if="item.id=='richtext' && item.params.content!=''"></div>     
-        <!--商品-->
-        <!--多商品-->
-        <!--幻灯片-->
-        <div class="slide" v-else-if="item.id=='banner'">
-          <van-swipe show-indicators @change="toggleSwiper">
-            <van-swipe-item v-for="ii in item.params.banner_list" >
-              <a class="slide-url pic-align-center" :href="ii.url">
-                <lazy-component>
-                  <img class="slide-image" mode="aspectFill" v-lazy="ii.pic"><span class="mutipic_banner_title" v-if="ii.title">{{ii.title}}</span>
-                </lazy-component>
-              </a>
-            </van-swipe-item>
-            <div class="custom-indicator" slot="indicator">{{ current + 1 }}/{{item.params.banner_list.length}}</div>
-          </van-swipe>
-         </div>
-        <!--图片-->
-        <div v-else-if="item.id=='piclist' && item.params.pic_list" v-for="ii in item.params.pic_list">
-          <a :href="ii.url"><img :src="ii.pic" v-if="ii.pic != ''"><span v-if="ii.title">{{ii.title}}</span></a>
-        </div>
-        <!--辅助空白-->
-        <div v-else-if="item.id=='blank' && item.params.height > 0" :style="{height:item.params.height+'px'}"></div>
-        <!-- 标题 -->
-        <div v-else-if="item.id=='title'" :style="{'padding':'10px','background-color':item.params.bgColor}">
-          <!--大标题-->
-          <p v-if="item.params.title != ''" :style="{'font-size':'18px','line-height':'22px','margin':'10px 0 5px','color':item.params.maincolor,'text-align':item.params.align}">{{item.params.title}}</p>
-          <p v-if="item.params.title != ''" :style="{'font-size':'12px','color':item.params.subcolor,'text-align':item.params.align}">{{item.params.subtitle}}</p>
-        </div>
-        <!-- 辅助线 -->
-        <div v-else-if="item.id=='blankline'" :style="{'border-width':0,'height':0,'overflow':'hidden','margin':'10px 0','border-color':item.params.borderColor,'border-style':item.params.borderStyle,'border-bottom-width':item.params.borderWidth+'px'}"></div>
+      <!-- 详情图片 -->
+      <div v-html="goods.content" class="goods-detail__pic" v-if="goods.content"></div>
 
+      <!-- diy 组件 -->
+      <diyGoods :diyData="diyData" v-if="diyData"></diyGoods>
     </div>
 
     <!-- 底部栏 -->
-    <div class="bottom-bar">
+    <div class="bottom-bar" v-if="slides.length>0">
       <router-link to="/service" open-type="contact" class="bottom-bar__service">
         <div class="bottom-bar__icon"></div>
         <p class="bottom-bar__tt">客服</p>
@@ -153,6 +118,7 @@
 <script>
 import { post, host, wx } from "@/utils";
 import navbar from "@/components/navbar";
+import diyGoods from "@/components/diyGoodsDetail";
 import { ImagePreview, Toast } from "vant";
 export default {
   data() {
@@ -165,12 +131,13 @@ export default {
       selfSwiperNum: 1,
       isCartDot: false,
       detailPic: "",
-      diypage:[]
-
+      goodsParam: [],
+      diyData: {}
     };
   },
   components: {
-    navbar
+    navbar,
+    diyGoods
   },
   computed: {
     totalSwiperNum() {
@@ -184,7 +151,6 @@ export default {
       }
     }
   },
-
   methods: {
     toggleSwiper(index) {
       this.current = index;
@@ -255,188 +221,54 @@ export default {
     }
   },
 
-  created() {
-    const _this = this;
-    const id = this.$route.params.id;
-    post("shop/api/goods_detail", {
-      id: id
-    }).then(res => {
-      // 商品图
-      _this.slides = res.goods.imgs_url;
-      _this.goods = res.goods;
 
-      if(_this.goods.diyData.config !='' && _this.goods.diyData.config != "null"){
-        _this.diypage = JSON.parse(decodeURIComponent(_this.goods.diyData.config));
-        console.log(_this.diypage);
-        if( _this.diypage [0]['params']['title'] !=''){
-          //微页面标题
-          _this.goods.title=_this.diypage [0]['params']['title'] ;
+  activated() {
+    if (!this.$route.meta.isBack) {
+      Object.assign(this.$data, this.$options.data())
+      this.$refs.top_div.style.background = "#f9f9f9";
+      const _this = this;
+      const id = this.$route.params.id;
+      // 清空活动信息
+      this.$store.commit("saveData", { key: "activeOrderParams", value: "" });
+      post("shop/api/goods_detail", {
+        id: id
+      }).then(res => {
+        // 商品图
+        this.slides = res.goods.imgs_url;
+        this.goods = res.goods;
+        this.goodsParam = res.goods.goods_param;
+
+        if (this.goods.diyData.config) {
+          this.diyData = JSON.parse(
+            decodeURIComponent(this.goods.diyData.config)
+          );
+
+          let { title, bgColor } = this.diyData[0]["params"];
+          if (title) {
+            //微页面标题
+            this.goods.title = title;
+          }
+          if (bgColor) {
+            //自定义页面背景颜色
+            this.$refs.top_div.style.background = bgColor;
+          }
         }
-        if( _this.diypage[0]['params']['bgColor'] !=''){
-          //自定义页面背景颜色
-          _this.$refs.top_div.style.background=_this.diypage[0]['params']['bgColor'] ;
+
+        if (res.goods.is_collect == 0) {
+          this.isCollect = false;
+        } else {
+          this.isCollect = true;
         }
-      }
-      // for(var i=0;i<head_data.length;i++){
-        // switch(head_data[i]['id']){
-        //   case 'header':
-        //     let arr=[];
-        //     arr['id']='header';
-        //      _this.diypage.header=[];
-        //     if(head_data[i]['params']['title'] !=''){
-        //       //微页面标题
-        //       _this.diypage.header.title=head_data[i]['params']['title'];
-        //        arr['title']=head_data[i]['params']['title'];
-        //     }
-            
-        //     if(head_data[i]['params']['bgColor'] !=''){
-        //       //自定义页面背景颜色
-        //       _this.diypage.header.bgColor=head_data[i]['params']['bgColor'];
-        //        arr['bgColor']=head_data[i]['params']['bgColor'];
-        //     }
-        //     _this.diypage.push(arr);
-        //   break;
-          // case 'richtext':
-          //   if(head_data[i]['params']['content'] !=''){
-          //     //富文本
-          //     _this.diypage.richtext=head_data[i]['params']['content'];
-          //   }
-          // break;
-          // case 'goods':
-          //   //商品
-          //   _this.diypage.goods=[];
-          //   if(head_data[i]['params']['goods_list']){
-          //     //商品列表信息 [id,img,market_price,stock,title,url]
-          //     _this.diypage.goods.goods_list=head_data[i]['params']['goods_list'];
-          //   }
-          //   if(head_data[i]['params']['list_style']){
-          //     //样式 1:大图 2:小图 3:一大两小 4:详细列表
-          //     _this.diypage.goods.list_style=head_data[i]['params']['list_style'];
-          //   }
-          //   if(head_data[i]['params']['show_btn']){
-          //     //为1时显示购买按钮
-          //     _this.diypage.goods.show_btn=head_data[i]['params']['show_btn'];
-          //   }
-          //   if(head_data[i]['params']['show_price']){
-          //     //为1时显示价格
-          //     _this.diypage.goods.show_price=head_data[i]['params']['show_price'];
-          //   }
-          // break;
-          // case 'mutipic_goods':
-          //   //多图商品
-          //   _this.diypage.mutipic_goods=[];
-          //    if(head_data[i]['params']['colGoods']){
-          //     //显示样式 2两列 3：三列  4：四列
-          //     _this.diypage.mutipic_goods.colGoods=head_data[i]['params']['colGoods'];
-          //   }
-          //    if(head_data[i]['params']['goods_list']){
-          //     //商品列表信息 [id,img,market_price,stock,title,url]
-          //     _this.diypage.mutipic_goods.goods_list=head_data[i]['params']['goods_list'];
-          //   }
-          //   if(head_data[i]['params']['show_btn']){
-          //     //为1时显示购买按钮
-          //     _this.diypage.mutipic_goods.show_btn=head_data[i]['params']['show_btn'];
-          //   }
-          //   if(head_data[i]['params']['show_price']){
-          //     //为1时显示价格
-          //     _this.diypage.mutipic_goods.show_price=head_data[i]['params']['show_price'];
-          //   }
-
-          // break;
-          // case 'piclist':
-          //   //图片
-          //   _this.diypage.piclist=[];
-          //   if(head_data[i]['params']['show_title']){
-          //     //为1显示标题 
-          //     _this.diypage.piclist.show_title=head_data[i]['params']['show_title'];
-          //   }
-          //   if(head_data[i]['params']['pic_list']){
-          //     //图片数组[pic图片地址,picId,rel,title,url点击图片跳转链接]
-          //     _this.diypage.piclist.pic_list=head_data[i]['params']['pic_list'];
-          //   }
-          // break;
-          // case 'banner':
-          //   //幻灯片
-          //   _this.diypage.banner=[];
-          //    if(head_data[i]['params']['banner_list']){
-          //     //图片数组[pic图片地址,picId,rel,title,url点击图片跳转链接]
-          //     _this.diypage.banner.banner_list=head_data[i]['params']['banner_list'];
-          //   }
-          //   if(head_data[i]['params']['show_title']){
-          //     //为1显示标题 
-          //     _this.diypage.banner.show_title=head_data[i]['params']['show_title'];
-          //   }
-          // break;
-          // case 'blank':
-          //   //辅助空白
-          //   _this.diypage.blank=[];
-          //   if(head_data[i]['params']['height']>0){
-          //     //空白高度
-          //     _this.diypage.blank.height=head_data[i]['params']['height'];
-          //   }
-          // break;
-          // case 'title':
-          //   //标题
-          //   _this.diypage.title=[];
-          //   if(head_data[i]['params']['align']){
-          //     //对齐 left  center  right
-          //     _this.diypage.title.align=head_data[i]['params']['align'];
-          //   }
-          //   if(head_data[i]['params']['bgColor'] !=''){
-          //     //背景颜色
-          //     _this.diypage.title.bgColor=head_data[i]['params']['bgColor'];
-          //   }
-          //   if(head_data[i]['params']['maincolor'] !=''){
-          //     //主标题颜色
-          //     _this.diypage.title.maincolor=head_data[i]['params']['maincolor'];
-          //   }
-          //   if(head_data[i]['params']['subcolor'] !=''){
-          //     //副标题颜色
-          //     _this.diypage.title.subcolor=head_data[i]['params']['subcolor'];
-          //   }
-          //   if(head_data[i]['params']['title'] !=''){
-          //     //主标题文字
-          //     _this.diypage.title.title=head_data[i]['params']['title'];
-          //   }
-          //   if(head_data[i]['params']['subtitle'] !=''){
-          //     //副标题文字
-          //     _this.diypage.title.subtitle=head_data[i]['params']['subtitle'];
-          //   }
-          // break;
-          // case 'blankline':
-          //   //辅助线
-          //   _this.diypage.blankline=[];
-          //   if(head_data[i]['params']['borderColor']){
-          //     //线条颜色
-          //     _this.diypage.blankline.borderColor=head_data[i]['params']['borderColor'];
-          //   }
-          //   if(head_data[i]['params']['borderWidth']){
-          //     //线条宽度
-          //     _this.diypage.blankline.borderWidth=head_data[i]['params']['borderWidth'];
-          //   }
-          //   if(head_data[i]['params']['borderStyle']){
-          //     //线条样式
-          //     _this.diypage.blankline.borderStyle=head_data[i]['params']['borderStyle'];
-          //   }
-          // break;
-          // default:
-      //     break;
-      //   }
-      // }
-      
-     
-      console.log('----config---');
-      // _this.diypage={title:'開外挂看',bgColor:'#fdfdfsf'}
-       console.log(_this.diypage);
-
-      if (res.goods.is_collect == 0) {
-        _this.isCollect = false;
-      } else {
-        _this.isCollect = true;
-      }
-    });
-  }
-
+      });
+    }
+    this.$route.meta.isBack = false;
+  },
+  beforeRouteEnter (to, from, next) {
+    if(from.name == "confirm_order") {
+      to.meta.isBack = true
+    }
+    next()
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -444,13 +276,15 @@ export default {
 .navbar {
   background: $body-bg;
 }
-
 .goods-detail {
   padding-top: 45px;
   padding-bottom: 55px;
   overflow: hidden;
+  height: auto !important;
+  /deep/ ._v-container > ._v-content {
+    padding-bottom: 90px;
+  }
 
-  
   .van-swipe {
     position: relative;
     height: 10rem;
@@ -467,7 +301,9 @@ export default {
     background: #fff;
     font-size: 14px;
     margin-top: 15px;
-    /deep/ p {padding: 10px}
+    /deep/ p {
+      padding: 10px;
+    }
     /deep/ table,
     /deep/ img {
       width: 100%;
@@ -648,15 +484,15 @@ export default {
 }
 
 .mutipic_banner_title {
-    background-color: RGBA(0, 0, 0, .5);
-    height: 30px;
-    color: #fff;
-    line-height: 30px;
-    padding-left: 10px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 1000;
+  background-color: RGBA(0, 0, 0, 0.5);
+  height: 30px;
+  color: #fff;
+  line-height: 30px;
+  padding-left: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
 }
 </style>

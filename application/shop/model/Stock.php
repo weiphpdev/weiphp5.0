@@ -179,8 +179,8 @@ class Stock extends Base
             $event_goods = $this->getInfoByGoodsId($goods_id, $event_type);
             $del_at = isset($event_goods['del_at'])?$event_goods['del_at']:0;
         }
-        
-        if ($del_at > 0|| $isUnPay) {
+        //加$isUnPay 这个是为了定时任务释放超过30分钟内未支付的订单（活动商品还未被删除的情况）
+        if (($del_at > 0|| $isUnPay) && $event_type != SHOP_EVENT_TYPE) {
             // 活动商品扣除
             $save['lock_count'] = Db::raw('lock_count-' . $need_stock); // 锁定库存扣除
             $res = $this->where('goods_id', $goods_id)
@@ -190,16 +190,27 @@ class Stock extends Base
             if (! $res) {
                 exception('活动商品库存扣除失败'.M()->getLastSql());
             }
-            
-            // 退回库存给商城
-            $res = $this->where('goods_id', $event_goods['shop_goods_id'])
-                ->where('event_type', SHOP_EVENT_TYPE)
-                ->update([
-                'stock' => Db::raw('stock+' . $need_stock)
-            ]);
-            if (! $res) {
-                exception('退回库存给商城失败');
+            //判断营销活动的商品是否被删除了（活动结束会自动删除），若删除的话将释放的库存退回商城            
+            if ($del_at>0){
+            	//将活动商品库存删除（不删除的话，在活动的商品管理那删除商品，库存又退回商城，这样商城的库存就多了）
+            	$this->where('goods_id', $goods_id)
+            	->where('event_type', $event_type)
+            	->where('stock','egt',$need_stock)
+            	->update([
+            			'stock' => Db::raw('stock-' . $need_stock)
+            	]);
+            	
+            	// 退回库存给商城
+            	$res = $this->where('goods_id', $event_goods['shop_goods_id'])
+            	->where('event_type', SHOP_EVENT_TYPE)
+            	->update([
+            			'stock' => Db::raw('stock+' . $need_stock)
+            	]);
+            	if (! $res) {
+            		exception('退回库存给商城失败');
+            	}
             }
+           
             return true;
         }
         return false;

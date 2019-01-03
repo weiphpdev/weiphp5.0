@@ -491,13 +491,14 @@ class Index extends Home
         trace($time, 'debug');
 
         // 拼团失败发送模板消息,每分钟触发一次
-        if ($this->cron_lock('CollageGroup', 60)) {
-            D('collage/CollageGroup')->cronFreeGroup();
-        }
-
-        // 拼团中凑团机器人5秒触发一次
-        if ($this->cron_lock('CollageRobot', 5)) {
-            D('collage/CollageRobot')->auto_join();
+        if (is_install('collage')){
+        	if ($this->cron_lock('CollageGroup', 60)) {
+        		D('collage/CollageGroup')->cronFreeGroup();
+        	}
+        	// 拼团中凑团机器人5秒触发一次
+        	if ($this->cron_lock('CollageRobot', 5)) {
+        		D('collage/CollageRobot')->auto_join();
+        	}
         }
 
         // 超时订单库存处理，建议一分钟执行一次
@@ -505,22 +506,25 @@ class Index extends Home
             D('shop/Stock')->cronDealOrderStock();
         }
 
-        // 会员有礼（会员生日或节日）
-        if ($this->cron_lock('cronCardCustom', 120)) {
-            D('card/CardCustom')->do_send_crons();
-            // 会员有礼 模板消息通知
-            D('card/CardCustom')->cronsSendTplMessage();
+        if (is_install('card')){
+        	// 会员有礼（会员生日或节日）
+        	if ($this->cron_lock('cronCardCustom', 120)) {
+        		D('card/CardCustom')->do_send_crons();
+        		// 会员有礼 模板消息通知
+        		D('card/CardCustom')->cronsSendTplMessage();
+        	}
+        	 
         }
-
+       
         // 发现金红包
         if ($this->cron_lock('cronTransfer', 60)) {
             $this->cronTransfer();
         }
 
-        // 每次更新一个公众号的会员信息 和 用户积分
-        if ($this->cron_lock('cronUpdateMember', 20)) {
+        // 每次更新一个公众号的会员信息 和 用户积分 （对接erp）
+        /* if ($this->cron_lock('cronUpdateMember', 20)) {
             $this->cronUpdateMember();
-        }
+        } */
 
         // 系统自动完成15天后订单设置为已收货或已评价（不用整分是尽量避免太多任务同时执行）
         if ($this->cron_lock('autoSetFinish', 93)) {

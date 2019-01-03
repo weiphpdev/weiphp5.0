@@ -45,6 +45,7 @@ define('SHOP_EVENT_TYPE', 0);
 define('COLLAGE_EVENT_TYPE', 1);
 define('SECKILL_EVENT_TYPE', 2);
 define('HAGGLE_EVENT_TYPE', 3);
+define('AUCTION_EVENT_TYPE', 4);
 
 define('MODEL_INSERT', 1); // 插入模型数据
 define('MODEL_UPDATE', 2); // 更新模型数据

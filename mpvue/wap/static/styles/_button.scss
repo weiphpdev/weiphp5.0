@@ -39,6 +39,7 @@
         @extend .u-button--primary;
         &,&:active {opacity: .3;}
     }
+	&.disable {opacity: .3;}
 
 
     // 大按钮
@@ -57,4 +58,19 @@
         height: 45PX;
         background: $red;
     }
+
+    // 固定在底部的button
+    &__bar {
+        display: flex;
+        align-items: center;
+        box-shadow: 1px 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 45PX;
+        background: #fff;
+        max-width: 750px;
+    }
 }
+
+

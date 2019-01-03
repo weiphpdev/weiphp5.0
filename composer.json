@@ -9,6 +9,7 @@
     ],
     "homepage": "https://www.weiphp.cn/",
     "license": "Apache-2.0",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "weiphp",
@@ -20,6 +21,7 @@
         "topthink/framework": "5.1.*",
         "topthink/think-captcha": "^2.0",
         "topthink/think-image": "^1.0",
+        "mumbaicat/makeapidoc": "1.6",
         "topthink/think-migration": "^2.0"
     },
     "autoload": {
@@ -29,5 +31,11 @@
     },
     "config": {
         "preferred-install": "dist"
+    },
+    "repositories": [
+    {
+       "type": "vcs",
+       "url": "https://git.coding.net/weiphpdev/weiphp5.0.git" 
     }
+]
 }

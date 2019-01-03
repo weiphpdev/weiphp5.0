@@ -1,7 +1,7 @@
-<template name="7eee7c9a">
+<template name="2330d90d">
   <view class="_div data-v-07fa13ac comment">
     <view class="_div data-v-07fa13ac goods-line" wx:key="index" key="{{index}}" wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item">
-      <image class="_img data-v-07fa13ac u-goods__img" src="{{item.cover}}"></image>
+      <image lazy-load class="_img data-v-07fa13ac u-goods__img" src="{{item.cover}}"></image>
       <view class="_div data-v-07fa13ac goods-line__right">
         <view class="_p data-v-07fa13ac u-goods__tt overflow-dot">{{item.title}}</view>
         <view class="_div data-v-07fa13ac goods-line__ft">

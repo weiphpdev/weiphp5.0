@@ -1,12 +1,14 @@
 <template>
   <div class="address white-bg">
     <navbar text="我的地址"></navbar>
+    <scroller >
     <van-address-edit
       :area-list="areaList"
       show-search-result
       :address-info="addressInfo"
       @save="saveAddress"
     />
+    </scroller>
   </div>
 </template>
 
@@ -102,7 +104,6 @@ page {
 
 <style lang="scss" scoped>
   .address {
-    padding-top: 45px;
     /deep/ .van-address-edit {margin-top: 15px;}
     /deep/ .van-button {
       background: $gradient;

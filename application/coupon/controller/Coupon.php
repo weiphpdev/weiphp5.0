@@ -51,7 +51,7 @@ class Coupon extends WebBase
             $coupon = $dao->getInfo($d['id']);
             $useMap['target_id'] = $snMap['target_id'] = $d['id'];
             //$snMap['can_use'] = 1;
-            $snMap['wpid']=get_wpid();
+            $useMap ['wpid'] = $snMap ['wpid'] = get_wpid ();
             $coupon['collect_count'] = $snDao->where(wp_where($snMap))->count();
             
             $useMap['is_use'] = 1;

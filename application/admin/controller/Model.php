@@ -656,56 +656,7 @@ class Model extends Admin
     {
         $data = I('post.');
 
-        // dump ( $data );
-        $config = [
-            'name' => $data['name'],
-            'title' => $data['title'],
-            'search_key' => isset($data['search_key']) ? $data['search_key'] : '',
-            'add_button' => isset($data['add_button']) ? $data['add_button'] : 1,
-            'del_button' => isset($data['del_button']) ? $data['del_button'] : 1,
-            'search_button' => isset($data['search_button']) ? $data['search_button'] : 1,
-            'check_all' => isset($data['check_all']) ? $data['check_all'] : 1,
-            'list_row' => isset($data['list_row']) ? $data['list_row'] : 20,
-            'addon' => $data['addon']
-        ];
-
-        // dump ( $config );
-        $list_grid = [];
-        if (isset($data['attr_title'])) {
-            $j = 0;
-            foreach ($data['attr_title'] as $k => $vo) {
-                if (!empty($vo)) {
-                    $res = [];
-                    $res['title'] = $vo;
-                    $res['come_from'] = $from = $data['come_from'][$k];
-                    $res['width'] = $data['width'][$k];
-                    if ($from == 1) {
-                        $name = $j == 0 ? 'urls' : 'urls' . $j;
-                        $j++;
-
-                        $res['is_sort'] = 0;
-                        $res['href'] = [];
-                        foreach ($data['url_title'][$k] as $kk => $vv) {
-                            $title = $vv;
-                            $url = $data['url_url'][$k][$kk];
-                            if (!empty($title) && !empty($url)) {
-                                $res['href'][] = [
-                                    'title' => $title,
-                                    'url' => $url
-                                ];
-                            }
-                        }
-                    } else {
-                        $name = $data['field'][$k];
-                        $res['is_sort'] = $data['is_sort'][$k];
-                    }
-
-                    $list_grid[$name] = $res;
-                }
-            }
-        }
-        // dump ( $data );
-        $res = D('common/Models')->buildFile($data, null, $list_grid, $config);
+        $res = D('common/Models')->buildFileByData($data);
         // dump ( $res );
         // exit ();
         if (!$res) {
@@ -758,12 +709,16 @@ class Model extends Admin
 
         // 模型字段
         $list = D('common/Models')->getFileInfo($model);
+        if (empty($list)){
+        	return '';
+        }
 
         // 模型数据表
         $name = $model['name'];
         $data = [];
         $return_sql || $data = M(parse_name($name, true))->select();
         $name = strtolower($name);
+        $sql = '';
         if ($type == 1) {
             $sql .= "DELETE FROM `{$px}model` WHERE `name`='{$model['name']}' ORDER BY id DESC LIMIT 1;\r\n";
             $sql .= "DROP TABLE IF EXISTS `{$px}" . strtolower($name) . "`;";
@@ -771,7 +726,13 @@ class Model extends Admin
         } else {
             // 获取索引表
             $index = '';
-            $index_list = M()->query("SHOW INDEX FROM {$px}{$name}");
+            $indexArr=[];
+            try {
+           		$index_list = M()->query("SHOW INDEX FROM {$px}{$name}");
+            }catch (\Exception $e) {
+            	dump($e->getMessage());
+            	return '';
+            }
             foreach ($index_list as $vo) {
                 if ($vo['Key_name'] == 'PRIMARY') {
                     continue;
@@ -800,19 +761,21 @@ class Model extends Admin
                 $key = empty($index) ? "PRIMARY KEY (`id`)" : "PRIMARY KEY (`id`),\r\n";
             }
 
-            foreach ($list->fields as $n => $field) {
-                // 获取默认值
-                if ($field['value'] === '') {
-                    $default = '';
-                } elseif (is_numeric($field['value'])) {
-                    $default = ' DEFAULT ' . $field['value'];
-                } elseif (is_string($field['value'])) {
-                    $default = ' DEFAULT \'' . $field['value'] . '\'';
-                } else {
-                    $default = '';
-                }
-                $create_table .= "`{$n}`  {$field['field']} {$default} COMMENT '{$field['title']}',\r\n";
-            }
+            foreach ( $list->fields as $n => $field ) {
+				// 获取默认值
+				if ($field ['value'] === '') {
+					$default = '';
+				} elseif (is_numeric ( $field ['value'] )) {
+					$default = ' DEFAULT ' . $field ['value'];
+				} elseif (is_string ( $field ['value'] )) {
+					$default = ' DEFAULT \'' . $field ['value'] . '\'';
+				} else {
+					$default = '';
+				}
+				$field['title'] = isset($field['title'])?$field['title']:'';
+				$create_table .= "`{$n}`  {$field['field']} {$default} COMMENT '{$field['title']}',\r\n";
+			}
+            
 
             $sql .= <<<sql
 CREATE TABLE IF NOT EXISTS `{$px}{$name}` (
@@ -837,10 +800,14 @@ sql;
                 }
                 $sql .= "INSERT INTO `" . $px . "{$name}` (" . rtrim($field, ',') . ') VALUES (' . rtrim($value, ',') . ");\r\n";
             }
+            
 
             unset($model['id']);
             $field = '';
             $value = '';
+            if (is_object($model)){
+            	$model=$model->getData();
+            }
             foreach ($model as $k => $v) {
                 $field .= "`$k`,";
                 $value .= "'" . str_replace($search, $replace, $v) . "',";
@@ -942,9 +909,9 @@ sql;
             @file_put_contents($path . '/install.sql', $install_sql);
             @file_put_contents($path . '/uninstall.sql', $uninstall_sql);
         }
-        if (!empty($addon_name)) {
-            return true;
-        }
+//         if (!empty($addon_name)) {
+//             return true;
+//         }
 
         $param['id'] = $addon['id'];
         echo 'update ' . $addon_name . ' now...';

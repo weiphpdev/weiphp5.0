@@ -1,4 +1,4 @@
-<template name="17f26170">
+<template name="8796843a">
   <view class="_div data-v-d5f24a00">
     <view class="_ul data-v-d5f24a00 container log-list">
       <view wx:key="index" key="{{index}}" class="_li data-v-d5f24a00 log-item {{[aa ? 'red' : '']}}" wx:for="{{logs}}" wx:for-index="index" wx:for-item="log">

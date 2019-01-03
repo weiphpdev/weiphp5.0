@@ -1,4 +1,4 @@
-<template name="356d9fe4">
+<template name="fb33887e">
   <view class="_div data-v-4f129644 logistics">
     <view class="_div data-v-4f129644 logistics-head">
       <view class="_p data-v-4f129644">物流公司：{{info.send_code_name ? info.send_code_name : '空'}}</view>

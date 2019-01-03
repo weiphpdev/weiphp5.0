@@ -1,6 +1,7 @@
 <template>
   <div class="lists">
-    <div class="g-flex">
+    <scroller>
+      <div class="g-flex">
       <div class="search">
         <input type="text" class="search-input" placeholder="输入关键字搜索商品" placeholder-style="color:#aaa" v-model="key" @keyup.13="startSearch">
       </div>
@@ -14,6 +15,8 @@
       <img src="~images/nothing.png" />
       <p class="hint-page__text">还没有任何商品</p>
     </div>
+    
+    </scroller>
     <van-popup v-model="isPopup" position="right" @close="togglePopup" class="popup">
       <from>
         <div class="popup-item">
@@ -38,6 +41,7 @@
         </div>
       </from>
     </van-popup>
+    
 
     <tabbar :checkedIndex="2"></tabbar>
   </div>
@@ -138,56 +142,63 @@ export default {
       return null; 
     }
   },
-  created () {
-    const _this = this
-    if(this.getQueryString('id')) {
-      this.id = this.getQueryString('id').replace('/','')
-      this.pid = this.getQueryString('pid').replace('/','')
-    }
-    
-    if(!this.id) this.id = this.$route.params.id
-    if(!this.pid) this.id = this.$route.params.pid
-    this.tab = this.$route.params.tab
-    this.key = this.$route.params.key
+  activated() {
+    if (this.$route.meta.isBack) {
+      Object.assign(this.$data, this.$options.data())
+      console.log('走这里')
+      const _this = this
+      if(this.getQueryString('id')) {
+        this.id = this.getQueryString('id').replace('/','')
+        this.pid = this.getQueryString('pid').replace('/','')
+      }
+      
+      if(!this.id) this.id = this.$route.params.id
+      if(!this.pid) this.id = this.$route.params.pid
+      this.tab = this.$route.params.tab
+      this.key = this.$route.params.key
 
-    // 获取分类
-    get('shop/api/category').then(res => {
-      this.sortList = res
-    })
-    // 同款
-    if(this.tab) {
-      console.log('tab不为空')
-      this.getData({
-        tab_goods_id:_this.id,
-        tab: _this.tab
+      // 获取分类
+      get('shop/api/category').then(res => {
+        this.sortList = res
       })
+      // 同款
+      if(this.tab) {
+        console.log('tab不为空')
+        this.getData({
+          tab_goods_id:_this.id,
+          tab: _this.tab
+        })
+      }
+      // 搜索
+      else if(this.key) {
+        console.log('key不为空')
+        this.getData({
+          search_key: _this.key
+        })
+      } 
+      // 分类
+      else if(this.pid || this.id){
+        console.log('pid不为空')
+        this.getData({
+          cate_id: _this.id,
+          pid: _this.pid
+        })
+      }
     }
-    // 搜索
-    else if(this.key) {
-      console.log('key不为空')
-      this.getData({
-        search_key: _this.key
-      })
-    } 
-    // 分类
-    else if(this.pid || this.id){
-      console.log('pid不为空')
-      this.getData({
-        cate_id: _this.id,
-        pid: _this.pid
-      })
-    } 
-    // 点tabbar
-    else {
-      console.log('都为空')
-      post("shop/api/lists").then(res => {
-        _this.goods = res.goods;
+    this.$route.meta.isBack = false;
+  },
+  beforeRouteEnter (to, from, next) {
+    if(to.params.id) {
+      to.meta.isBack = true
+    }
+    next()
+  },
+  mounted() {
+     post("shop/api/lists").then(res => {
+        this.goods = res.goods;
       });
-    }
-
-
-    
   }
+
 }
 </script>
 

@@ -145,11 +145,14 @@ class Coupon extends Base
         // $flat = false;
         // }
         // 判断用户是否有领取会员卡
-        $cardId = D('card/CardMember')->checkHasMemberCard($uid);
-        if (empty($cardId)) {
-            // $msg = '您还未领取会员卡，还不能领取该优惠券！';
-            $flat = false;
+        if (is_install('card')){
+        	$cardId = D('card/CardMember')->checkHasMemberCard($uid);
+        	if (empty($cardId)) {
+        		// $msg = '您还未领取会员卡，还不能领取该优惠券！';
+        		$flat = false;
+        	}
         }
+        
         if (! $flat) {
             return false;
         }

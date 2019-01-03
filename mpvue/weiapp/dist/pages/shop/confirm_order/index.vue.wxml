@@ -1,6 +1,6 @@
-<import src="/modules/mpvue-wxparse/src/wxParse.vue.wxml" /><template name="05c3ad8a">
-  <view class="_div data-v-a5d44e4c confirm-order">
-    <navigator url="../add_address/main?type=1" class="_a data-v-a5d44e4c m-list order-line" wx:if="{{address.truename}}">
+<import src="/modules/mpvue-wxparse/src/wxParse.vue.wxml" /><template name="713da7bd">
+  <view class="_div data-v-a5d44e4c confirm-order" wx:if="{{datas.goods_id || datas.id}}">
+    <navigator url="../add_address/index?type=1" class="_a data-v-a5d44e4c m-list order-line" wx:if="{{address.truename}}">
       <view class="_div data-v-a5d44e4c m-list__l">{{address.truename}}</view>
       <view class="_div data-v-a5d44e4c m-list__c">
         <view class="_p data-v-a5d44e4c">{{address.mobile}}</view>
@@ -10,7 +10,7 @@
         <view class="_i data-v-a5d44e4c iconfont icon-fanhui right"></view>
       </view>
     </navigator>
-    <navigator url="../add_address/main?type=1" class="_a data-v-a5d44e4c m-list link" wx:else>
+    <navigator url="../add_address/index?type=1" class="_a data-v-a5d44e4c m-list link" wx:else>
       <view class="_div data-v-a5d44e4c m-list__l">添加地址</view>
       <view class="_p data-v-a5d44e4c m-list__c"></view>
       <view class="_i data-v-a5d44e4c iconfont icon-fanhui right"></view>
@@ -36,10 +36,11 @@
         <view class="_i data-v-a5d44e4c iconfont icon-fanhui iconfont {{item.arrowDir}}" bindtap="handleProxy" data-index="{{index}}" data-eventid="{{'2-'+index}}" data-comkey="{{$k}}"></view>
       </view>
       <view class="_div data-v-a5d44e4c switch-card__bd" hidden="{{!(item.arrowDir == 'top')}}">
-        <navigator url="{{'../goods_detail/main?id=' + item.id}}" open-type="redirect" class="_a data-v-a5d44e4c goods-line">
-          <image class="_img data-v-a5d44e4c u-goods__img" src="{{item.cover}}"></image>
+        <navigator url="{{'../goods_detail/index?id=' + item.id}}" open-type="redirect" class="_a data-v-a5d44e4c goods-line">
+          <image lazy-load class="_img data-v-a5d44e4c u-goods__img" src="{{item.cover}}"></image>
           <view class="_div data-v-a5d44e4c goods-line__right">
-            <view class="_p data-v-a5d44e4c u-goods__tt overflow-dot">{{item.title}}</view>
+            <view class="_p data-v-a5d44e4c u-goods__tt overflow-dot"><label class="_span data-v-a5d44e4c s-red" wx:if="{{datas.event_type == 1}}">【拼团】</label><label class="_span data-v-a5d44e4c s-red" wx:elif="{{datas.event_type == 2}}">【秒杀】</label><label class="_span data-v-a5d44e4c s-red" wx:elif="{{datas.event_type == 3}}">【砍价】</label>
+              {{item.title}}</view>
             <view class="_div data-v-a5d44e4c goods-line__ft">
               <view class="_div data-v-a5d44e4c goods-line__price"><label class="_span data-v-a5d44e4c">¥{{item.sale_price}}</label> <label class="_span data-v-a5d44e4c goods__price-cost f-font-sm">¥{{item.market_price}}</label></view>
               <view class="_p data-v-a5d44e4c f-font-sm">x{{item.num}}</view>
@@ -60,29 +61,35 @@
         </view>
       </view>
     </view>
-    <view class="_div data-v-a5d44e4c m-list link" wx:if="{{isShop}}" bindtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}">
+    <view class="_div data-v-a5d44e4c m-list link" wx:if="{{couponNum > 0}}" bindtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}">
+      <view class="_div data-v-a5d44e4c m-list__l">优惠券</view>
+      <view class="_p data-v-a5d44e4c m-list__c" wx:if="{{couponName==''}}">你有{{couponNum}}张优惠劵,点击使用</view>
+      <view class="_p data-v-a5d44e4c m-list__c" wx:else>{{couponName}}</view>
+      <view class="_i data-v-a5d44e4c iconfont icon-fanhui right"></view>
+    </view>
+    <view class="_div data-v-a5d44e4c m-list link" wx:if="{{isShop}}" bindtap="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}">
       <view class="_div data-v-a5d44e4c m-list__l">选择门店</view>
       <view class="_p data-v-a5d44e4c m-list__c">{{shopName}}</view>
       <view class="_i data-v-a5d44e4c iconfont icon-fanhui right"></view>
     </view>
-    <view class="_div data-v-a5d44e4c m-input g-flex"><label class="_span data-v-a5d44e4c m-input__lable">买家留言:</label> <input value="{{remark}}" bindinput="handleProxy" type="text" placeholder="点击给卖家留言" class="_input data-v-a5d44e4c g-flex__item" data-eventid="{{'4'}}" data-comkey="{{$k}}" /></view>
+    <view class="_div data-v-a5d44e4c m-input g-flex"><label class="_span data-v-a5d44e4c m-input__lable">买家留言:</label> <input value="{{remark}}" bindinput="handleProxy" type="text" placeholder="点击给卖家留言" class="_input data-v-a5d44e4c g-flex__item" data-eventid="{{'5'}}" data-comkey="{{$k}}" /></view>
     <view class="_div data-v-a5d44e4c tcp">
-      <van-checkbox class="_van-checkbox data-v-a5d44e4c square-checkbox" value="{{isTcp}}" bindchange="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}">我已同意</van-checkbox> <label class="_span data-v-a5d44e4c s-link" bindtap="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}">《客户协议》</label>
+      <van-checkbox class="_van-checkbox data-v-a5d44e4c square-checkbox" value="{{isTcp}}" bindchange="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}">我已同意</van-checkbox> <label class="_span data-v-a5d44e4c s-link" bindtap="handleProxy" data-eventid="{{'7'}}" data-comkey="{{$k}}">《客户协议》</label>
     </view>
-    <van-popup class="_van-popup data-v-a5d44e4c tcpPopup" show="{{isTcpPopup}}" bindclose="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}"><template bindpreview="handleProxy" bindnavigate="handleProxy" data-eventid="{{'7'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'10'], $root}}" is="1f5164af"></template></van-popup>
+    <van-popup class="_van-popup data-v-a5d44e4c tcpPopup" show="{{isTcpPopup}}" bindclose="handleProxy" data-eventid="{{'9'}}" data-comkey="{{$k}}"><template bindpreview="handleProxy" bindnavigate="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'10'], $root}}" is="27e5e53c"></template></van-popup>
     <view class="_div data-v-a5d44e4c bottom-bar g-flex">
       <view class="_div data-v-a5d44e4c g-flex__item g-flex">
         <view class="_p data-v-a5d44e4c">实付款：</view>
         <view class="_p data-v-a5d44e4c s-red">¥{{totalPrice}}</view>
         <view class="_p data-v-a5d44e4c"></view>
         <view class="_p data-v-a5d44e4c f-font-sm">含运费</view>
-      </view> <button bindtap="handleProxy" class="_button data-v-a5d44e4c u-button u-button--primary" data-eventid="{{'9'}}" data-comkey="{{$k}}">提交订单</button>
+      </view> <button bindtap="handleProxy" class="_button data-v-a5d44e4c u-button u-button--primary" data-eventid="{{'10'}}" data-comkey="{{$k}}">提交订单</button>
     </view>
     <van-toast id="van-toast" class="_van-toast data-v-a5d44e4c"></van-toast>
-    <van-popup show="{{isPopup}}" position="bottom" bindclose="handleProxy" data-eventid="{{'11'}}" data-comkey="{{$k}}" class="_van-popup data-v-a5d44e4c">
+    <van-popup show="{{isPopup}}" position="bottom" bindclose="handleProxy" data-eventid="{{'12'}}" data-comkey="{{$k}}" class="_van-popup data-v-a5d44e4c">
       <view class="_div data-v-a5d44e4c coupon">
         <view class="_div data-v-a5d44e4c coupon-not">
-          <view class="_div data-v-a5d44e4c coupon-item" wx:key="index" key="{{index}}" data-index="{{index}}" bindtap="handleProxy" data-eventid="{{'10-'+index}}" data-comkey="{{$k}}" wx:for="{{couponList}}" wx:for-index="index" wx:for-item="coupon">
+          <view class="_div data-v-a5d44e4c coupon-item" wx:key="index" key="{{index}}" data-index="{{index}}" bindtap="handleProxy" data-eventid="{{'11-'+index}}" data-comkey="{{$k}}" wx:for="{{couponList}}" wx:for-index="index" wx:for-item="coupon">
             <view class="_div data-v-a5d44e4c coupon-item__l"><label class="_span data-v-a5d44e4c coupon-item__price">{{coupon.money}}</label> <label class="_span data-v-a5d44e4c f-font-sm">元</label></view>
             <view class="_div data-v-a5d44e4c coupon-item__c">
               <view class="_p data-v-a5d44e4c">{{coupon.title}}</view>
@@ -93,10 +100,10 @@
         </view>
       </view>
     </van-popup>
-    <van-popup show="{{isShopPopup}}" position="bottom" bindclose="handleProxy" data-eventid="{{'14'}}" data-comkey="{{$k}}" class="_van-popup data-v-a5d44e4c">
-      <van-radio-group value="{{selfShopIdx}}" bindchange="handleProxy" data-eventid="{{'13'}}" data-comkey="{{$k}}" class="_van-radio-group data-v-a5d44e4c">
+    <van-popup show="{{isShopPopup}}" position="bottom" bindclose="handleProxy" data-eventid="{{'15'}}" data-comkey="{{$k}}" class="_van-popup data-v-a5d44e4c">
+      <van-radio-group value="{{selfShopIdx}}" bindchange="handleProxy" data-eventid="{{'14'}}" data-comkey="{{$k}}" class="_van-radio-group data-v-a5d44e4c">
         <van-cell-group class="_van-cell-group data-v-a5d44e4c">
-          <van-cell wx:key="shopIdx" key="{{shopIdx}}" title="{{shop.name}}" clickable data-index="{{shopIdx}}" bindtap="handleProxy" data-eventid="{{'12-'+shopIdx}}" data-comkey="{{$k}}" wx:for="{{shopList}}" wx:for-index="shopIdx" wx:for-item="shop" class="_van-cell data-v-a5d44e4c">
+          <van-cell wx:key="shopIdx" key="{{shopIdx}}" title="{{shop.name}}" clickable data-index="{{shopIdx}}" bindtap="handleProxy" data-eventid="{{'13-'+shopIdx}}" data-comkey="{{$k}}" wx:for="{{shopList}}" wx:for-index="shopIdx" wx:for-item="shop" class="_van-cell data-v-a5d44e4c">
             <van-radio name="{{shopIdx}}" class="_van-radio data-v-a5d44e4c"></van-radio>
           </van-cell>
         </van-cell-group>
