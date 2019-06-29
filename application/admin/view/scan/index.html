@@ -1,0 +1,25 @@
+{extend name="publics/base"/}
+
+{block name="body"}
+    <div class="main-title">
+        <h2>当前状态：扫码登录{empty name="status"}关闭{else /}开启{/empty}</h2>
+    </div>
+    <form action="{:U('index')}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">请选择一个认证的服务号<span class="check-tips">还没有服务号？请先到<a href="{:U('home/publics/lists')}" target="_blank">运营管理界面增加</a></span></label>
+            <div class="controls mt30 mb30">
+                <div id='dynamic_select_wp_id'></div>
+                {:W('common/dynamic_select/dynamic_select', array('name'=>'wp_id','value'=>$wp_id,'extra'=>'&table=apps&type=3&app_type=0&value_field=id&title_field=public_name&order=id desc'))}
+            </div>
+        </div>
+        
+        <div class="form-item">
+        {empty name="status"}
+            <input type="hidden" name="status" value="1">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确认开启</button>
+        {else /}
+            <input type="hidden" name="status" value="0">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">关 闭</button>        
+        {/empty}</div>
+    </form>
+{/block}

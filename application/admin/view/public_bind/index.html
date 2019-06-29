@@ -1,0 +1,62 @@
+{extend name="publics/base"/}
+
+{block name="body"}
+<style>
+.frm_title{ margin:10px 0; font-size:18px}
+.info_item label{ margin:10px 0;}
+.info_content{ color:#F00; margin:10px;}
+</style>
+  <div class="main-title">
+    <h2>当前状态：一键绑定
+      {empty name="status"}关闭
+        {else /}
+        开启{/empty}</h2>
+  </div>
+  <h2 class="mb30 mt30" style="font-weight:400;">开发资料</h2>
+  {php}if($host=='localhost'||$host=='127.0.0.1') { {/php}<div>注意：本地网址({$host})不可用，一定要部署到正式环境有正式域名再配置</div> {php} } else { {/php}
+  <div class="info_list">
+    <div class="wrp_info_item first">
+      <div class="frm_title">授权登录相关</div>
+      <div class="info_item">
+        <label>登录授权的发起页域名</label>
+        <div class="info_content">{$host}</div>
+      </div>
+      <div class="info_item">
+        <label>授权测试公众号列表</label>
+        <div class="info_content">填写自己的公众号原始ID，可多个</div>
+      </div>
+      <div class="info_item">
+        <label>授权事件接收URL</label>
+        <div class="info_content">{:SITE_URL}/index.php?s=/public_bind/public_bind/setTicket</div>
+      </div>
+    </div>
+    <div class="wrp_info_item">
+      <div class="frm_title">授权后代替公众号实现业务</div>
+      <div class="info_item">
+        <label>公众号消息校验Token</label>
+        <div class="info_content">weiphp</div>
+      </div>
+      <div class="info_item">
+        <label>公众号消息加解密Key</label>
+        <div class="info_content">{$encodingaeskey}</div>
+      </div>
+      <div class="info_item">
+        <label>公众号消息与事件接收URL</label>
+        <div class="info_content">{:SITE_URL}/index.php?s=/home/weixin/index/appid/$APPID$</div>
+      </div>
+      <div class="info_item">
+        <label>公众号开发域名</label>
+        <div class="info_content">{$host}</div>
+      </div>
+    </div>
+    <div class="wrp_info_item">
+      <div class="frm_title">其他</div>
+      <div class="info_item">
+        <label>白名单IP地址列表</label>
+        <div class="info_content">建议填写服务号的IP</div>
+      </div>
+    </div>
+  </div>
+  
+  {php} } {/php}
+{/block}

@@ -1,0 +1,14 @@
+<script>
+ 
+  let url = location.href.split('?')
+  let pars = url[1].split('&')
+  let data = {}
+  pars.forEach((n, i) => {
+    let p = n.split('=')
+    data[p[0]] = p[1]
+  })
+  if (!!data.app3Redirect) {
+    self.location = decodeURIComponent(data.app3Redirect)
+  }
+ 
+</script>
