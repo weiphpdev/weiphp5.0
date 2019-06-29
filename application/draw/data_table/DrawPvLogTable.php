@@ -31,18 +31,21 @@ class DrawPvLogTable {
           'title' => '游戏ID',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'uid' => [
           'title' => '用户id',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'wpid' => [
           'title' => 'wpid',
           'field' => 'int(10) NOT NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 0
       ],
       'openid' => [
           'title' => 'openid',

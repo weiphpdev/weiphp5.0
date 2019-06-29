@@ -59,6 +59,7 @@ class ShopGoods extends Base {
 	}
 	function getGoodsDetail($goods) {
 		isset ( $goods ['shop_goods'] ) && $goods = $goods ['shop_goods'];
+                isset($goods ['id']) || $goods ['id'] = 0;
 		
 		$shop_goods_id = $goods ['id'];
 		// 商品详情
@@ -130,7 +131,7 @@ class ShopGoods extends Base {
 			$list = $obj->limit ( $limit )->select ();
 		}
 		
-		if (empty ( $list ))
+		if ($list->isEmpty())
 			return [ ];
 		
 		$rdata = [ ];

@@ -7,8 +7,8 @@
         v-for="(item,index) in activeData"
         :key="item.id"
       >
-        <img lazy-load class="goods-list__img u-goods__img" v-if="item.cover_img !=''" :src="item.cover_img">
-        <img lazy-load class="goods-list__img u-goods__img" v-else src="https://leyao.tv/yi/images/not-pic.jpg">
+        <img class="goods-list__img u-goods__img" v-if="item.cover_img !=''" :src="item.cover_img">
+        <img class="goods-list__img u-goods__img" v-else src="~images/not-pic.jpg">
         <div class="goods-list__info">
           <p class="u-goods__tt overflow-dot">{{item.title}}</p>
           <p class="goods-list__des overflow-dot"></p>
@@ -27,7 +27,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+			imgRoot:this.imgRoot
+		};
   },
   props: {
     activeData: Array,

@@ -189,6 +189,7 @@ export default {
 
 
 <style lang="scss" scoped>
+
 .order-detail.pb80 {
   padding-bottom: 80px;
 }
@@ -205,7 +206,7 @@ export default {
 		padding: 25px 15px;
     background: #FFFDF4;
     align-items: baseline;
-    background-image: url(https://leyao.tv/yi/images/stripe-bg.png);
+    background-image: url($imgRoot +'stripe-bg.png');
     background-repeat: no-repeat;
     background-size: 100%;
     margin-top: 10px;

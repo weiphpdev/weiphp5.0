@@ -190,7 +190,7 @@
 		style="width: 100%;">
 		<input type="hidden" name="material_{$name}_img_id" value="{$img_id}" />
 		<a class="select_image image_material" href="javascript:;"
-			onClick="$.WeiPHP.openSelectAppMsg('{:U('material/Material/picture_data',array('isAjax'=>'ajax','isRadio'=>1))}',selectImageCallback)">从素材库选择图片</a>
+			onClick="$.WeiPHP.openSelectAppMsg('{:U('material/Material/picture_data')}',selectImageCallback)">从素材库选择图片</a>
 		<div class="image_wrap"></div>
 		<a class="delete ml-2" href="javascript:;" style="left: 310px;">删除</a>
 	</div>
@@ -199,7 +199,7 @@
 		<input type="hidden" name="material_{$name}_voice_id"
 			value="{$voice_id}" /> <a class="voice_material select_voice"
 			href="javascript:;"
-			onClick="$.WeiPHP.openSelectAppMsg('{:U('material/Material/voice_data',array('isAjax'=>'ajax','isRadio'=>1))}',selectVoiceCallback,'选择语音素材')">选择语音素材</a>
+			onClick="$.WeiPHP.openSelectAppMsg('{:U('material/Material/voice_data')}',selectVoiceCallback,'选择语音素材')">选择语音素材</a>
 		<div class="voice_wrap"></div>
 		<a class="delete ml-2" href="javascript:;">删除</a>
 	</div>
@@ -208,7 +208,7 @@
 		<input type="hidden" name="material_{$name}_video_id"
 			value="{$video_id}" /> <a class="voice_material select_video"
 			href="javascript:;"
-			onClick="$.WeiPHP.openSelectAppMsg('{:U('material/Material/video_data',array('isAjax'=>'ajax','isRadio'=>1))}',selectVideoCallback,'选择视频素材')">选择视频素材</a>
+			onClick="$.WeiPHP.openSelectAppMsg('{:U('material/Material/video_data')}',selectVideoCallback,'选择视频素材')">选择视频素材</a>
 		<div class="video_wrap" style="float: left;"></div>
 		<a class="delete ml-2" href="javascript:;" style="left: 230px;">删除</a>
 	</div>

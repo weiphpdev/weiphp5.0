@@ -13,12 +13,11 @@
 
 <script>
 export default {
-  props: ['goodsData']
-}
+  props: ["goodsData"]
+};
 </script>
 
 <style lang="scss" scoped>
-
 .goods-list {
     display: flex;
     flex-wrap: wrap;

@@ -28,8 +28,8 @@ $f = strip_tags($_GET['f']);
 if ($f == 'mobile_head') {
     $getfiles = [
         __ROOT__ . '/home/js/prefixfree.min.js',
-        __ROOT__ . '/static/dialog.js',
-        __ROOT__ . '/home/js/m/flipsnap.min.js',
+        __ROOT__ . '/static/base/js/dialog.js',
+        __ROOT__ . '/static/flipsnap.min.js',
         __ROOT__ . '/static/mobile_module.js',
     ];
 } else {

@@ -56,7 +56,7 @@ class EventPrizes extends Base {
 		$data = S ( $key );
 		if (empty ( $data ) || $update) {
 			// 用于查看
-			$data = $this->where ( 'event_id', $eventId )->order ( 'sort asc' )->field ( 'start_num,end_num,prize_list,sort' )->select ();
+			$data = to_array($this->where ( 'event_id', $eventId )->order ( 'sort asc' )->field ( 'start_num,end_num,prize_list,sort' )->select ());
 			foreach ( $data as &$vo ) {
 				$vo ['prize_list'] = $this->prizeStrToArr ( $vo ['prize_list'] );
 			}

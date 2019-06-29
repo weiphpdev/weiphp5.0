@@ -424,7 +424,8 @@ class ApiData extends Base
         // 根据优惠券的限制数发放
         if ($prizeid != 0) {
             $awardInfo = D('draw/Award')->getInfo($prizeid);
-            $prizeid = $awardInfo['id'];
+            $prizeid = isset($awardInfo['id'])?$awardInfo['id']:$prizeid;
+            if (isset($awardInfo['award_type']) && $awardInfo['award_type'] == 2 && is_install("coupon")) {
                 // 优惠券
                 $info = D('coupon/Coupon')->getInfo($awardInfo['coupon_id']);
 
@@ -437,7 +438,7 @@ class ApiData extends Base
                 } else if ($info['is_del'] == 1) {
                     $flat = false;
                 }
-                
+            }    
                
             if (! $flat) {
                 $prizeid = 0;

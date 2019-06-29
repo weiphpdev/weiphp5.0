@@ -3,7 +3,10 @@
 .appmsg_item .main_img {margin: 0;}
 </style><div class="empty_container"><p>您的图文素材库为空，<a target='_blank' href="{:U('material/Material/material_lists')}">请先增加素材</a></p></div>
 {else/}
-    <div class="data_container"><ul class="material_list">
+	
+    <div class="data_container">
+    <p class="normal_tips"><b class="fa fa-info-circle"></b> 若使用客服接口发信息时， 图文消息条数限制在1条以内，注意，如果图文数超过1，则将会返回错误码45008。</p>
+    <ul class="material_list">
       {volist name="list_data" id="vo"}
 
       {if condition="$vo['count']==1"}<li class="appmsg_li" data-id="{$vo.id}" data-group_id="{$vo.group_id}" style="overflow:hidden">

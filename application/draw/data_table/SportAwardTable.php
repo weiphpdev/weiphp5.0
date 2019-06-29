@@ -20,33 +20,33 @@ class SportAwardTable {
     public $list_grid = [
       'id' => [
           'title' => '编号',
-		  'width' => '6%'
+          'width' => '6%'
       ],
       'name' => [
           'title' => '奖项名称',
-		  'width' => '23%'
+          'width' => '23%'
       ],
       'img' => [
           'title' => '商品图片',
           'function' => 'get_img_html',
           'raw' => 1,
-		  'width' => '8%'
+          'width' => '8%'
       ],
       'price' => [
           'title' => '商品价格',
-		  'width' => '8%'
+          'width' => '8%'
       ],
       'explain' => [
           'title' => '奖品说明',
-		  'width' => '24%'
+          'width' => '24%'
       ],
       'count' => [
           'title' => '奖品数量',
-		  'width' => '8%'
+          'width' => '8%'
       ],
       'urls' => [
           'title' => '操作',
-		  'width' => '20%',
+          'width' => '20%',
           'come_from' => 1,
           'href' => [
               '0' => [
@@ -75,39 +75,45 @@ class SportAwardTable {
           'is_show' => 1,
           'extra' => '1:实物奖品|price@show,score@hide,coupon_id@hide,money@hide
 0:积分|price@hide,score@show,coupon_id@hide,money@hide
-2:优惠券|price@hide,score@hide,coupon_id@show,money@hide'
+2:优惠券|price@hide,score@hide,coupon_id@show,money@hide',
+          'value' => 1
       ],
       'name' => [
           'title' => '奖项名称',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'count' => [
           'title' => '奖品数量',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'img' => [
           'title' => '奖品图片',
           'field' => 'int(10) NOT NULL',
           'type' => 'picture',
           'remark' => '图片尺寸建议为200*200',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'price' => [
           'title' => '商品价格',
-          'field' => 'FLOAT(10) NULL',
+          'field' => 'decimal(10,2) NULL',
           'type' => 'num',
           'remark' => '价格默认为0，表示未报价',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0.00
       ],
       'score' => [
           'title' => '积分数',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '积分奖励',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'explain' => [
           'title' => '奖品说明',
@@ -123,14 +129,15 @@ class SportAwardTable {
       ],
       'money' => [
           'title' => '返现金额',
-          'field' => 'float(10) NULL',
+          'field' => 'decimal(10,2) NULL',
           'type' => 'num',
           'is_show' => 1
       ],
       'sort' => [
           'title' => '排序号',
-          'field' => 'int(10) unsigned NULL ',
-          'type' => 'num'
+          'field' => 'int(10) unsigned NULL',
+          'type' => 'num',
+          'value' => 0
       ],
       'uid' => [
           'title' => 'uid',
@@ -146,7 +153,8 @@ class SportAwardTable {
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ],
       'aim_table' => [
           'title' => '活动标识',

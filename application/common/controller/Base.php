@@ -31,6 +31,12 @@ class Base extends Controller
 
     public function __construct()
     {
+        header('Access-Control-Allow-Origin:*');
+        // 响应类型
+        header('Access-Control-Allow-Methods:*');
+        // 响应头设置
+        header('Access-Control-Allow-Headers:x-requested-with,content-type');
+
         // WeiPHP常量定义
         defined('MODULE_NAME') or define('MODULE_NAME', request()->module());
         defined('CONTROLLER_NAME') or define('CONTROLLER_NAME', request()->controller());
@@ -42,19 +48,21 @@ class Base extends Controller
         defined('IS_GET') or define('IS_GET', request()->isGet());
         defined('IS_POST') or define('IS_POST', request()->isPost());
         defined('IS_AJAX') or define('IS_AJAX', request()->isAjax());
-        defined('__SELF__') or define('__SELF__', strip_tags($_SERVER['REQUEST_URI']));
+
+        $url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        defined('__SELF__') or define('__SELF__', strip_tags($url));
 
         $requestData = input();
         $requestData = empty($requestData) ? [] : $requestData;
         $_REQUEST = array_merge($_REQUEST, $requestData);
 //         add_debug_log($_REQUEST, 'testvistisf_'.get_mid());
         if (isset($_REQUEST['PHPSESSID']) && !empty($_REQUEST['PHPSESSID'])) {
-            session_id($_REQUEST['PHPSESSID']);
+//             session_id($_REQUEST['PHPSESSID']);
         }
 //         add_debug_log($_SESSION, 'testvistisf11_'.get_mid());
 
         // 不用记录定时任务的日志
-        if (ACTION_NAME != 'cron' && CONTROLLER_NAME != 'Canal') {
+        if (ACTION_NAME != 'cron' && CONTROLLER_NAME != 'Canal' && CONTROLLER_NAME != 'Cron') {
             Log::key('allow_log');
         } else {
             Log::key('fobi_log');
@@ -231,9 +239,9 @@ class Base extends Controller
 
     public function common_export($model = null, $order = 'id desc', $return = false)
     {
-		if(function_exists('set_time_limit')){
-			set_time_limit(0);
-		}
+        if (function_exists('set_time_limit')) {
+            set_time_limit(0);
+        }
         // 获取模型信息
         is_array($model) || $model = $this->getModel($model);
         // 解析列表规则
@@ -260,7 +268,7 @@ class Base extends Controller
             ->select();
 
         if ($data) {
-            $dataTable = D('Common/Models')->getFileInfo($model);
+            $dataTable = D('common/Models')->getFileInfo($model);
             $data = $this->parseListData($data, $dataTable);
             foreach ($data as &$vo) {
                 foreach ($ht as $key => $val) {
@@ -288,13 +296,13 @@ class Base extends Controller
         !empty($ids) || $this->error('请选择要操作的数据!');
 
         try {
-        	$Model = D($model['name']);
-        }catch (\Exception $e) {
-        	if (strpos($e->getMessage(), 'not exists')){
-        		$Model = M($model['name']);
-        	}else {
-        		$this->error('找不到操作模型');
-        	}
+            $Model = D($model['name']);
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'not exists')) {
+                $Model = M($model['name']);
+            } else {
+                $this->error('找不到操作模型');
+            }
         }
         $map[] = array(
             'id',
@@ -303,7 +311,7 @@ class Base extends Controller
         );
 
         // 插件里的操作自动加上Token限制
-        $dataTable = D('Common/Models')->getFileInfo($model);
+        $dataTable = D('common/Models')->getFileInfo($model);
         $wpid = get_wpid();
         if (!empty($wpid) && isset($dataTable->fields['wpid'])) {
             $map[] = [
@@ -339,19 +347,19 @@ class Base extends Controller
 
         if (request()->isPost()) {
             try {
-            	$Model = D($model['name']);
-            }catch (\Exception $e) {
-            	if (strpos($e->getMessage(), 'not exists')){
-            		$Model = M($model['name']);
-            	}else {
-            		$this->error('找不到操作模型');
-            	}
+                $Model = D($model['name']);
+            } catch (\Exception $e) {
+                if (strpos($e->getMessage(), 'not exists')) {
+                    $Model = M($model['name']);
+                } else {
+                    $this->error('找不到操作模型');
+                }
             }
             // 获取模型的字段信息
             $data = empty($post_data) ? input('post.') : $post_data;
             $data = $this->checkData($data, $model);
 //             $res = $Model->isUpdate(true)->save($data);
-            $res = $Model->where('id',$id)->update($data);
+            $res = $Model->where('id', $id)->update($data);
             if ($res !== false) {
                 $this->_saveKeyword($model, $id);
 
@@ -378,13 +386,13 @@ class Base extends Controller
         is_array($model) || $model = $this->getModel($model);
         if (request()->isPost()) {
             try {
-            	$Model = D($model['name']);
-            }catch (\Exception $e) {
-            	if (strpos($e->getMessage(), 'not exists')){
-            		$Model = M($model['name']);
-            	}else {
-            		$this->error('找不到操作模型');
-            	}
+                $Model = D($model['name']);
+            } catch (\Exception $e) {
+                if (strpos($e->getMessage(), 'not exists')) {
+                    $Model = M($model['name']);
+                } else {
+                    $this->error('找不到操作模型');
+                }
             }
             // 获取模型的字段信息
             $data = empty($post_data) ? input('post.') : $post_data;
@@ -544,25 +552,25 @@ class Base extends Controller
                 }
             } elseif ('checkbox' == $attr['type'] || 'dynamic_checkbox' == $attr['type']) {
                 // 多选型
-                if ( isset($data[$attr['name']]) ){
-                	$data[$attr['name']] = arr2str($data[$attr['name']]);
+                if (isset($data[$attr['name']])) {
+                    $data[$attr['name']] = arr2str($data[$attr['name']]);
                 }
             } elseif ('datetime' == $attr['type'] || 'date' == $attr['type']) {
                 // 时间或者日期型
-                if ( isset($data[$attr['name']]) && !empty($data[$attr['name']]) ){
-                	//没有的不设置为空，以免覆盖新增保存的数据
-                	$data[$attr['name']] =strtotime($data[$attr['name']]) ;
+                if (isset($data[$attr['name']]) && !empty($data[$attr['name']])) {
+                    //没有的不设置为空，以免覆盖新增保存的数据
+                    $data[$attr['name']] = strtotime($data[$attr['name']]);
                 }
-                
+
             } elseif ('mult_picture' == $attr['type']) {
                 // 多图
-                if (isset($data[$attr['name']]) ){
-                	$data[$attr['name']] =$data[$attr['name']];
-                	if (is_array($data[$attr['name']])) {
-                		$data[$attr['name']] = arr2str($data[$attr['name']]);
-                	} else {
-                		$data[$attr['name']] = $data[$attr['name']];
-                	}
+                if (isset($data[$attr['name']])) {
+                    $data[$attr['name']] = $data[$attr['name']];
+                    if (is_array($data[$attr['name']])) {
+                        $data[$attr['name']] = arr2str($data[$attr['name']]);
+                    } else {
+                        $data[$attr['name']] = $data[$attr['name']];
+                    }
                 }
             }
         }
@@ -573,37 +581,42 @@ class Base extends Controller
             }
         }
         if (isset($data['start_time']) && isset($data['end_time'])) {
-       		if ($data['end_time'] <= $data['start_time']) {
-       			$this->error('结束时间不能早于开始时间');
-       		}
+            if ($data['end_time'] <= $data['start_time']) {
+                $this->error('结束时间不能早于开始时间');
+            }
         }
         return $data;
     }
 
     protected function parseDataByField($val, $field)
     {
+        $has_chang = false;
         if (empty($field)) {
-            return $val;
+            return ['value' => $val, 'has_chang' => $has_chang];
         }
 
+        $res = [];
         switch ($field['type']) {
             case 'date':
                 $val = day_format($val);
+                $has_chang = true;
                 break;
             case 'datetime':
                 $val = time_format($val);
+                $has_chang = true;
                 break;
             case 'bool':
             case 'select':
             case 'radio':
                 if (!empty($field['extra'])) {
-                    $extra = parse_config_attr($field['extra']);
+                    $extra = parse_field_attr($field['extra']);
                     $val = isset($extra[$val]) ? $extra[$val] : $val;
                 }
+                $has_chang = true;
                 break;
             case 'checkbox':
                 if (!empty($field['extra'])) {
-                    $extra = parse_config_attr($field['extra']);
+                    $extra = parse_field_attr($field['extra']);
 
                     $valArr = explode(',', $val);
                     foreach ($valArr as $v) {
@@ -612,54 +625,76 @@ class Base extends Controller
 
                     $val = implode(', ', $res);
                 }
-
+                $has_chang = true;
                 break;
             case 'picture':
                 $val = get_img_html($val);
+                $has_chang = true;
                 break;
             case 'file':
                 $val = get_file_html($val);
+                $has_chang = true;
                 break;
-            case 'cascade':
-                break;
+
             case 'mult_picture':
-                break;
-            case 'dynamic_select':
-                parse_str($field['extra'], $arr);
-                $table = !empty($arr['table']) ? $arr['table'] : 'common_category'; // 表名
-                $value_field = !empty($arr['value_field']) ? $arr['value_field'] : 'id'; // 值对应的字段名
-                $title_field = !empty($arr['title_field']) ? $arr['title_field'] : 'title'; // 显示的内容
-                $map[$value_field] = $val;
-                // 查询对应选中值对应的显示内容
-                $val = M($table)->where($map)->value($title_field);
+                $valArr = explode(',', $val);
+                foreach ($valArr as $v) {
+                    $res[] = get_img_html($v);
+                }
+
+                $val = implode(' ', $res);
+                $has_chang = true;
                 break;
             case 'dynamic_checkbox':
+            case 'cascade':
+            case 'dynamic_select':
+                $val = $this->dynamicTitle($val, $field);
+                $has_chang = true;
                 break;
+
             case 'material':
+                $val = W('common/MaterialShow/material', array('name' => $field['name'], 'value' => $val));
                 break;
             case 'prize':
                 break;
             case 'news':
+                $val = W('common/MaterialShow/material', array('name' => $field['name'], 'value' => 'news:'.$val));
                 break;
-            case 'image':
-                break;
+            case 'admin':
             case 'user':
-                $val = get_nickname($val);
-                break;
             case 'users':
                 $valArr = explode(',', $val);
                 foreach ($valArr as $v) {
                     $res[] = get_nickname($v);
                 }
-
                 $val = implode(', ', $res);
-                break;
-            case 'admin':
-                $val = get_nickname($val);
+                $has_chang = true;
                 break;
         }
 
-        return $val;
+        return ['value' => $val, 'has_chang' => $has_chang];
+    }
+
+    protected function dynamicTitle($val, $field)
+    {
+        if (empty($field['extra']) || empty($val)) {
+            return $val;
+        }
+
+        parse_str($field['extra'], $arr);
+        $table = !empty($arr['table']) ? $arr['table'] : 'common_category'; // 表名
+        $value_field = !empty($arr['value_field']) ? $arr['value_field'] : 'id'; // 值对应的字段名
+        $title_field = !empty($arr['title_field']) ? $arr['title_field'] : 'title'; // 显示的内容
+
+        $valArr = wp_explode($val);
+        // 查询对应选中值对应的显示内容
+        $lists = M($table)->whereIn($value_field, $valArr)->column($title_field, $value_field);
+
+        $resArr = [];
+        foreach ($valArr as $id) {
+            $resArr[] = isset($lists[$id]) ? $lists[$id] : $id;
+        }
+        return implode(', ', $resArr);
     }
 
     protected function parsePageData($data, $model, $list_data = [], $assign = true)
@@ -772,8 +807,8 @@ class Base extends Controller
                         } elseif ($show == '复制链接') {
                             $paramArrs = $GLOBALS['get_param'];
                             unset($paramArrs['mdm']);
-                            if (!strpos($href, '#')){
-                            	$href = U($href);
+                            if (!strpos($href, '#')) {
+                                $href = U($href);
                             }
                             $valArr[] = '<a class="list_copy_link" id="copyLink_' . $original_data['id'] . '"   data-clipboard-text="' . urldecode($href) . '">' . $show . '</a>';
                         } elseif (!empty($show)) {
@@ -794,11 +829,12 @@ class Base extends Controller
                     $val = implode(' ', $valArr);
                 } elseif (!empty($g['function']) && $g['function'] != '') {
                     $val = call_user_func($g['function'], $val);
-                    $db_val != $val && $data[$name . '_db'] = $db_val;
+                    $data[$name . '_db'] = $db_val;
                 } else {
                     // get_name_by_status方法不再用，下面按字段类型自动做数据转换，不再需要人工转换
-                    $val = $this->parseDataByField($val, $field);
-                    $db_val != $val && $data[$name . '_db'] = $db_val;
+                    $valArr = $this->parseDataByField($val, $field);
+                    $val = $valArr['value'];
+                    $valArr['has_chang'] && $data[$name . '_db'] = $db_val;
                 }
 
                 $data[$name] = $val;
@@ -819,6 +855,10 @@ class Base extends Controller
         if ($dataTable === false) {
             $this->error($model['name'] . ' 的模型文件不存在');
         }
+        //以文件配置为最高优先级
+        if (is_array($model) && is_array($dataTable->config)) {
+            $model = array_merge($model, $dataTable->config);
+        }
 
         $this->assign('add_button', $dataTable->config['add_button']);
         $this->assign('del_button', $dataTable->config['del_button']);
@@ -835,7 +875,7 @@ class Base extends Controller
 
         // 读取模型数据列表
         if (empty($order) && isset($_REQUEST['order'])) {
-            $order = I('order') . ' ' . I('by');
+            $order = input('order', 'id') . ' ' . input('by', 'desc');
         }
         if ($model['name'] != 'user') {
             empty($fields) || in_array('id', $fields) || array_push($fields, 'id');

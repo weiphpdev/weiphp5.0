@@ -25,7 +25,12 @@ const msg = () => import("@/pages/shop/msg/index.vue")
 const service = () => import("@/pages/shop/service/index.vue") 
 const shop_lists = () => import("@/pages/shop/shop_list/index.vue") 
 
-
+// 活动
+import seckill from './seckill'
+import haggle from './haggle'
+import collage from './collage'
+import coupon from './coupon'
+import members from './members'
 
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter);
@@ -35,7 +40,7 @@ const routes = [
     path: '/lists',
     name: 'lists',
     component: lists,
-    meta: { keepAlive: true, isBack: false }
+    meta: { isBack: false }
   },
   {
     path: '/service',
@@ -134,9 +139,10 @@ const routes = [
     path: '/shop_lists/:id',
     name: 'shop_lists',
     component: shop_lists
-  }
+  },
+].concat([...seckill], [...haggle], [...collage], [...coupon], [...members])
 
-]
+
 
 var router = new VueRouter({
   // mode: 'history',

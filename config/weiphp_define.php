@@ -38,7 +38,7 @@ define('SITE_URL', HTTP_PREFIX . SITE_DOMAIN . __ROOT__);
 define('SITE_DIR_NAME', str_replace('.', '_', pathinfo(SITE_PATH, PATHINFO_BASENAME))); // 网站目录名，通常用于缓存，session,cookie的前缀，以防止多网站里数据冲突
 
 define('DATA_PATH', SITE_PATH . '/runtime/data/'); // 应用数据目录
-
+define('UPLOAD_PATH', SITE_PATH . '/public/uploads');
 define('SHOP_STOCK_TIME', 1800); // 商城库存锁定时间，默认30分钟
 
 define('SHOP_EVENT_TYPE', 0);

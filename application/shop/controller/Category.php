@@ -154,7 +154,7 @@ class Category extends Base
             $data['wpid'] = WPID;
             $id = $Model->insertGetId($data);
             if ($id) {
-                // D ( 'common/Keyword' )->set ( input('post.keyword'), _ADDONS, $id, input('post.keyword_type'), 'custom_reply_news' );
+                // D ( 'common/Keyword' )->set ( input('post.keyword'), MODULE_NAME, $id, input('post.keyword_type'), 'custom_reply_news' );
                 
                 $this->success('添加' . $model['title'] . '成功！', U('lists?model=' . $model['name'], $this->get_param));
             } else {

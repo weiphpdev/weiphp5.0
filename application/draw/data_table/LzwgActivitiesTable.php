@@ -19,36 +19,36 @@ class LzwgActivitiesTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '活动名称',
+          'title' => '活动名称'
       ],
       'remark' => [
-          'title' => '活动说明',
+          'title' => '活动说明'
       ],
       'logo_img' => [
           'title' => '活动LOGO',
           'function' => 'get_img_html',
-          'raw' => 1,
+          'raw' => 1
       ],
       'activitie_time' => [
-          'title' => '活动时间',
+          'title' => '活动时间'
       ],
       'get_prize_tip' => [
-          'title' => '中将提示信息',
+          'title' => '中将提示信息'
       ],
       'no_prize_tip' => [
-          'title' => '未中将提示信息',
+          'title' => '未中将提示信息'
       ],
       'comment_list' => [
-          'title' => '评论列表',
+          'title' => '评论列表'
       ],
       'set_vote' => [
-          'title' => '设置投票',
+          'title' => '设置投票'
       ],
       'set_award' => [
-          'title' => '设置奖品',
+          'title' => '设置奖品'
       ],
       'get_prize_list' => [
-          'title' => '中奖列表',
+          'title' => '中奖列表'
       ],
       'urls' => [
           'title' => '操作',
@@ -75,14 +75,14 @@ class LzwgActivitiesTable {
           'is_show' => 1
       ],
       'remark' => [
-          'title' => '活动说明',
+          'title' => '活动描述',
           'field' => 'text NULL',
           'type' => 'textarea',
           'is_show' => 1
       ],
       'logo_img' => [
           'title' => '活动LOGO',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 1
       ],
@@ -115,14 +115,16 @@ class LzwgActivitiesTable {
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '每日允许用户抽奖的机会数，小于0 为无限次',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 1
       ],
       'get_prize_count' => [
           'title' => '中奖次数',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '每用户是否允许多次中奖',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 1
       ],
       'comment_status' => [
           'title' => '评论是否需要审核',
@@ -130,7 +132,8 @@ class LzwgActivitiesTable {
           'type' => 'radio',
           'is_show' => 1,
           'extra' => '0:不审核
-1:审核'
+1:审核',
+          'value' => 0
       ],
       'ctime' => [
           'title' => '活动创建时间',

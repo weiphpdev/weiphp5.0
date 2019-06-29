@@ -19,7 +19,7 @@
 
     </div> 
     <div class="hint-page" v-else>
-      <img lazy-load src="https://leyao.tv/yi/images/null.png" alt="">
+      <img lazy-load :src="imgRoot+'null.png'" alt="">
       <p class="hint-page__text">购物车空空如也</p>
       <a href="../index/index" open-type="switchTab" class="u-button u-button--primary">随便逛逛</a>
     </div>
@@ -53,10 +53,13 @@ import Dialog from "@/../static/vant/dialog/dialog";
 // 3. 计算总价/数量
 
 export default {
-  mpType: 'page',
+  config: {
+    navigationBarTitleText: '购物车'
+  },
   components: {},
   data() {
     return {
+			imgRoot: this.imgRoot,
       carts: [],
       totalPrice: 0,
       totalCount: 0,

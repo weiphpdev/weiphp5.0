@@ -42,6 +42,6 @@ class Swiper extends base
         // dump($data); // exit;
         $this->assign($data);
         $html = $this->fetch('common@widget/swiper');
-        echo $html;
+        return $html;
     }
 }

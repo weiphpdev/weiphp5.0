@@ -48,7 +48,7 @@ class Publics extends WebBase
         if (empty($_GET['public_id'])) {
             $this->error('公众号参数非法');
         }
-        return $this->fetch('Index/help');
+        return $this->fetch('index/help');
     }
 
     /**

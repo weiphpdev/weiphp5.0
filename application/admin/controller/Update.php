@@ -15,13 +15,9 @@ class Update extends Admin {
 	public function index() {
 		// 一键升级功能的目录可写权限判断
 		$dirList = array (
-				'Apps',
-				'Plugins',
-				'Application',
-				'Public',
-				'ThinkPHP',
-				'WxpayAPI',
-				'Uploads'
+
+				'application',
+				'public',
 		);
 		$noWritable = [];
 		foreach ( $dirList as $dir ) {
@@ -430,19 +426,19 @@ class Update extends Admin {
 		switch ($info ['data'] ['type']) {
 			case 3 :
 				// 万能页面功能块
-				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application/Diy/Widget' );
+				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application/diy/Widget' );
 				break;
 			case 2 :
 				// 在线素材
-				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application/Material' );
+				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application/material' );
 				break;
 			case 2 :
 				// 微官网模板
-				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application/WeiSite/View/default' );
+				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application/wei_site/view' );
 				break;
 			default :
 				// 应用应用
-				$res = $updateClass->overWrittenFile ( SITE_PATH . '/Addons' );
+				$res = $updateClass->overWrittenFile ( SITE_PATH . '/application' );
 				if (empty ( $res )) {
 					$this->install ( $updateClass->addon_name );
 					exit ();

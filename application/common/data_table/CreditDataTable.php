@@ -19,34 +19,20 @@ class CreditDataTable {
     // 列表定义
     public $list_grid = [
       'uid' => [
-          'title' => '用户名',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '用户名'
       ],
       'credit_title' => [
-          'title' => '积分来源',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '积分来源'
       ],
       'score' => [
-          'title' => '积分',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '积分'
       ],
       'cTime' => [
-          'title' => '时间',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '时间'
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
-          'width' => '',
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '删除',
@@ -60,39 +46,39 @@ class CreditDataTable {
     public $fields = [
       'uid' => [
           'title' => '用户ID',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) NOT NULL',
           'type' => 'num',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0,
+          'is_must' => 1
       ],
       'score' => [
-          'title' => '金币值',
+          'title' => '积分值',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'credit_name' => [
-          'title' => '积分标识',
-          'field' => 'varchar(50) NULL',
+          'title' => '规则标识名',
+          'field' => 'varchar(50) NOT NULL',
           'type' => 'string',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_must' => 1
       ],
       'cTime' => [
           'title' => '记录时间',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) NOT NULL',
           'type' => 'datetime',
           'auto_rule' => 'time',
           'auto_time' => 1,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'admin_uid' => [
-          'title' => '操作者UID',
+          'title' => '操作者UID，0表示系统自动增加',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'wpid' => [
           'title' => 'wpid',
@@ -101,13 +87,12 @@ class CreditDataTable {
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
           'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'credit_title' => [
-          'title' => '积分标题',
-          'field' => 'varchar(50) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'title' => '积分描述',
+          'field' => 'varchar(100) NULL',
+          'type' => 'string'
       ]
   ];
 }

@@ -3,7 +3,7 @@
     <div class="goods"  v-for="(goodslist ,index) in goodslists" :key="index">
       <span v-if="active.name === '拼团'" class="collage_tag">{{eventinfo.member_limit}}人团</span>
       <div class="active_img">
-        <img lazy-load class="good_img" v-bind:src='goodslist.cover'/>
+        <img class="good_img" v-bind:src='goodslist.cover'/>
       </div>
       <!-- 时间 -->
       <!--<i-count-down class="active_time hide" target="eventinfo.end_time" format="myformat" clear-timer="false">-->
@@ -24,7 +24,8 @@
           </p>
         </div>
         <!--活动按钮-->
-        <a class="active-btn" :href='active.url + goodslist.id'>{{active.name}}</a>
+        <router-link class="active-btn" :to="active.url + goodslist.id" >{{active.name}}</router-link>
+        <!--<a class="active-btn" :href="active.url + goodslist.id">{{active.name}}</a>-->
       </div>
     </div>
 

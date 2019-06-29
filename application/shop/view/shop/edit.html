@@ -48,10 +48,10 @@
                           </label>
                         {/case}
                         {case value="datetime"}
-                          <input type="datetime" name="{$field.name}" class="text time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+                          <input type="datetime" autocomplete="off" name="{$field.name}" class="text time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
                         {/case}
                         {case value="date"}
-                          <input type="datetime" name="{$field.name}" class="text date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
+                          <input type="datetime" autocomplete="off" name="{$field.name}" class="text date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
                         {/case}                        
                         {case value="bool"}
                           <select name="{$field.name}">

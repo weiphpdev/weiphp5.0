@@ -432,7 +432,7 @@ class Payment extends Base
         $data['out_trade_no'] = $param['out_trade_no'];
         $data['total_fee'] = $param['total_fee'];
         $data['appid'] = $param['appid'];
-        $data['wpid'] = get_wpid();
+        $data['pbid'] = get_pbid();
         $data['openid'] = isset($param['openid']) ? $param['openid'] : '';
         $data['callback'] = $callback;
         $data['prepay_id'] = $res_data['prepay_id'];
@@ -497,7 +497,7 @@ class Payment extends Base
             $param['spbill_create_ip'] = get_server_ip();
         }
         if ($param['spbill_create_ip'] == '::1') {
-            $param['spbill_create_ip'] = '115.29.168.253';//取不到值，给个默认值，开发者可以修改成自己的服务器IP
+            $param['spbill_create_ip'] = 'localhost';//取不到值，给个默认值，开发者可以修改成自己的服务器IP
         }
 
         if (!isset($param['notify_url']) || empty($param['notify_url'])) {

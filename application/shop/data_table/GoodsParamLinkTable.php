@@ -30,7 +30,8 @@ class GoodsParamLinkTable {
       'wpid' => [
           'title' => 'wpid',
           'field' => 'int(10) NOT NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 0
       ],
       'goods_id' => [
           'title' => '商品编号',
@@ -43,6 +44,11 @@ class GoodsParamLinkTable {
           'field' => 'varchar(255) NULL',
           'type' => 'string',
           'is_show' => 1
+      ],
+      'param_name' => [
+          'title' => '参数名',
+          'field' => 'varchar(30) NULL',
+          'type' => 'string'
       ]
   ];
 }

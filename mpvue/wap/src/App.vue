@@ -25,7 +25,16 @@ export default {
       var r = window.location.search.substr(1).match(reg); 
       if (r != null) return unescape(r[2]);
       return null; 
-    }
+    },
+		getNewHost(id) {
+			var url=window.location.href;
+			var urlArr = url.split("wap/index.html");
+			var reg = new RegExp("pbid=([^&]*)(&|$)");
+			var param=urlArr[1].match(reg);
+			var get_pbid = String(param[1]).replace('#/','')
+			var root_url = urlArr[0]
+			return `${root_url}index.php?pbid=${id}&s=/`
+		}
   },
   created() {
     const _this = this;
@@ -41,7 +50,6 @@ export default {
       }
     }
 
-
     let state = window.localStorage.getItem("openid");
     document.title = window.localStorage.getItem("public_name") || "易商城"
     if (state) {
@@ -54,7 +62,7 @@ export default {
         console.log('checkLogin', data.msg)
         if (data.status == 0) {
           if ((window.location.href).indexOf('localhost') == -1) {
-            let new_host = `${window.location.origin}/yi/public/index.php?pbid=${pbid}&s=/`
+            let new_host = _this.getNewHost(pbid)
             window.localStorage.setItem('prevUrl',window.location.href)
             window.location.href = new_host + "weixin/wap/vue_login";
           }
@@ -80,7 +88,7 @@ export default {
     } else {
       if ((window.location.href).indexOf('localhost') == -1) {
         //window.location.href = host + "weixin/wap/vue_login";
-        let new_host = `${window.location.origin}/yi/public/index.php?pbid=${pbid}&s=/`
+        let new_host = _this.getNewHost(pbid)
         //alert(new_host + "weixin/wap/vue_login");
         window.localStorage.setItem('prevUrl',window.location.href)
         window.location.href = new_host + "weixin/wap/vue_login";
@@ -91,6 +99,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+	#app {
+		max-width: 750px;
+		margin: 0 auto;
+		position: relative;
+	}
 
 </style>

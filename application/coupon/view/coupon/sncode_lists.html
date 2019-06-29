@@ -8,9 +8,9 @@
         <form class="muti_search cf" style="border-top:none">
           <div style="line-height: 30px;">
           <span>扫码时间：</span>
-             <input type="datetime" name="start_time" class="search-input date input-small" value="{$start_time}" placeholder="请选择时间">
+             <input type="datetime" autocomplete="off" name="start_time" class="search-input date input-small" value="{$start_time}" placeholder="请选择时间">
              <span>至</span>
-             <input type="datetime" name="end_time" class="search-input date input-small" value="{$end_time}" placeholder="请选择时间">
+             <input type="datetime" autocomplete="off" name="end_time" class="search-input date input-small" value="{$end_time}" placeholder="请选择时间">
              <span>用户名：</span>
              <input type="text" name="search_nickname" class="search-input input-small" value="{$search_nickname}" placeholder="输入用户名">
                     {php}$param['id'] = I('id');{/php}

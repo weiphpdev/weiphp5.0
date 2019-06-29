@@ -1,4 +1,5 @@
 <?php
+
 namespace app\home\model;
 
 use app\common\model\Base;
@@ -16,7 +17,7 @@ class Weixin extends Base
     public function __construct()
     {
         $doNotInit = input('doNotInit', 0);
-        if (! empty($doNotInit)) {
+        if (!empty($doNotInit)) {
             return true;
         }
         addWeixinLog(GetCurUrl(), 'weixin_url');
@@ -28,15 +29,15 @@ class Weixin extends Base
         // <Content><![CDATA[签到]]></Content>
         // <MsgId>6582877769250820808</MsgId>
         // </xml>";
-        ! empty($content) || die('这是微信请求的接口地址，直接在浏览器里无效');
+        !empty($content) || die('这是微信请求的接口地址，直接在浏览器里无效');
         addWeixinLog($content, 'php://input');
         if (isset($_GET['encrypt_type']) && $_GET['encrypt_type'] == 'aes') {
             require_once(env('vendor_path') . 'WXBiz/wxBizMsgCrypt.php');
-            
+
             $this->sReqTimeStamp = I('timestamp');
             $this->sReqNonce = I('nonce');
             $this->sEncryptMsg = I('msg_signature');
-            
+
             if (isset($_GET['appid'])) {
                 if ($_GET['appid'] == 'wx570bc396a51b8ff8') {
                     $info['public_id'] = 'gh_3c884a361561';
@@ -50,16 +51,16 @@ class Weixin extends Base
                     }
                 }
             } else {
-                $id = I('id',0);
-                if (empty($id)){
-                	$id=I('pbid',0);
+                $id = I('id', 0);
+                if (empty($id)) {
+                    $id = I('pbid', 0);
                 }
                 $info = D('common/Publics')->getInfo($id);
             }
             addWeixinLog($info, 'public_info');
-            
+
             $this->wxcpt = new \WXBizMsgCrypt(SYSTEM_TOKEN, $info['encodingaeskey'], $info['appid']);
-            
+
             $sMsg = ""; // 解析之后的明文
             $errCode = $this->wxcpt->decryptMsg($this->sEncryptMsg, $this->sReqTimeStamp, $this->sReqNonce, $content, $sMsg);
             if ($errCode != 0) {
@@ -71,7 +72,7 @@ class Weixin extends Base
                 $content = $sMsg;
             }
         }
-        
+
         $data = new \SimpleXMLElement($content);
         // $data || die ( '参数获取失败' );
         foreach ($data as $key => $value) {
@@ -133,8 +134,8 @@ class Weixin extends Base
     public function replyNews($articles)
     {
         $msg['ArticleCount'] = count($articles);
-        
-        if (! config('USER_OAUTH')) {
+
+        if (!config('USER_OAUTH')) {
             $openid = get_openid();
             foreach ($articles as &$vo) {
                 $vo['Url'] .= '&openid=' . $openid;
@@ -144,6 +145,12 @@ class Weixin extends Base
         $this->replyData($msg, 'news');
     }
 
+    // 转人工客服
+    public function transferCustomer()
+    {
+        $this->replyData([], 'transfer_customer_service');
+    }
+
     /* 发送回复消息到微信平台 */
     private function replyData($msg, $msgType)
     {
@@ -151,18 +158,18 @@ class Weixin extends Base
         $msg['FromUserName'] = $this->data['ToUserName'];
         $msg['CreateTime'] = NOW_TIME;
         $msg['MsgType'] = $msgType;
-        
+
         if (isset($_REQUEST['doNotInit']) && $_REQUEST['doNotInit']) {
             // dump ( $msg );
             exit();
         }
-        
+
         header("Content-type:text/xml");
         // $str = ToXml($msg);
         $xml = new \SimpleXMLElement('<xml></xml>');
         $this->_data2xml($xml, $msg);
         $str = $xml->asXML();
-        
+
         // 记录日志
         addWeixinLog($str, 'replyData');
         if (isset($_GET['encrypt_type']) && $_GET['encrypt_type'] == 'aes') {
@@ -174,7 +181,7 @@ class Weixin extends Base
                 addWeixinLog($str, "EncryptMsg Error: " . $errCode);
             }
         }
-        echo ($str);
+        echo($str);
         // exit();
     }
 
@@ -204,7 +211,7 @@ class Weixin extends Base
     {
         $post_data['type'] = $type; // 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
         $post_data['media'] = $file;
-        
+
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=$acctoken&type=image";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -214,7 +221,7 @@ class Weixin extends Base
         curl_exec($ch);
         $result = ob_get_contents();
         ob_end_clean();
-        
+
         return $result;
     }
 
@@ -312,7 +319,7 @@ class Weixin extends Base
         $param = [];
         $param['wpid'] = get_wpid();
         $param['openid'] = get_openid();
-        
+
         $sreach = array(
             '[follow]',
             '[website]',
@@ -334,7 +341,7 @@ class Weixin extends Base
                 foreach ($appMsgData as $vo) {
                     // 文章内容
                     if ($vo['title']) {
-                    	$art=[];
+                        $art = [];
                         $art['Title'] = $vo['title'];
                         $art['Description'] = $vo['intro'];
                         if (empty($vo['url'])) {
@@ -351,17 +358,17 @@ class Weixin extends Base
                         } else {
                             $art['Url'] = $vo['url'];
                         }
-                        
-                        if (! config('USER_OAUTH')) {
+
+                        if (!config('USER_OAUTH')) {
                             $art['Url'] .= '&openid=' . $param['openid'];
                         }
-                        
+
                         // 获取封面图片URL
                         $art['PicUrl'] = get_cover_url($vo['cover_id']);
                         $articles[] = $art;
                     }
                 }
-                if (! empty($articles)) {
+                if (!empty($articles)) {
 //                 	addWeixinLog($articles,'autoreplay_'.$config['appmsg_id']);
                     $this->replyNews($articles);
                 } else {
@@ -370,7 +377,7 @@ class Weixin extends Base
                 break;
             case '2':
                 $images = M('material_image')->find($config['image_id']);
-                if (! empty($images)) {
+                if (!empty($images)) {
                     $media_id = '';
                     if ($images['media_id']) {
                         $media_id = $images['media_id'];
@@ -389,7 +396,7 @@ class Weixin extends Base
             case '4':
                 // 语音
                 $voice = M('material_file')->find($config['voice_id']);
-                if (! empty($voice)) {
+                if (!empty($voice)) {
                     $media_id = '';
                     if ($voice['media_id']) {
                         $media_id = $voice['media_id'];
@@ -408,14 +415,14 @@ class Weixin extends Base
             case '5':
                 // 视频
                 $video = M('material_file')->find($config['video_id']);
-                if (! empty($video)) {
+                if (!empty($video)) {
                     $media_id = '';
-                    
+
                     if ($video['media_id']) {
                         $media_id = $video['media_id'];
                     } elseif ($video['file_id']) {
                         $media_id = D('common/Custom')->get_file_media_id($video['file_id'], 'video');
-                        if (! empty($media_id)) {
+                        if (!empty($media_id)) {
                             M('material_file')->where('id', $config['video_id'])->setField('media_id', $media_id);
                         }
                     }

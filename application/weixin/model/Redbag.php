@@ -115,7 +115,7 @@ class Redbag extends Base
         
         if (! $cron) { // 红包马上下发
             $recode['id'] = $id;
-            $res = $this->send_redbag($recode, false);
+            $res = $this->do_send($recode, false);
             return $res;
         } else {
             $return['status'] = 1;
@@ -217,6 +217,7 @@ class Redbag extends Base
         }
         // 获取证书路径
         $useCert = get_cert_pem($config);
+
         if (empty($useCert)) {
             $return['msg'] = '证书获取失败';
             $this->update_recode($recode['id'], $return['msg']);
@@ -260,7 +261,7 @@ class Redbag extends Base
             return $return;
         }
         // 有些状态不能重发
-        if (isset($recode['status']) && ! in_array($recode['status'], [
+        if (isset($recode['status']) && ! in_array($recode['status'], [0,
             1,
             2,
             4

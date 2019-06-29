@@ -277,8 +277,14 @@ class ApiServer extends ApiBase
         if (! $ids) {
             return $this->api_error('订单ID不为空');
         }
-        
-        D('shop/Order')->whereIn('id', $ids)->setField('notice_erp', 0);
+        $save ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
+        $save ['notice_erp'] = 0;
+        $res =D('shop/Order')->whereIn('id', $ids)->update($save);
+        if ($res){
+        	foreach ($ids as $id){
+        		D('shop/Order')->getInfo($id,true);
+        	}
+        }
         return $this->api_success([]);
     }
 }

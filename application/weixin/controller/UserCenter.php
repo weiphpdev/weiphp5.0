@@ -154,7 +154,11 @@ class UserCenter extends WebBase
         foreach ($list_data['list_data'] as $k => $d) {
             $user = getUserInfo($d['uid']);
             $user['openid'] = $d['openid'];
-            $user['group'] = isset($user['groups']) ? implode(', ', getSubByKey($user['groups'], 'title')) : '';
+            if (!empty($user['in_blacklist'])){
+            	$user['group'] = '黑名单';
+            }else{
+            	$user['group'] = !empty($user['groups']) ? implode(', ', getSubByKey($user['groups'], 'title')) : '未分组';
+            }
             $list_data['list_data'][$k] = array_merge($d, $user);
         }
         
@@ -196,14 +200,19 @@ class UserCenter extends WebBase
     {
         $uid = I('uid');
         $userInfo = getUserInfo($uid);
-        // dump($userInfo);
-        $strgroup = '';
-        foreach ($userInfo['groups'] as $v) {
-            $strgroup .= $v['title'] . ',';
+        if (!empty($userInfo['in_blacklist'])){
+        	$userInfo['groupstr'] ='黑名单';
+        }else{
+        	// dump($userInfo);
+        	$strgroup = '';
+        	foreach ($userInfo['groups'] as $v) {
+        		$strgroup .= $v['title'] . ',';
+        	}
+        	$len = strlen($strgroup) - 1;
+        	$str = substr($strgroup, 0, $len);
+        	$userInfo['groupstr'] = $str;
         }
-        $len = strlen($strgroup) - 1;
-        $str = substr($strgroup, 0, $len);
-        $userInfo['groupstr'] = $str;
+       
         
         $userInfo['openid'] = isset($userInfo['pbids'][PBID]) ? $userInfo['pbids'][PBID] : '';
         
@@ -531,7 +540,8 @@ class UserCenter extends WebBase
             );
             $openids[] = $vo['openid'];
             $uids[$vo['openid']] = $vo['uid'];
-        }
+        } 
+    	
         // 先把关注状态设置未关注
         $map2['openid'] = array(
             'in',
@@ -541,6 +551,7 @@ class UserCenter extends WebBase
         
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=' . get_access_token();
         $data = post_data($url, $param);
+        
         $userDao = D('common/User');
         $config = getAddonConfig('UserCenter');
         isset($config['score']) || $config['score'] = 0;
@@ -554,6 +565,7 @@ class UserCenter extends WebBase
             foreach ($param['user_list'] as $p) {
                 $single_url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=' . get_access_token() . '&openid=' . $p['openid'] . '&lang=zh_CN';
                 $tempArr = json_decode(wp_file_get_contents($single_url), true);
+                $tempArr['tagid_list']=isset($tempArr['tagid_list'])?json_encode($tempArr['tagid_list']):'';
                 if (empty($tempArr)) {
                     $tempArr = outputCurl($single_url);
                     $tempArr = json_decode($tempArr, true);
@@ -562,6 +574,7 @@ class UserCenter extends WebBase
                 if (empty($tempArr)){
                 	continue;
                 }
+                if (isset($tempArr))
                 $uid = isset($uids[$tempArr['openid']])?intval($uids[$tempArr['openid']]):0;
                 if ($uid == 0) { // 新增加的用户
                     $tempArr['score'] = intval($config['score']);
@@ -578,6 +591,7 @@ class UserCenter extends WebBase
                     $userDao->updateInfo($uid, $tempArr);
                 }
             }
+            
             M('public_follow')->where(wp_where($map2))->setField('syc_status', 1);
             return $this->jump(U('syc_user'), '同步用户数据中，请勿关闭');
         }
@@ -587,7 +601,7 @@ class UserCenter extends WebBase
             if ($u['subscribe'] == 0) {
                 continue;
             }
-            
+            $u['tagid_list']=isset($u['tagid_list'])?json_encode($u['tagid_list']):'';
             $uid = intval($uids[$u['openid']]);
             if ($uid == 0) { // 新增加的用户
                 $u['score'] = intval($config['score']);
@@ -621,19 +635,39 @@ class UserCenter extends WebBase
             'gt',
             0
         );
+        
+        
         $uids = M('public_follow')->where(wp_where($map))
             ->limit(100)
             ->column('uid');
         
         if (empty($uids)) {
-            return $this->jump(U('lists'), '用户分组信息同步完毕');
+        	$model = $this->getModel('user');
+        	$obj = D('common/Models')->getFileInfo($model);
+        	if (isset($obj->fields['in_blacklist'])){
+        		return $this->jump(U('syc_blacklist'), '用户分组信息同步完毕');
+        	}else{
+        		return $this->jump(U('lists'), '用户分组信息同步完毕');
+        	}
+            
         }
         
-        $list = M('user')->whereIn('uid', $uids)
+       /*  $list = M('user')->whereIn('uid', $uids)
             ->field('uid,groupid')
             ->select();
         foreach ($list as $vo) {
             $userArr[$vo['uid']] = $vo['groupid'];
+        } */
+        $list = M('user')->whereIn('uid', $uids)->select();
+        foreach ($list as $vo) {
+        	if (isset($vo['tagid_list'])){
+        		$userArr[$vo['uid']] = json_decode($vo['tagid_list'],true);
+        		if (empty($userArr[$vo['uid']])){
+        			$userArr[$vo['uid']][]=0;
+        		}
+        	}else{
+        		$userArr[$vo['uid']] = [$vo['groupid']];
+        	}
         }
         
 //         $auth_map['manager_id'] = $this->mid;
@@ -648,16 +682,31 @@ class UserCenter extends WebBase
         
         M('auth_group_access')->whereIn('uid', $uids)->delete();
         
-        $list = M('auth_group_access')->whereIn('uid', $uids)->select();
+       $access = [];
+       /*  $list = M('auth_group_access')->whereIn('uid', $uids)->select();
         
-        $access = [];
         foreach ($list as $vo) {
             $access[$vo['uid']] = $vo['group_id'];
-        }
+        } */
         
         foreach ($uids as $uid) {
-            $new_groupid = isset($userArr[$uid]) ? $userArr[$uid] : 0;
-            $access_id = isset($access[$uid]) ? $access[$uid] : 0;
+        	//微信标签id
+            $new_groupid = isset($userArr[$uid]) ? $userArr[$uid] : [];
+            foreach ($new_groupid as $gid){
+            	if (isset($access[$uid]) && in_array($gid, $access[$uid]) ) {
+            		//保存过了不再保存
+            		continue;
+            	}
+            	$save=[];
+            	$save['uid']=$uid;
+            	$save['group_id'] = isset($wechatArr[$gid]) ? $wechatArr[$gid] : 0;
+            	$res = M('auth_group_access')->insert($save);
+            	if ($res){
+            		$access[$uid][] =$gid;
+            	}
+            }
+            
+           /*  $access_id = isset($access[$uid]) ? $access[$uid] : 0;
             $old_groupid = isset($groupArr[$access_id]) ? $groupArr[$access_id] : 0;
             
             if (isset($access[$uid]) && $new_groupid == $old_groupid) {
@@ -671,7 +720,7 @@ class UserCenter extends WebBase
             } else {
                 $save['uid'] = $uid;
                 $access[$uid] = M('auth_group_access')->insertGetId($save);
-            }
+            } */
             D('common/User')->getUserInfo($uid,true);
         }
         M('public_follow')->where(wp_where($map2))
@@ -679,6 +728,90 @@ class UserCenter extends WebBase
             ->setField('syc_status', 2);
         
         return $this->jump(U('syc_user_group?uid=' . $uid), '用户分组信息同步中，请勿关闭');
+    }
+    //第四步：同步黑名单用户
+    function syc_blacklist()
+    {
+    	$map['pbid']  = get_pbid();
+    
+    	$next_openid = I('next_openid');
+    	$param=[];
+    	if ($next_openid){
+    		$param['begin_openid']=$next_openid;
+    	}
+    	// 获取openid列表
+    	$url = 'https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=' . get_access_token() ;
+    	$data = post_data($url, $param);
+    
+    	if (! isset($data['count']) || $data['count'] == 0 ) {
+    		// 拉取完毕
+    		return $this->jump(U('lists'), '用户信息同步完毕');
+    	}
+    
+    	$map['openid'] = array(
+    			'in',
+    			$data['data']['openid']
+    	);
+    	
+    	$uids = M('public_follow')->where(wp_where($map))->column('uid');
+    	if (!empty($uids)) {
+    		$uDao=D('common/User');
+    		foreach ($uids as $uid){
+    			$save['in_blacklist']=1;
+    			$uDao->updateInfo($uid,$save);
+    		}
+    	}
+    	if ($data['count'] == 1 && $data['data']['openid'][0] == $data['next_openid']){
+    		return $this->jump(U('lists'), '用户信息同步完毕');
+    	}else{
+    		$param2['next_openid'] = $data['next_openid'];
+    		$url = U('syc_blacklist', $param2);
+    		return $this->jump($url, '同步黑名单用户，请勿关闭');
+    	}
+    	
+    }
+    //移出黑名单
+    function outbacklist(){
+    	$uid = I('uid',0);
+    	$openid=I('bopenid','');
+    	if (empty($openid) || empty($uid)){
+    		$this->error('用户信息出错！');
+    	}
+    	$url='https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token='.get_access_token();
+    	$param['openid_list']=[$openid];
+    	$res = post_data($url, $param);
+    	if (isset($res['errcode']) && $res['errcode']===0){
+    		$save['in_blacklist']=0;
+    		D('common/User')->updateInfo($uid,$save);
+    		$this->success('设置成功');
+    	}else{
+    		$this->error('设置失败');
+    	}
+    }
+    //加入黑名单
+    function addblacklist(){
+    	$uids = array_unique((array) I('ids', 0));
+    	if (empty($uids)) {
+    		$this->error('请选择用户!');
+    	}
+    	$map['pbid']=get_pbid();
+    	$map['uid']=array('in',$uids);
+    	$openids = M('public_follow')->where(wp_where($map))->column('openid');
+    	$url='https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token='.get_access_token();
+    	if (empty($openids)){
+    		$this->error('用户信息出错');
+    	}
+    	$param['openid_list']=$openids;
+    	$res = post_data($url, $param);
+    	if (isset($res['errcode']) && $res['errcode']===0){
+    		foreach ($uids as $uid) {
+    			$save['in_blacklist']=1;
+    			D('common/User')->updateInfo($uid,$save);
+    		}
+    		$this->success('设置成功');
+    	}else{
+    		$this->error('设置失败');
+    	}
     }
 
     function set_remark()

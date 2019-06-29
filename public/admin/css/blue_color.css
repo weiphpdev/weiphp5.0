@@ -391,7 +391,16 @@ select {
 	color: #414141;
     background: url(../images/subnav_current.png) no-repeat 165px 12px #f6f6f6;
 }
-
+.side-sub-menu > .current > .item,
+.side-sub-menu > .hover > .item {
+    color: #414141;
+}
+.side-sub-menu > .current > .item,
+.side-sub-menu > .current > .item:hover {
+	/* 高亮导航 */
+	color: #414141;
+    background: url(../images/subnav_current.png) no-repeat 165px 12px #f6f6f6;
+}
 /* windows开始菜单式子菜单 */
 .side-sub-menu li .subitem {
     border-color: #ccc;

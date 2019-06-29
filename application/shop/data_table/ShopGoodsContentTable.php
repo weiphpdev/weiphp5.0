@@ -26,15 +26,13 @@ class ShopGoodsContentTable {
           'type' => 'num',
           'field' => 'int(10) NOT NULL',
           'is_show' => 1,
-          'is_must' => 1,
-          'placeholder' => '请输入内容'
+          'is_must' => 1
       ],
       'content' => [
           'title' => '内容',
           'type' => 'textarea',
           'field' => 'text NULL',
-          'is_show' => 1,
-          'is_must' => 0
+          'is_show' => 1
       ]
   ];
 }

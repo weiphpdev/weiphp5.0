@@ -10,7 +10,7 @@
 namespace app\admin\model;
 use app\common\model\Base;
 
-use Think\Upload;
+use think\Upload;
 
 /**
  * 图片模型

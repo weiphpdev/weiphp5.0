@@ -25,29 +25,25 @@ class ShopTrackTable {
           'title' => 'uid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'goods_id' => [
           'title' => 'goods_id',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'create_at' => [
           'title' => 'create_at',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'is_must' => 0
+          'is_show' => 1
       ]
   ];
 }

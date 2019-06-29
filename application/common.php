@@ -149,10 +149,6 @@ function S($name, $value = '', $options = null)
     return cache($name, $value, $options);
 }
 
-// OneThink常量定义
-const ONETHINK_PLUGIN_PATH = './Plugins/';
-
-// 系统插件
 /**
  * 系统公共库文件
  * 主要定义系统公共函数库
@@ -387,7 +383,7 @@ function msubstr_local($str, $start = 0, $length, $charset = "utf-8")
  */
 function think_encrypt($data, $key = '', $expire = 0)
 {
-    $key = md5(empty($key) ? config('DATA_AUTH_KEY') : $key);
+    $key = md5(empty($key) ? config('database.data_auth_key') : $key);
 
     $data = base64_encode($data);
     $x = 0;
@@ -431,7 +427,7 @@ function think_encrypt($data, $key = '', $expire = 0)
  */
 function think_decrypt($data, $key = '')
 {
-    $key = md5(empty($key) ? config('DATA_AUTH_KEY') : $key);
+    $key = md5(empty($key) ? config('database.data_auth_key') : $key);
     $data = str_replace(array(
         '-',
         '_'
@@ -554,17 +550,17 @@ function list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root 
         // 创建基于主键的数组引用
         $refer = [];
         foreach ($list as $key => $data) {
-            $refer[$data[$pk]] = &$list[$key];
+            $refer[$data[$pk]] = $data;
         }
         foreach ($list as $key => $data) {
             // 判断是否存在parent
             $parentId = $data[$pid];
             if ($root == $parentId) {
-                $tree[] = &$list[$key];
+                $tree[] = $list[$key];
             } else {
                 if (isset($refer[$parentId])) {
-                    $parent = &$refer[$parentId];
-                    $parent[$child][] = &$list[$key];
+                    $parent = $refer[$parentId];
+                    $parent[$child][] = $list[$key];
                 }
             }
         }
@@ -592,11 +588,11 @@ function tree_to_list($tree, $child = '_child', $order = 'id', &$list = [])
         $refer = [];
         foreach ($tree as $key => $value) {
             $reffer = $value;
-            if (isset($reffer[$child])) {
-                unset($reffer[$child]);
-                tree_to_list($value[$child], $child, $order, $list);
+            if (isset($reffer [$child])) {
+                unset($reffer [$child]);
+                tree_to_list($value [$child], $child, $order, $list);
             }
-            $list[] = $reffer;
+            $list [] = $reffer;
         }
         $list = list_sort_by($list, $order, $sortby = 'asc');
     }
@@ -684,19 +680,6 @@ function get_redirect_url()
     return empty($url) ? __APP__ : $url;
 }
 
-/**
- * 处理插件钩子
- *
- * @param string $hook
- *            钩子名称
- * @param mixed $params
- *            传入参数
- * @return void
- */
-function hook($hook, $params = [])
-{
-    // \think\facade\Hook ::listen ( $hook, $params );
-}
 
 /**
  * 获取插件类的类名
@@ -873,7 +856,7 @@ function getUserInfo($uid, $field = '')
     if (isset($info[$field])) {
         return $info[$field];
     } else {
-        return false;
+        return '';
     }
 }
 
@@ -1362,6 +1345,9 @@ function get_cover($cover_id, $field = null)
 
 function get_cover_url($cover_id, $width = '', $height = '')
 {
+    if (!is_numeric($cover_id)) {
+        return $cover_id;
+    }
     $info = get_cover($cover_id);
     if ($width || $height) {
         $path = '';
@@ -1389,6 +1375,14 @@ function get_cover_url($cover_id, $width = '', $height = '')
         $url = str_replace('public./', '', $url);
         return $url;
     }
+}
+
+function get_covers_url($data)
+{
+    foreach ($data as $k => $d) {
+        $data[$k]['cover'] = get_cover_url($d['cover']);
+    }
+    return $data;
 }
 
 function get_square_url($cover_id, $width = '')
@@ -1484,7 +1478,7 @@ function get_file_html($id)
     }
 
     $url = $info['url'];
-    return "<a href='{$url}' >{$info['name']}</a>";
+    return "<a href='{$url}' target='_blank' title='{$info['name']}'>{$info['name']}</a>";
 }
 
 /**
@@ -1560,28 +1554,6 @@ function keyword_unique($keyword)
     return empty($info);
 }
 
-// 分析枚举类型配置值 格式 a:名称1,b:名称2
-// weiphp 该函数是从admin的function的文件里提取这到里
-function parse_config_attr($string)
-{
-    $array = preg_split('/[\s;\r\n]+/', trim($string, ",;\s
-"));
-    if (strpos($string, ':')) {
-        $value = [];
-        foreach ($array as $val) {
-            list ($k, $v) = explode(':', $val);
-            $value[$k] = $v;
-        }
-    } else {
-        $value = $array;
-    }
-    foreach ($value as &$vo) {
-        $vo = clean_hide_attr($vo);
-    }
-    // dump($value);
-    return $value;
-}
-
 function clean_hide_attr($str)
 {
     $arr = explode('|', $str);
@@ -1595,10 +1567,9 @@ function get_hide_attr($str)
 }
 
 // 分析枚举类型字段值 格式 a:名称1,b:名称2
-// 暂时和 parse_config_attr功能相同
-// 但请不要互相使用，后期会调整
 function parse_field_attr($string)
 {
+    $string = str_replace('：', ':', $string);
     if (0 === strpos($string, ':')) {
         // 采用函数定义
         return eval(substr($string, 1) . ';');
@@ -1619,7 +1590,6 @@ function parse_field_attr($string)
     // dump($value);
     return $value;
 }
-
 /**
  * 取一个二维数组中的每个数组的固定的键知道的值来形成一个新的一维数组
  *
@@ -1919,7 +1889,7 @@ function OAuthWeixin($callback, $pbid = '', $is_return = false)
         return $is_return ? -2 : redirect($callback . 'openid=-2');
     }
     $param['appid'] = $info['appid'];
-    $_GET['state'] = I('state','');
+    $_GET['state'] = I('state', '');
     if (!isset($_GET['state']) || $_GET['state'] != 'weiphp') {
         $param['redirect_uri'] = $callback;
         $param['response_type'] = 'code';
@@ -2247,7 +2217,7 @@ function StringToArray($str)
  * @param int $admin_uid
  *            管理员UID，用于管理员给用户手工加积分时的场景
  */
-function add_credit($name, $param = [], $lock_time = 5, $admin_uid = 0)
+function add_credit($name, $param = [], $lock_time = 5, $admin_uid = 0, $uid = 0)
 {
     if (empty($name)) {
         return false;
@@ -2264,6 +2234,7 @@ function add_credit($name, $param = [], $lock_time = 5, $admin_uid = 0)
 
     $data['credit_name'] = $name;
     $data['admin_uid'] = $admin_uid;
+    $uid > 0 && $data ['uid'] = $uid;
     $data = array_merge($data, $param);
 
     $credit = D('common/Credit')->addCredit($data);
@@ -2286,22 +2257,11 @@ function add_money($uid, $money, $log = [])
     if (empty($uid) || empty($money)) {
         return false;
     }
-	if (!is_install('card')){
-		return false;
-	}
+    if (!is_install('card')) {
+        return false;
+    }
 
     return D('Card/Card')->addMoney($uid, $money, $log);
-}
-
-// 判断用户最大可创建的公众号数
-function getPublicMax($uid)
-{
-    $map['uid'] = $uid;
-    $public_count = M('user')->where(wp_where($map))->value('public_count');
-    if ($public_count === null) {
-        $public_count = config('DEFAULT_PUBLIC_CREATE_MAX_NUMB');
-    }
-    return intval($public_count);
 }
 
 function diyPage($keyword)
@@ -2493,21 +2453,6 @@ function get_lecturer_name($lecturer_id)
     return $_lecturer_name[$lecturer_id];
 }
 
-function check_TOKEN_purview($table, $id, $field = 'wpid')
-{
-    $wpid = get_wpid();
-    $map['id'] = $id;
-    $info = M($table)->where(wp_where($map))
-        ->field($field)
-        ->find();
-    if ($info === false || $info[$field] == $wpid) {
-        return true;
-    }
-    // 没有这个字段或者没有这个记录直接返回
-
-    exit('非法访问');
-}
-
 // weiphp专用分割函数，同时支持常见的按空格、逗号、分号、换行进行分割
 function wp_explode($string, $delimiter = "\s,;\r\n")
 {
@@ -2517,7 +2462,7 @@ function wp_explode($string, $delimiter = "\s,;\r\n")
 
     // 转换中文符号
     // $string = iconv ( 'utf-8', 'gbk', $string );
-    // $string = preg_replace ( '/\xa3([\xa1-\xfe])/e', 'chr(ord(\1)-0x80)', $string );
+    // $string = preg_replace_callback  ( '/\xa3([\xa1-\xfe])',  function($r) { return chr(ord(\1)-0x80);}, $string );
     // $string = iconv ( 'gbk', 'utf-8', $string );
 
     $arr = preg_split('/[' . $delimiter . ']+/', $string);
@@ -2662,7 +2607,7 @@ function importFormExcel($attach_id, $column, $dateColumn = [])
         $res['data'] = '上传文件ID无效！';
         return $res;
     }
-    $file = M('file')->where('id=' . $attach_id)->find();
+    $file = M('file')->where('id', $attach_id)->find();
     $root = config('DOWNLOAD_UPLOAD.rootPath');
     $filename = SITE_PATH . '/public/uploads/download/' . $file['savepath'] . $file['savename'];
     trace($filename, 'error');
@@ -2810,6 +2755,7 @@ function get_rand_char($length = 6)
     $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     $strLength = 61;
 
+    $res = '';
     for ($i = 0; $i < $length; $i++) {
         $res .= $str[rand(0, $strLength)];
     }
@@ -2988,21 +2934,19 @@ function makeKeyVal($list, $val = 'title', $key = 'id')
  */
 function isMobile()
 {
+    if (isset($_GET['mobile']) && $_GET['mobile'] == 'yes') {
+        return true;
+    }
+    if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+        return false;
+    }
     $mobile = [];
     static $mobilebrowser_list = 'Mobile|iPhone|Android|WAP|NetFront|JAVA|OperasMini|UCWEB|WindowssCE|Symbian|Series|webOS|SonyEricsson|Sony|BlackBerry|Cellphone|dopod|Nokia|samsung|PalmSource|Xphone|Xda|Smartphone|PIEPlus|MEIZU|MIDP|CLDC';
     // note 获取手机浏览器
     if (preg_match("/$mobilebrowser_list/i", $_SERVER['HTTP_USER_AGENT'], $mobile)) {
         return true;
     } else {
-        if (preg_match('/(mozilla|chrome|safari|opera|m3gate|winwap|openwave)/i', $_SERVER['HTTP_USER_AGENT'])) {
-            return false;
-        } else {
-            if ($_GET['mobile'] === 'yes') {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return false;
     }
 }
 
@@ -3091,7 +3035,7 @@ function copydir($strSrcDir, $strDstDir)
         }
     }
     while (false !== ($file = readdir($dir))) {
-        if ($file == '.' || $file == '..' || $file == '.svn' || $file == '.DS_Store' || $file == '__MACOSX' || $file == 'Thumbs.db' || $file == 'info.php') {
+        if ($file == '.' || $file == '..' || $file == '.svn' || $file == '.DS_Store' || $file == '__MACOSX' || $file == 'Thumbs.db' || $file == 'Thumbs.db' || $file == 'info.php') {
             continue;
         }
         if (is_dir($strSrcDir . '/' . $file)) {
@@ -3111,9 +3055,9 @@ function copydir($strSrcDir, $strDstDir)
 /**
  * 获取插件的配置数组
  */
-function getAddonConfig($name, $wpid = '')
+function getAddonConfig($name, $pbid = 0)
 {
-    return D('common/PublicConfig')->getConfig($name, '', $wpid);
+    return D('common/PublicConfig')->getConfig($name, '', $pbid);
 }
 
 // 删除目录及目录下的所有子目录和文件
@@ -3474,8 +3418,7 @@ function parseComment($comment, $file = 'lzwg', $width = '40')
 function think_weiphp_md5($str, $key = '')
 {
     if (empty($key)) {
-        $conf = config('database.');
-        $key = $conf['data_auth_key'];
+        $key = config('database.data_auth_key');
     }
     return '' === $str ? '' : md5(sha1($str) . $key);
 }
@@ -3726,6 +3669,8 @@ function down_media($media_id)
     $picContent = wp_file_get_contents($url);
     $picjson = json_decode($picContent, true);
     if (isset($picjson['errcode']) && $picjson['errcode'] != 0) {
+        file_log($url, 'down_media');
+        file_log($picjson, 'down_media');
         return 0;
     }
 
@@ -3748,7 +3693,7 @@ function down_media($media_id)
         $Picture = D('home/Picture');
         $pic_driver = config('PICTURE_UPLOAD_DRIVER');
         $files = request()->file();
-        $info = $Picture->upload($files, config('PICTURE_UPLOAD'), config('PICTURE_UPLOAD_DRIVER'), config("UPLOAD_{$pic_driver}_CONFIG"));
+        $info = $Picture->upload($files, config('PICTURE_UPLOAD'), config('PICTURE_UPLOAD_DRIVER'), config("UPLOAD_{$pic_driver}_CONFIG"), true);
         $cover_id = $info['download']['id'];
         @unlink($picPath);
     }
@@ -3774,8 +3719,7 @@ function upload_media($path, $type = 'image')
 
     $res = post_data($url, $param, 'file');
     if (isset($res['errcode']) && $res['errcode'] != 0) {
-        $this->error(error_msg($res, '图片上传'));
-        exit();
+        return error_msg($res, '图片上传');
     }
     return $res['media_id'];
 }
@@ -3783,7 +3727,7 @@ function upload_media($path, $type = 'image')
 // 下载永久素材
 function do_down_image($media_id, $picUrl = '')
 {
-    $savePath = SITE_PATH . '/public/uploads/picture/' . time_format(NOW_TIME, 'Y-m-d');
+    $savePath = SITE_PATH . '/public/uploads/picture/' . time_format(NOW_TIME, 'Ymd');
     mkdirs($savePath);
     if (empty($picUrl)) {
         // 获取图片URL
@@ -3811,6 +3755,7 @@ function do_down_image($media_id, $picUrl = '')
         if (!$res) {
             // $this->error ( '远程图片下载失败' );
             // exit ();
+            file_log($picUrl . ': 远程图片下载失败', 'do_down_image');
             return 0;
             exit();
         }
@@ -3831,7 +3776,7 @@ function do_down_image($media_id, $picUrl = '')
         $Picture = D('home/Picture');
         $pic_driver = config('PICTURE_UPLOAD_DRIVER');
         $files = request()->file();
-        $info = $Picture->upload($files, config('PICTURE_UPLOAD'), config('PICTURE_UPLOAD_DRIVER'), config("UPLOAD_{$pic_driver}_CONFIG"));
+        $info = $Picture->upload($files, config('PICTURE_UPLOAD'), config('PICTURE_UPLOAD_DRIVER'), config("UPLOAD_{$pic_driver}_CONFIG"), true);
         $cover_id = $info['download']['id'];
         @unlink($picPath);
     }
@@ -3874,7 +3819,7 @@ function down_file_media($media_id, $type = 'voice')
         );
         $File = D('home/File');
         $file_driver = config('DOWNLOAD_UPLOAD_DRIVER');
-        $info = $File->upload($_FILES, config('DOWNLOAD_UPLOAD'), config('DOWNLOAD_UPLOAD_DRIVER'), config("UPLOAD_{$file_driver}_CONFIG"));
+        $info = $File->upload($_FILES, config('DOWNLOAD_UPLOAD'), config('DOWNLOAD_UPLOAD_DRIVER'), config("UPLOAD_{$file_driver}_CONFIG"), true);
         $cover_id = $info['download']['id'];
         @unlink($picPath);
     }
@@ -3928,7 +3873,7 @@ function parseHtmlemoji($text)
     }
     foreach ($rs[1] as $v) {
         $test_iphone = '0x' . trim(strtoupper($v));
-        $test_iphone = $test_iphone + 0;
+        $test_iphone = intval($test_iphone);
         $utbytes = utf8_bytes($test_iphone);
         $emji = emoji_softbank_to_unified($utbytes);
         $t = emoji_unified_to_html($emji);
@@ -4274,12 +4219,12 @@ function parse_name($name, $type = 0)
 //给parse_name定义别名，好理解些
 function parse_name_upper($name)
 {
-    return parse_name($name, 0);
+    return parse_name($name, 1);
 }
 
 function parse_name_lower($name)
 {
-    return parse_name($name, 1);
+    return parse_name($name, 0);
 }
 
 /*
@@ -4486,10 +4431,15 @@ function add_debug_log($data, $data_post = '')
 {
     $log['cTime'] = time();
     $log['cTime_format'] = date('Y-m-d H:i:s', $log['cTime']);
-    $log['data'] = is_array($data) ? serialize($data) : $data;
-    $log['data_post'] = is_array($data_post) ? serialize($data_post) : $data_post;
+    $log['data'] = is_array($data) ? json_encode($data) : $data;
+    $log['data_post'] = is_array($data_post) ? json_encode($data_post) : $data_post;
+    try {
+        M('debug_log')->insert($log);
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
 
-    M('debug_log')->insert($log);
 }
 
 function addWeixinLog($data, $data_post = '')
@@ -4503,14 +4453,14 @@ function addWeixinLog($data, $data_post = '')
  * @param 文件信息数组 $files
  *            ，通常是 $_FILES数组
  */
-function upload_files($setting = '', $driver = '', $config = '', $type = 'picture')
+function upload_files($setting = '', $driver = '', $config = '', $type = 'picture', $isTest = false)
 {
     $return['msg'] = '';
 
     $files = request()->file();
     // dump($_FILES);
     // dump($files);//dump($rr);
-    if (count($files) <= 0) {
+    if (empty($files) || count($files) <= 0) {
         $return['msg'] = '找不到上传文件';
     }
     if ($return['msg'] != '') {
@@ -4537,8 +4487,33 @@ function upload_files($setting = '', $driver = '', $config = '', $type = 'pictur
         }
     }
     if (empty($return['msg'])) {
-        $info = $file->isTest(false)
+        //判断扩展名是不是php,不支持上传php文件
+        $info = $file->getInfo();
+        $info = pathinfo($info['name']);
+        if (strtolower($info['extension']) == 'php') {
+            $return['msg'] = '不支持上传该文件类型';
+            $return['code'] = 0;
+            $redata[$key] = $return;
+            return $redata;
+        }
+        $checkRule = [];
+        if ($type == 'picture') {
+            //图片扩展名验证 ，图片大小不超过20M
+            $checkRule['ext'] = 'gif,jpg,jpeg,png,bmp';
+            $checkRule['size'] = 20971520;
+        } else {
+            $allowExt = input('allow_file_ext', '');
+            if ($allowExt != '') {
+                $checkRule['ext'] = $allowExt;
+            }
+            $allowSize = input('allow_file_maxsize', '');
+            if ($allowSize > 0) {
+                $checkRule['size'] = $allowSize;
+            }
+        }
+        $info = $file->isTest($isTest)
             ->rule('uniqid')
+            ->validate($checkRule)
             ->move($rootpath, DIRECTORY_SEPARATOR . $saveName);
         if ($info) {
             $return['mime'] = $info->getMime();
@@ -4571,6 +4546,12 @@ function api_success($data = [], $is_json = true)
         $return['msg'] = '';
         $return['data'] = $data;
         return $is_json ? json_url($return) : $return;
+    } elseif (is_string($data)) {
+        $msg = $data;
+        $data = [];
+        $data['status'] = 1;
+        $data['msg'] = $msg;
+        return $is_json ? json_url($data) : $data;
     } else {
         $data['status'] = 1;
         $data['msg'] = '';
@@ -4774,7 +4755,10 @@ function cache_key($map_field, $table_name, $data_field = '', $extra = '')
     // dump($map_field);
     $key = $key_rule = 'wpcache_' . $table_name . '_';
     if (is_string($map_field)) {
-        $fields = wp_explode($map_field, ',');
+        //解决多个参数如id in (1,2)这种多个数字用逗号分割的问题
+        $map_field = preg_replace("/,([A-Za-z]+)/", "#@%$1", $map_field);
+        $fields = wp_explode($map_field, '#@%');
+
         $map_field = [];
         foreach ($fields as $vo) {
             list ($k, $val) = explode(':', $vo, 2);
@@ -4898,4 +4882,45 @@ function deal_redirect($url)
     } else {
         return redirect($url);
     }
+}
+
+//替换内容
+function replaceInfo($content, $uid = 0, $pbid = 0)
+{
+    empty($uid) && $uid = get_mid();
+    empty($pbid) && $pbid = get_pbid();
+
+    $user = getUserInfo($uid);
+    $search ['{@nickname}'] = empty ($user['nickname']) ? '' : $user['nickname'];
+    if (!empty($user['pbids'][$pbid])) {
+        $openid = $user['pbids'][$pbid];
+    } else {
+        $openid = M('public_follow')->where('uid', $uid)->value('openid');
+    }
+    $search ['{@openid}'] = empty ($openid) ? '' : $openid;
+    return strtr($content, $search);
+}
+
+function time_lock($tag, $time)
+{
+    $key = 'time_lock_' . $tag;
+    $last_time = S($key);
+    $now_time = time();
+    if ($last_time === false || $last_time <= ($now_time - $time)) {
+        S($key, $now_time);
+        return true;
+    } else {
+        return false;
+    }
+}
+function to_array($data)
+{
+    if ($data == null) {
+        return $data;
+    }
+
+    if (gettype($data) == 'object') {
+        $data = $data->toArray();
+    }
+    return $data;
 }

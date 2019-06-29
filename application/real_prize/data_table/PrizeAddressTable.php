@@ -19,19 +19,19 @@ class PrizeAddressTable {
     // 列表定义
     public $list_grid = [
       'prizeid' => [
-          'title' => '奖品名称',
+          'title' => '奖品名称'
       ],
       'turename' => [
-          'title' => '收货人',
+          'title' => '收货人'
       ],
       'mobile' => [
-          'title' => '联系方式',
+          'title' => '联系方式'
       ],
       'address' => [
-          'title' => '收货地址',
+          'title' => '收货地址'
       ],
       'remark' => [
-          'title' => '备注',
+          'title' => '备注'
       ],
       'urls' => [
           'title' => '操作',

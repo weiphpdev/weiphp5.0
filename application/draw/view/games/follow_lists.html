@@ -19,9 +19,9 @@
                 {/volist}            
 			</div>
 			
-			 &nbsp;&nbsp;  时间搜索： &nbsp;<input type="datetime" placeholder="选择开始日期" value="{:input('start_time')?input('start_time'):time_format($info['start_time'],'Y-m-d')}" class="text date" name="start_ctime" style="width: 130px;">
+			 &nbsp;&nbsp;  时间搜索： &nbsp;<input type="datetime" autocomplete="off" placeholder="选择开始日期" value="{:input('start_time')?input('start_time'):time_format($info['start_time'],'Y-m-d')}" class="text date" name="start_ctime" style="width: 130px;">
             至
-            <input type="datetime" placeholder="选择结束日期" value="{:input('end_time')?input('end_time'):time_format($info['end_time'],'Y-m-d')}" class="text date" name="end_ctime" style="width: 130px;">
+            <input type="datetime" autocomplete="off" placeholder="选择结束日期" value="{:input('end_time')?input('end_time'):time_format($info['end_time'],'Y-m-d')}" class="text date" name="end_ctime" style="width: 130px;">
          &nbsp;<a href='javascript:;' class='btn' id='ctimeSearch' style='margin-top: -9px;'>查询</a>
        &nbsp;<a href='javascript:;' class='btn' id='ctimeExport' style='margin-top: -9px;'>导出</a>
       
@@ -54,9 +54,9 @@
                 {/case}
                 {case value="datetime"}
                     <span>{$vo.title}：</span>
-             <input type="datetime" name="start_time" class="search-input date input-small" value="{$vo.start_time}" placeholder="请选择时间">
+             <input type="datetime" autocomplete="off" name="start_time" class="search-input date input-small" value="{$vo.start_time}" placeholder="请选择时间">
              <span>至</span>
-             <input type="datetime" name="end_time" class="search-input date input-small" value="{$vo.end_time}" placeholder="请选择时间">
+             <input type="datetime" autocomplete="off" name="end_time" class="search-input date input-small" value="{$vo.end_time}" placeholder="请选择时间">
                 {/case}
                 {case value="checkbox"}
                     <span>{$vo.title}：</span>

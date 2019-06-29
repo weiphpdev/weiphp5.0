@@ -56,7 +56,7 @@ class DynamicCheckbox extends base {
 
 			unset ( $arr ['table'], $arr ['value_field'], $arr ['title_field'], $arr ['order'] );
 			// dump($arr);
-			$arr ['wpid'] = get_wpid ();
+// 			$arr ['wpid'] = get_wpid ();
 			$list = M( $table )->where ( wp_where( $arr ) )->field ( $value_field . ',' . $title_field )->order ( $order )->select ();
 
 			$res = [];

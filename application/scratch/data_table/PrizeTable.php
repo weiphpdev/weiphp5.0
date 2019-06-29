@@ -19,18 +19,18 @@ class PrizeTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '奖项标题',
+          'title' => '奖项标题'
       ],
       'name' => [
-          'title' => '奖项',
+          'title' => '奖项'
       ],
       'num' => [
-          'title' => '名额数量',
+          'title' => '名额数量'
       ],
       'img' => [
           'title' => '奖品图片',
           'function' => 'get_img_html',
-          'raw' => 1,
+          'raw' => 1
       ],
       'urls' => [
           'title' => '操作',
@@ -66,32 +66,35 @@ class PrizeTable {
       ],
       'num' => [
           'title' => '名额数量',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'is_show' => 1
       ],
       'img' => [
           'title' => '奖品图片',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 1
       ],
       'sort' => [
           'title' => '排序号',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'remark' => '值越小越靠前',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'addon' => [
           'title' => '来源插件',
           'field' => 'varchar(255) NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 'Scratch'
       ],
       'target_id' => [
           'title' => '来源ID',
-          'field' => 'int(10) unsigned NULL ',
-          'is_show' => 1
+          'field' => 'int(10) unsigned NULL',
+          'is_show' => 1,
+          'type' => 'string'
       ],
       'wpid' => [
           'title' => 'wpid',
@@ -99,7 +102,8 @@ class PrizeTable {
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ]
   ];
 }

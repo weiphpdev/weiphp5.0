@@ -44,7 +44,7 @@
 {/block}
 {block name="script"}
   <script type="text/javascript">
-    	var url = "{$url}&publicid={$public_info.id}";
+    	var url = "{$url}&publicid={$public_info.id|default=0}";
         $('#canvas').qrcode({width:200,height:200,text:url}); 
 </script>
 {/block}

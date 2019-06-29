@@ -54,7 +54,9 @@ class UpdateScoreLogTable {
           'is_show' => 1,
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0,
+          'is_must' => 1
       ],
       'member_id' => [
           'title' => '会员卡id',

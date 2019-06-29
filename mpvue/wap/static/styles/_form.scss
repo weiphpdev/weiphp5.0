@@ -29,5 +29,11 @@
 			padding: 0 15px;
 			border-left: 1px solid #eee;
 		}
+
+		&__required {
+			color: $red;
+			vertical-align: sub;
+			margin-right: 2px;
+		}
 	}
 }

@@ -28,7 +28,7 @@ class Picture extends Base
      * array('create_time', NOW_TIME, MODEL_INSERT),
      * );
      */
-    
+
     /**
      * 文件上传
      *
@@ -42,13 +42,16 @@ class Picture extends Base
      *            上传驱动配置
      * @return array 文件上传成功后的信息
      */
-    public function upload($files, $setting, $driver = 'Local', $config = null)
+    public function upload($files, $setting, $driver = 'Local', $config = null, $isTest = false)
     {
         /* 上传文件 */
-        $info = upload_files($setting, $driver, $config);
+        $info = upload_files($setting, $driver, $config, 'picture', $isTest);
         if (isset($info['msg'])) {
             $this->error = $info['msg'];
             return false;
+        }
+        if (isset($info['file']) && !isset($info['download'])) {
+            $info['download'] = $info['file']; //兼容WebUploader上传组件
         }
         if (empty($info['download']['msg'])) { // 文件上传成功，记录文件信息
             foreach ($info as $key => &$value) {
@@ -56,13 +59,13 @@ class Picture extends Base
                 if (isset($value['id']) && is_numeric($value['id'])) {
                     continue;
                 }
-                
+
                 /* 记录文件信息 */
                 $value['status'] = 1;
                 $value['create_time'] = NOW_TIME;
                 $value['path'] = substr($value['rootPath'], 1) . $value['savename']; // 在模板里的url路径
                 $value['wpid'] = get_wpid();
-                
+
                 $id = $this->allowField(true)->insertGetId($value);
                 $value['url'] = SITE_URL . $value['path'];
                 if ($id) {
@@ -94,11 +97,11 @@ class Picture extends Base
     {
         /* 获取下载文件信息 */
         $file = $this->where('id', $id)->find();
-        if (! $file) {
+        if (!$file) {
             $this->error = '不存在该文件！';
             return false;
         }
-        
+
         /* 下载文件 */
         switch ($file['location']) {
             case 0: // 下载本地文件
@@ -150,7 +153,7 @@ class Picture extends Base
         if (is_file($file['rootpath'] . $file['savepath'] . $file['savename'])) {
             /* 调用回调函数新增下载数 */
             is_callable($callback) && call_user_func($callback, $args);
-            
+
             /* 执行下载 */
             // TODO: 大文件断点续传
             header("Content-Description: File Transfer");
@@ -187,15 +190,15 @@ class Picture extends Base
         if ($id > 0) {
             return $id;
         }
-        
+
         $info = pathinfo($file['tmp_name']);
         $data['path'] = str_replace(SITE_PATH . '/public', '', $file['tmp_name']);
-        
+
         $data['sha1'] = hash_file('sha1', $file['tmp_name']);
         $data['create_time'] = NOW_TIME;
         $data['status'] = 1;
         $data['wpid'] = get_wpid();
-        
+
         $id = $this->insertGetId($data);
         return $id;
     }
@@ -203,6 +206,6 @@ class Picture extends Base
     public function getPictureInfoById($id)
     {
         return $this->where('id', $id)
-                    ->find();
+            ->find();
     }
 }

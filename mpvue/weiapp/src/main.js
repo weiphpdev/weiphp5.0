@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 Vue.prototype.$store = store
-
+Vue.prototype.imgRoot = 'https://leyao.tv/yi/images/'
 // 使用flyio http请求库
 var Fly = require('flyio/dist/npm/wx')
 var fly = new Fly()

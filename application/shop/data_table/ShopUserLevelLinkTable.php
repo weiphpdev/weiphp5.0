@@ -25,13 +25,13 @@ class ShopUserLevelLinkTable {
           'title' => '分销用户',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'upper_user' => [
           'title' => '上级分销用户',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'level' => [
           'title' => '分销级别',
@@ -40,19 +40,17 @@ class ShopUserLevelLinkTable {
           'is_show' => 1,
           'extra' => '1:一级分销商
 2:二级分销商
-3:三级分销商',
+3:三级分销商'
       ],
       'cTime' => [
           'title' => '创建时间',
           'field' => 'int(10) NULL',
-          'type' => 'datetime',
+          'type' => 'datetime'
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
-          'field' => 'int(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0
+          'field' => 'int(10) NULL'
       ]
   ];
 }

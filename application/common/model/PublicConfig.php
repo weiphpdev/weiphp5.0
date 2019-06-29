@@ -16,17 +16,17 @@ class PublicConfig extends Base
      * 获取插件配置
      * 获取的优先级：当前公众号设置》安装文件上的配置
      */
-    public function getConfig($addon, $pkey = '', $pbid = '', $update = false)
+    public function getConfig($addon, $pkey = '', $pbid = 0, $update = false)
     {
         $addon = parse_name($addon);
         empty($pkey) && $pkey = $addon . '_' . $addon;
-        $pbid == '' && $pbid = get_pbid();
-		
-		$map = ['pkey' => $pkey, 'pbid' => $pbid];
+        isset($GLOBALS['config_pbid']) && $pbid == 0 && $pbid = $GLOBALS['config_pbid'];
+
+        $map = ['pkey' => $pkey, 'pbid' => $pbid];
 
         $key = cache_key($map, $this->table);
         $db_config = S($key);
-        if ($db_config === false || $update ) {            
+        if ($db_config === false || $update) {
             $obj = $this->where(wp_where($map))->find();
             if (!empty($obj)) {
                 $db_config = json_decode($obj['pvalue'], true);
@@ -56,14 +56,11 @@ class PublicConfig extends Base
     /**
      * 保存配置
      */
-    public function setConfig($pkey, $config, $pbid = '')
+    public function setConfig($pkey, $config, $pbid = 0)
     {
         $pkey = parse_name($pkey);
-        $map['pbid'] = empty($pbid) ? get_pbid() : $pbid;
+        $map['pbid'] = isset($GLOBALS['config_pbid']) && $pbid == 0 ? $GLOBALS['config_pbid'] : $pbid;
         $map['pkey'] = $pkey;
-        if (empty($map['pbid'])) {
-            return false;
-        }
 
         $info = $this->where(wp_where($map))->find();
 
@@ -94,10 +91,10 @@ class PublicConfig extends Base
     /*
      * 清空缓存
      */
-    public function clearCache($pkey, $pbid = '', $uid = 0, $more_param = [])
+    public function clearCache($pkey, $pbid = 0, $uid = 0, $more_param = [])
     {
-    	$map = ['pkey' => $pkey, 'pbid' => $pbid];
-    	$key = cache_key($map, $this->table);
+        $map = ['pkey' => $pkey, 'pbid' => $pbid];
+        $key = cache_key($map, $this->table);
 //         $key = 'public_config_' . $pbid . '_' . $pkey;
         S($key, null);
     }

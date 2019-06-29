@@ -25,7 +25,8 @@ class ShopGoodsSkuDataTable {
           'title' => '成本价',
           'field' => 'decimal(11,2) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0.00
       ],
       'goods_id' => [
           'title' => '商品ID',
@@ -35,17 +36,14 @@ class ShopGoodsSkuDataTable {
       'market_price' => [
           'title' => '市场价',
           'field' => 'decimal(11,2) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0.00
       ],
       'sale_price' => [
           'title' => '促销价',
           'field' => 'decimal(11,2) NULL',
-          'type' => 'num'
-      ],
-      'stock' => [
-          'title' => '库存量',
-          'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0.00
       ],
       'sn_code' => [
           'title' => '商品编号',
@@ -55,17 +53,20 @@ class ShopGoodsSkuDataTable {
       'sku_int_0' => [
           'title' => '数量规格0',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'sku_int_1' => [
           'title' => '数量规格1',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'sku_int_2' => [
           'title' => '数量规格2',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'sku_varchar_0' => [
           'title' => '文本规格0',
@@ -91,7 +92,14 @@ class ShopGoodsSkuDataTable {
           'title' => '商品锁定库存',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
+      ],
+      'stock_num' => [
+          'title' => '库存量',
+          'field' => 'int(10) NULL',
+          'type' => 'string',
+          'value' => 0
       ]
   ];
 }

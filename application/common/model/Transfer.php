@@ -116,6 +116,7 @@ class Transfer extends Base
                                                                                        // $id = $this->id;
         $recode['wpid'] = get_wpid();
         $recode['uid'] = isset($more_param['uid']) ? $more_param['uid'] : get_mid();
+
         $id = $this->insertGetId($recode);
         if (! $id) {
             $return['msg'] = '支付记录保存到数据库失败';
@@ -297,7 +298,7 @@ class Transfer extends Base
             return $return;
         }
         // 有些状态不能重发
-        if (isset($recode['status']) && ! in_array($recode['status'], [
+        if (isset($recode['status']) && ! in_array($recode['status'], [0,
             1,
             2,
             4
@@ -319,6 +320,7 @@ class Transfer extends Base
             $return['msg'] = '给同一个实名用户付款，单笔限额2W';
             return $return;
         }
+      
         if ($recode['total_amount'] < 100) {
             $return['msg'] = '单笔最小金额默认为1元';
             return $return;

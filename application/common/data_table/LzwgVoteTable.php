@@ -19,19 +19,19 @@ class LzwgVoteTable {
     // 列表定义
     public $list_grid = [
       'id' => [
-          'title' => '题目编号',
+          'title' => '题目编号'
       ],
       'title' => [
-          'title' => '题目名称',
+          'title' => '题目名称'
       ],
       'vote_option' => [
-          'title' => '题目选项',
+          'title' => '题目选项'
       ],
       'type' => [
-          'title' => '类型',
+          'title' => '类型'
       ],
       'vote_count' => [
-          'title' => '投票数',
+          'title' => '投票数'
       ],
       'urls' => [
           'title' => '操作',
@@ -39,7 +39,7 @@ class LzwgVoteTable {
           'href' => [
               '0' => [
                   'title' => '编辑',
-                  'url' => '[EDIT]&id=[id]'
+                  'url' => '[EDIT]'
               ],
               '1' => [
                   'title' => '投票记录',
@@ -73,7 +73,7 @@ class LzwgVoteTable {
       ],
       'picurl' => [
           'title' => '封面图片',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'remark' => '支持JPG、PNG格式，较好的效果为大图360*200，小图200*200',
           'is_show' => 1
@@ -94,7 +94,8 @@ class LzwgVoteTable {
           'title' => '素材模板',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 'default'
       ],
       'vote_type' => [
           'title' => '题目类型',
@@ -102,7 +103,8 @@ class LzwgVoteTable {
           'type' => 'radio',
           'is_show' => 1,
           'extra' => '0:投票
-1:调查'
+1:调查',
+          'value' => 0
       ],
       'keyword' => [
           'title' => '关键词',
@@ -119,19 +121,22 @@ class LzwgVoteTable {
           'field' => 'char(10) NULL',
           'type' => 'radio',
           'extra' => '0:单选
-1:多选'
+1:多选',
+          'value' => 0
       ],
       'is_img' => [
           'title' => '文字/图片投票',
           'field' => 'tinyint(2) NULL',
           'type' => 'radio',
           'extra' => '0:文字投票
-1:图片投票'
+1:图片投票',
+          'value' => 0
       ],
       'vote_count' => [
           'title' => '投票数',
-          'field' => 'int(10) unsigned NULL ',
-          'type' => 'num'
+          'field' => 'int(10) unsigned NULL',
+          'type' => 'num',
+          'value' => 0
       ],
       'cTime' => [
           'title' => '投票创建时间',
@@ -152,7 +157,8 @@ class LzwgVoteTable {
       'wpid' => [
           'title' => 'wpid',
           'field' => 'int(10) NOT NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 0
       ],
       'uid' => [
           'title' => 'uid',

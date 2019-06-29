@@ -19,10 +19,10 @@ class LzwgVoteOptionTable {
     // 列表定义
     public $list_grid = [
       'name' => [
-          'title' => '选项标题',
+          'title' => '选项标题'
       ],
       'opt_count' => [
-          'title' => '投票数',
+          'title' => '投票数'
       ]
   ];
 
@@ -32,34 +32,38 @@ class LzwgVoteOptionTable {
           'title' => '选项标题',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'opt_count' => [
           'title' => '当前选项投票数',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'order' => [
           'title' => '选项排序',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'image' => [
           'title' => '图片选项',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 5
       ],
       'vote_id' => [
           'title' => '投票ID',
-          'field' => 'int(10) unsigned NOT NULL ',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'num',
           'is_show' => 4,
           'auto_rule' => '$_REQUEST[\'vote_id\']',
           'auto_time' => 3,
-          'auto_type' => 'string'
+          'auto_type' => 'string',
+          'is_must' => 1
       ]
   ];
 }

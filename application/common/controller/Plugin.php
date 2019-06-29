@@ -52,7 +52,7 @@ abstract class Plugin{
         $fdName = substr($fdName, 1);
         $this->addon_path   =   ONETHINK_PLUGIN_PATH.$fdName.'/';
         $TMPL_PARSE_STRING = config('TMPL_PARSE_STRING');
-        $TMPL_PARSE_STRING['__ADDONROOT__'] = __ROOT__ . '/Plugins/'.$this->getName();
+        $TMPL_PARSE_STRING['__ADDONROOT__'] = __ROOT__ . '/plugins/'.$this->getName();
         config('TMPL_PARSE_STRING', $TMPL_PARSE_STRING);
         if(is_file($this->addon_path.'config.php')){
             $this->config_file = $this->addon_path.'config.php';

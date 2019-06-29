@@ -26,43 +26,40 @@ class EventPrizesTable {
           'type' => 'num',
           'field' => 'int(10) NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'prize_list' => [
           'title' => '奖品列表',
           'type' => 'textarea',
           'field' => 'text NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'prize_count' => [
           'title' => '奖品数量',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'start_num' => [
           'title' => '开始数字',
           'type' => 'num',
           'field' => 'int(10) NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'end_num' => [
           'title' => '最后数字',
           'type' => 'num',
           'field' => 'int(10) NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'sort' => [
           'title' => '顺序',
           'type' => 'num',
           'field' => 'int(10) NULL',
           'value' => 1,
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ]
   ];
 }

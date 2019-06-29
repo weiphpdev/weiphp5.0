@@ -39,6 +39,6 @@ class EmptyTip extends base
         //dump ( $data );exit;
         $this->assign($data);
         $html = $this->fetch('common@widget/empty_tip');
-        echo $html;
+        return $html;
     }
 }

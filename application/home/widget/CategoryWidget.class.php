@@ -28,7 +28,7 @@ class CategoryWidget extends Controller{
 		}
 		$this->assign('category', $category);
 		$this->assign('current', $cate);
-		return $this->fetch('Category/lists');
+		return $this->fetch('category/lists');
 	}
 	
 }

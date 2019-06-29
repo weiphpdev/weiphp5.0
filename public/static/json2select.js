@@ -79,7 +79,12 @@ $.fn.json2select=function(json,dft,name,deep,css) {
 		css=css||'height: 150px; width: 140px;';
 	//换内容的时候删除旧的select
 	$("[name="+name+deep+"]",_this).nextAll().remove();
-	if (json[0]) {
+	var is_empty = true;
+    $.each(json,function(i,sd) {
+			is_empty  = false;
+	});	
+	
+	if (!is_empty) {
 		//新建一个select
 		var slct=$("<select name='"+name+$("select",_this).length+"' id='"+name+$("select",_this).length+"'></select>");
 		//建立一个默认项，value为空，修改请保留为空

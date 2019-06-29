@@ -38,7 +38,7 @@ class Value extends Base{
 			$attr [$vo ['name']] ['type'] = $vo ['type'];
 			
 			if ($vo ['type'] == 'radio' || $vo ['type'] == 'checkbox' || $vo ['type'] == 'select') {
-				$extra = parse_config_attr ( $vo ['extra'] );
+				$extra = parse_field_attr ( $vo ['extra'] );
 				if (is_array ( $extra ) && ! empty ( $extra )) {
 					$attr [$vo ['name']] ['extra'] = $extra;
 				}
@@ -102,7 +102,7 @@ class Value extends Base{
 		$this->assign ( $list_data );
 		// dump ( $list_data );
 		
-		return $this->fetch ();
+		return $this->fetch();
 	}
 	
 	// 通用插件的编辑模型
@@ -209,7 +209,7 @@ class Value extends Base{
 		$forms ['cover'] = ! empty ( $forms ['cover'] ) ? get_cover_url ( $forms ['cover'] ) : ADDON_PUBLIC_PATH . '/background.png';
 		$this->assign ( 'forms', $forms );
 		
-		return $this->fetch ();
+		return $this->fetch();
 	}
 	
 	// 通用插件的删除模型

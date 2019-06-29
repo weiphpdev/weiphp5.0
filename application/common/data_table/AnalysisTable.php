@@ -39,17 +39,20 @@ class AnalysisTable {
       'total_count' => [
           'title' => 'total_count',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'follow_count' => [
           'title' => 'follow_count',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'aver_count' => [
           'title' => 'aver_count',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ]
   ];
 }

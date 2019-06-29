@@ -142,7 +142,7 @@ class UserTag extends WebBase {
 	    }
 		return parent::common_del ( $this->model );
 	}
-	function checkTitle($title,$id=0){
+	function checkTitle($title,$id = 0){
 	    $tLen = strlen($title);
 	    if ($tLen > 30) {
 	        $this->error('标签名称不能超过30个字符，或10个汉字！');

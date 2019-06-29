@@ -21,72 +21,25 @@ class UserTable {
       'headimgurl' => [
           'title' => '头像',
           'function' => 'url_img_html',
-          'raw' => 1,
-          'name' => 'headimgurl',
-          'width' => '',
-          'is_sort' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'raw' => 1
       ],
       'login_name' => [
-          'title' => '登录账号',
-          'name' => 'login_name',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '登录账号'
       ],
       'login_password' => [
-          'title' => '登录密码',
-          'name' => 'login_password',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '登录密码'
       ],
       'nickname' => [
-          'title' => '用户昵称',
-          'name' => 'nickname',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '用户昵称'
       ],
       'sex' => [
-          'title' => '性别',
-          'name' => 'sex',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '性别'
       ],
       'group' => [
-          'title' => '分组',
-          'name' => 'group',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '分组'
       ],
       'score' => [
-          'title' => '金币值',
-          'name' => 'score',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '金币值'
       ],
       'urls' => [
           'title' => '操作',
@@ -104,12 +57,7 @@ class UserTable {
                   'title' => '编辑',
                   'url' => '[EDIT]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -122,37 +70,32 @@ class UserTable {
           'extra' => '0:PC注册用户
 1:微信同步用户
 2:手机注册用户',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'nickname' => [
           'title' => '用户名',
           'field' => 'text NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'password' => [
           'title' => '登录密码',
           'field' => 'varchar(100) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'truename' => [
           'title' => '真实姓名',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'mobile' => [
           'title' => '联系电话',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'email' => [
           'title' => '邮箱地址',
           'field' => 'varchar(100) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'sex' => [
           'title' => '性别',
@@ -160,81 +103,70 @@ class UserTable {
           'type' => 'radio',
           'extra' => '0:保密
 1:男
-2:女',
-          'placeholder' => '请输入内容'
+2:女'
       ],
       'headimgurl' => [
           'title' => '头像地址',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'city' => [
           'title' => '城市',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'province' => [
           'title' => '省份',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'country' => [
           'title' => '国家',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'language' => [
           'title' => '语言',
           'field' => 'varchar(20) NULL',
           'type' => 'string',
-          'placeholder' => '请输入内容'
+          'value' => 'zh-cn'
       ],
       'score' => [
           'title' => '积分值',
           'type' => 'num',
-          'field' => 'float(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0
+          'field' => 'float NULL',
+          'value' => 0
       ],
       'unionid' => [
           'title' => '微信第三方ID',
           'field' => 'varchar(50) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'login_count' => [
           'title' => '登录次数',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'reg_ip' => [
           'title' => '注册IP',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'reg_time' => [
           'title' => '注册时间',
           'field' => 'int(10) NULL',
-          'type' => 'datetime',
-          'placeholder' => '请输入内容'
+          'type' => 'datetime'
       ],
       'last_login_ip' => [
           'title' => '最近登录IP',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'last_login_time' => [
           'title' => '最近登录时间',
           'field' => 'int(10) NULL',
-          'type' => 'datetime',
-          'placeholder' => '请输入内容'
+          'type' => 'datetime'
       ],
       'status' => [
           'title' => '状态',
@@ -242,7 +174,7 @@ class UserTable {
           'type' => 'bool',
           'extra' => '0:禁用
 1:启用',
-          'placeholder' => '请输入内容'
+          'value' => 1
       ],
       'is_init' => [
           'title' => '初始化状态',
@@ -250,7 +182,7 @@ class UserTable {
           'type' => 'bool',
           'extra' => '0:未初始化
 1:已初始化',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'is_audit' => [
           'title' => '审核状态',
@@ -258,84 +190,91 @@ class UserTable {
           'type' => 'bool',
           'extra' => '0:未审核
 1:已审核',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'subscribe_time' => [
           'title' => '用户关注公众号时间',
           'field' => 'int(10) NULL',
-          'type' => 'datetime',
-          'placeholder' => '请输入内容'
+          'type' => 'datetime'
       ],
       'remark' => [
           'title' => '微信用户备注',
           'field' => 'varchar(100) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'groupid' => [
           'title' => '微信端的分组ID',
           'field' => 'int(10) NULL',
-          'type' => 'num',
-          'placeholder' => '请输入内容'
+          'type' => 'num'
       ],
       'login_name' => [
-          'title' => 'login_name',
+          'title' => '登录账号',
           'field' => 'varchar(100) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'level' => [
-          'title' => '管理等级',
+          'title' => '-1:机器人0:粉丝1:超级管理员2:A级管理员
+3:B级管理员
+4:C级管理员',
           'field' => 'tinyint(2) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'login_password' => [
           'title' => '登录密码',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'manager_id' => [
           'title' => '公众号管理员ID',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'membership' => [
           'title' => '会员等级',
           'field' => 'char(50) NULL',
           'type' => 'select',
           'remark' => '请在会员等级 添加会员级别名称',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'bind_openid' => [
           'title' => '绑定的openid',
           'field' => 'varchar(50) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'audit_time' => [
-          'title' => '审核通过时间',
+          'title' => '审核时间',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'remark' => '审核通过时间',
-          'placeholder' => '请输入内容'
+          'remark' => '审核通过时间'
       ],
       'grade' => [
           'title' => '当前用户的等级',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
-      'auth_code' => [
-          'title' => '用户授权码',
-          'field' => 'varchar(255) NULL',
+      'tagid_list' => [
+          'title' => '用户被打上的标签ID列表',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'field' => 'varchar(555) NULL'
+      ],
+      'in_blacklist' => [
+          'title' => '是否拉黑',
+          'type' => 'bool',
+          'field' => 'tinyint(2) NULL',
+          'extra' => '0:未拉黑
+1:拉黑',
+          'value' => 0
+      ],
+      'wpid' => [
+          'title' => 'wpid',
+          'field' => 'int(11) NULL',
+          'type' => 'string',
+          'value' => 0
       ]
   ];
 }

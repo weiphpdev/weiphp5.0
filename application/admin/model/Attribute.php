@@ -90,7 +90,7 @@ class Attribute extends Base {
         }
         //删除字段缓存文件
         $model_name = M( 'model' )->field('name')->where('id', $data['model_id'])->find ();
-        $cache_name = config('DB_NAME').'.'.preg_replace('/\W+|\_+/','',$model_name['name']);
+        $cache_name = config('database.database').'.'.preg_replace('/\W+|\_+/','',$model_name['name']);
         S($cache_name, null);
 
         //记录行为

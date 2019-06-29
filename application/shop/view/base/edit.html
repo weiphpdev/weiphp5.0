@@ -34,10 +34,10 @@
                           </label>
                         {/case}
                         {case value="datetime"}
-                          <input type="datetime" name="{$field.name}" class="text time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+                          <input type="datetime" autocomplete="off" name="{$field.name}" class="text time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
                         {/case}
                         {case value="date"}
-                          <input type="datetime" name="{$field.name}" class="text date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
+                          <input type="datetime" autocomplete="off" name="{$field.name}" class="text date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
                         {/case}
                         {case value="bool"}
                           {volist name=":parse_field_attr($field['extra'])" id="vo"}
@@ -91,7 +91,7 @@
                         {/case}
                         {case value="image"}
                         <div id="image_{$field.name}"></div>
-                        {:hook('image', array('name'=>$field['name'],'value'=>$data[$field['name']],'extra'=>$field['extra']))}
+                        {:W('image', array('name'=>$field['name'],'value'=>$data[$field['name']],'extra'=>$field['extra']))}
                         {/case}
                         {case value="radio"}
                           {volist name=":parse_field_attr($field['extra'])" id="vo"}
@@ -199,10 +199,6 @@
 
                                     {/php}
                                     <div class="item" onClick="$.WeiPHP.selectSingleUser('{:U ( 'weixin/UserCenter/lists_choose')}','{$field.name}');">
-                                        {php}
-                                            $userInfo = getUserInfo($data[$field['name']]);
-
-                                        {/php}
                                         <img src="{$userInfo['headimgurl']}"/><br/><span>{$userInfo['nickname']}</span>
                                         <input type="hidden" name="{$field.name}'[]" value="{$data[$field['name']]}"/>
                                         <span class="name">{$userInfo['nickname']}</span>

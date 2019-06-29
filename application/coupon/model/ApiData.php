@@ -163,7 +163,7 @@ class ApiData extends Base
                 $my_count += 1;
                 $vo ['id'] == $sn_id && $sn = $vo;
             }
-        } else {
+        } elseif(isset($list [0])) {
             $sn = $list [0];
         }
         /*

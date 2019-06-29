@@ -42,9 +42,9 @@ class Wap extends WapBase
     public function index()
     {
         // add_credit ( 'weisite', [], 86400 );
-        if (file_exists(env('app_path') . 'wei_site/view/pigcms/Index_' . $this->config['template_index'] . '.html')) {
+        if (file_exists(env('app_path') . 'wei_site/view/pigcms/index_' . $this->config['template_index'] . '.html')) {
             $this->pigcms_index();
-            return $this->fetch(env('app_path') . 'wei_site/view/pigcms/Index_' . $this->config['template_index'] . '.html');
+            return $this->fetch(env('app_path') . 'wei_site/view/pigcms/index_' . $this->config['template_index'] . '.html');
         } else {
             $map1['wpid'] = $map['wpid'] = get_wpid();
             $map1['is_show'] = $map['is_show'] = 1;
@@ -200,9 +200,9 @@ class Wap extends WapBase
     // 详情
     public function detail()
     {
-        if (file_exists(env('app_path') . 'wei_site/view/pigcms/Index_' . $this->config['template_detail'] . '.html')) {
+        if (file_exists(env('app_path') . 'wei_site/view/pigcms/index_' . $this->config['template_detail'] . '.html')) {
             $this->pigcms_detail();
-            return $this->fetch(env('app_path') . 'wei_site/view/pigcms/Index_' . $this->config['template_detail'] . '.html');
+            return $this->fetch(env('app_path') . 'wei_site/view/pigcms/index_' . $this->config['template_detail'] . '.html');
         } else {
             $map['id'] = I('id/d', 0);
             $info = M('custom_reply_news')->where(wp_where($map))->find();

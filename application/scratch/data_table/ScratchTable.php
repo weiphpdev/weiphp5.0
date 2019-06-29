@@ -19,20 +19,20 @@ class ScratchTable {
     // 列表定义
     public $list_grid = [
       'id' => [
-          'title' => '刮刮卡ID',
+          'title' => '刮刮卡ID'
       ],
       'keyword' => [
-          'title' => '关键词',
+          'title' => '关键词'
       ],
       'title' => [
-          'title' => '标题',
+          'title' => '标题'
       ],
       'collect_count' => [
-          'title' => '获取人数',
+          'title' => '获取人数'
       ],
       'cTime' => [
           'title' => '发布时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'urls' => [
           'title' => '操作',
@@ -68,13 +68,15 @@ class ScratchTable {
           'title' => '关键词',
           'field' => 'varchar(100) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'title' => [
           'title' => '标题',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'intro' => [
           'title' => '封面简介',
@@ -84,7 +86,7 @@ class ScratchTable {
       ],
       'cover' => [
           'title' => '封面图片',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'remark' => '可为空',
           'is_show' => 1
@@ -94,7 +96,8 @@ class ScratchTable {
           'field' => 'varchar(255) NOT NULL',
           'type' => 'textarea',
           'remark' => '用户获取刮刮卡后显示的提示信息',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'start_time' => [
           'title' => '开始时间',
@@ -117,24 +120,26 @@ class ScratchTable {
       ],
       'end_img' => [
           'title' => '过期提示图片',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'remark' => '可为空',
           'is_show' => 1
       ],
       'predict_num' => [
           'title' => '预计参与人数',
-          'field' => 'int(10) unsigned NOT NULL ',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'num',
           'remark' => '预计人数直接影响抽奖概率：中奖概率 = 奖品总数/(预估活动人数*每人抽奖次数) 要确保100%中奖可设置为1',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'max_num' => [
           'title' => '每人最多允许抽奖次数',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'remark' => '0表示不限制数量',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 1
       ],
       'follower_condtion' => [
           'title' => '粉丝状态',
@@ -145,21 +150,24 @@ class ScratchTable {
           'extra' => '0:不限制
 1:已关注
 2:已绑定信息
-3:会员卡成员'
+3:会员卡成员',
+          'value' => 1
       ],
       'credit_conditon' => [
           'title' => '积分限制',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'remark' => '粉丝达到多少积分后才能领取，领取后不扣积分',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'credit_bug' => [
           'title' => '积分消费',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'remark' => '用积分中的财富兑换、兑换后扣除相应的积分财富',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'addon_condition' => [
           'title' => '插件场景限制',
@@ -170,25 +178,28 @@ class ScratchTable {
       ],
       'collect_count' => [
           'title' => '已领取人数',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'view_count' => [
           'title' => '浏览人数',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'template' => [
           'title' => '素材模板',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 'default'
       ],
       'cTime' => [
           'title' => '发布时间',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'datetime',
           'auto_rule' => 'time',
           'auto_time' => 1,
@@ -200,7 +211,8 @@ class ScratchTable {
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ],
       'update_time' => [
           'title' => '更新时间',

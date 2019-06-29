@@ -23,33 +23,30 @@ class PublicConfigTable {
     public $fields = [
       'pbid' => [
           'title' => 'pbid',
-          'field' => 'varchar(50) ',
+          'field' => 'int(11) NULL',
           'type' => 'string',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'pkey' => [
           'title' => '配置规则名',
           'field' => 'varchar(30) NULL',
           'type' => 'string',
           'remark' => '配置规则名',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'pvalue' => [
           'title' => '配置值',
           'field' => 'text NULL',
           'type' => 'textarea',
           'remark' => 'json格式的配置值',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'mtime' => [
           'title' => '设置时间',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '设置时间',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ]
   ];
 }

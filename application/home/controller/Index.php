@@ -284,9 +284,7 @@ class Index extends Home
         if (!is_login() && IS_GET) {
             $forward = cookie('__forward__');
             empty ($forward) && cookie('__forward__', $_SERVER ['REQUEST_URI']);
-            $url = U('home/user/login', array(
-                'from' => 3
-            ));
+            $url = U('home/user/login', array('from' => 3));
             return redirect($url);
         }
         // 切换公众号时防止老的__forward__影响
@@ -481,7 +479,7 @@ class Index extends Home
             $this->error('请先保存宣传页的配置');
         }
         define('ADDON_PUBLIC_PATH', env('app_path') . 'Leaflets');
-        return $this->fetch(SITE_PATH . '/application/leaflets/view/Leaflets/show.html');
+        return $this->fetch('leaflets@leaflets/show');
     }
 
     // 定时任务调用入口
@@ -489,16 +487,20 @@ class Index extends Home
     {
         $time = date('Y-m-d H:i:s');
         trace($time, 'debug');
+        //24小时推送
+        if (is_install('message_push')){
+        	D('message_push/MessagePush')->cronSendMessage();
+        }
 
         // 拼团失败发送模板消息,每分钟触发一次
-        if (is_install('collage')){
-        	if ($this->cron_lock('CollageGroup', 60)) {
-        		D('collage/CollageGroup')->cronFreeGroup();
-        	}
-        	// 拼团中凑团机器人5秒触发一次
-        	if ($this->cron_lock('CollageRobot', 5)) {
-        		D('collage/CollageRobot')->auto_join();
-        	}
+        if (is_install('collage')) {
+            if ($this->cron_lock('CollageGroup', 60)) {
+                D('collage/CollageGroup')->cronFreeGroup();
+            }
+            // 拼团中凑团机器人5秒触发一次
+            if ($this->cron_lock('CollageRobot', 5)) {
+                D('collage/CollageRobot')->auto_join();
+            }
         }
 
         // 超时订单库存处理，建议一分钟执行一次
@@ -506,19 +508,21 @@ class Index extends Home
             D('shop/Stock')->cronDealOrderStock();
         }
 
-        if (is_install('card')){
-        	// 会员有礼（会员生日或节日）
-        	if ($this->cron_lock('cronCardCustom', 120)) {
-        		D('card/CardCustom')->do_send_crons();
-        		// 会员有礼 模板消息通知
-        		D('card/CardCustom')->cronsSendTplMessage();
-        	}
-        	 
+        if (is_install('card')) {
+            // 会员有礼（会员生日或节日）
+            if ($this->cron_lock('cronCardCustom', 120)) {
+                D('card/CardCustom')->do_send_crons();
+                // 会员有礼 模板消息通知
+                D('card/CardCustom')->cronsSendTplMessage();
+            }
+
         }
-       
+
         // 发现金红包
-        if ($this->cron_lock('cronTransfer', 60)) {
-            $this->cronTransfer();
+        if (is_install('redbag')) {
+            if ($this->cron_lock('cronTransfer', 60)) {
+                $this->cronTransfer();
+            }
         }
 
         // 每次更新一个公众号的会员信息 和 用户积分 （对接erp）
@@ -534,7 +538,13 @@ class Index extends Home
         if ($this->cron_lock('refreshPayStatus', 305)) {
             D('shop/Order')->refreshPayStatus();
         }
+
+        //物流签收状态(一天一次)
+        if ($this->cron_lock('sendresultlog', 86400)) {
+            D('shop/Order')->cronGetSendResult();
+        }
     }
+
 
     function cron_lock($tag, $time)
     {

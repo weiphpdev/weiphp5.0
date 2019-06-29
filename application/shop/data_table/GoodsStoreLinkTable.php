@@ -25,24 +25,31 @@ class GoodsStoreLinkTable {
           'title' => '商品编号',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'store_id' => [
           'title' => '门店编号',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'store_num' => [
-          'title' => '门店库存',
+          'title' => '门店库存,备用',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1,
+          'value' => 0
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) NULL'
+      ],
+      'event_type' => [
+          'title' => '活动类型',
+          'field' => 'tinyint(1) NULL',
+          'type' => 'string',
+          'value' => 0
       ]
   ];
 }

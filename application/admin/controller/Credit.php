@@ -33,7 +33,7 @@ class Credit extends Admin {
 
 		$this->meta_title = $model ['title'] . '列表';
 
-		return $this->fetch( 'Think:lists' );
+		return $this->fetch( 'think/lists' );
 	}
 	public function edit() {
         $id = I('id');

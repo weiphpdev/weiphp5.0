@@ -21,7 +21,7 @@
 					<div class="form-item cf">
 						<label class="item-label">模型标识<span class="check-tips">（请输入文档模型标识）</span></label>
 						<div class="controls">
-							<input type="text" class="text input-large" name="name" value="{$info.name}">
+							<input type="hidden" name="name" value="{$info.name}">{$info.name}
 						</div>
 					</div>
 					<div class="form-item cf">
@@ -33,12 +33,9 @@
 					<div class="form-item cf">
 						<label class="item-label">所属应用</label>
 						<div class="controls">
-							<select name="addon">
-								<option value="">无</option>
                                 {volist name="list" id="m"}
-								<option value="{$key}" {if condition="$info['addon'] eq $key"} selected="selected"{/if} >{$m}</option>
+								{if condition="$info['addon'] eq $key"} <input type="hidden" name="addon" value="{$key}">{$m} {/if}
                                 {/volist}
-							</select>
 						</div>
 					</div>                    
 				</div>
@@ -359,12 +356,14 @@ function select_type(_this){
 	var type = $(_this).val();
 	
 	var input = $(_this).parents('.list_tr').find('.attr_title')
+	var field_title = $(_this).parents('.list_tr').find('.select_field_event').find("option:selected").text();
+
 	var old_val = input.val()
 	if(type==1){
 		$(_this).parent().next().find('.select_field').hide();
 		$(_this).parent().next().find('.custom_field').show();
-		
-		if(old_val==''){
+
+		if(old_val==''|| old_val==field_title){
 			input.val('操作')
 		}
 	}else{
@@ -372,7 +371,7 @@ function select_type(_this){
 		$(_this).parent().next().find('.custom_field').hide();
 		
 		if(old_val=='操作'){
-			input.val('')
+			input.val(field_title)
 		}
 	}
 }

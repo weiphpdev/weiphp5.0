@@ -26,8 +26,8 @@
                             <textarea name="{$field.name}">{$data[$field['name']]|default=''}</textarea>
                         </label>
                         {/case} {case value="datetime"}
-                        <input type="datetime" name="{$field.name}" class="form-control time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" /> {/case} {case value="date"}
-                        <input type="datetime" name="{$field.name}" class="form-control date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" /> {/case} {case value="bool"}
+                        <input type="datetime" autocomplete="off" name="{$field.name}" class="form-control time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" /> {/case} {case value="date"}
+                        <input type="datetime" autocomplete="off" name="{$field.name}" class="form-control date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" /> {/case} {case value="bool"}
                         <select name="{$field.name}">
                             {volist name=":parse_field_attr($field['extra'])" id="vo"}
                             <option value="{$key}" class="toggle-data" toggle-data="{$vo|get_hide_attr}" {eq name="data[$field['name']]" value="$key" }selected{/eq}>{$vo|clean_hide_attr}

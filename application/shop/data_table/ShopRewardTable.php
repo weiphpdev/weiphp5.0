@@ -19,22 +19,14 @@ class ShopRewardTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '活动状态',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '活动状态'
       ],
       'start_time' => [
-          'title' => '有效期',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '有效期'
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
-          'width' => '',
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '编辑',
@@ -49,5 +41,53 @@ class ShopRewardTable {
   ];
 
     // 字段定义
-    public $fields = [ ];
+    public $fields = [
+      'title' => [
+          'title' => '活动名称',
+          'field' => 'varchar(100) NULL',
+          'type' => 'string'
+      ],
+      'start_time' => [
+          'title' => '开始时间',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'end_time' => [
+          'title' => '过期时间',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'is_mult' => [
+          'title' => '多级优惠',
+          'field' => 'tinyint(2) NULL',
+          'type' => 'string',
+          'value' => 0
+      ],
+      'is_all_goods' => [
+          'title' => '适用的活动商品',
+          'field' => 'tinyint(2) NULL',
+          'type' => 'string',
+          'value' => 0
+      ],
+      'goods_ids' => [
+          'title' => '指定商品ID串',
+          'field' => 'text NULL',
+          'type' => 'string'
+      ],
+      'cTime' => [
+          'title' => '创建时间',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'wpid' => [
+          'title' => 'wpid',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'manager_id' => [
+          'title' => '管理员ID',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ]
+  ];
 }

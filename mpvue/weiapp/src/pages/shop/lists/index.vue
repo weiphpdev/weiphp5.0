@@ -8,7 +8,7 @@
 
     <!-- 没有商品 -->
     <div class="hint-page" v-else>
-      <img lazy-load src="https://leyao.tv/yi/images/nothing.png" />
+      <img lazy-load :src="imgRoot+'nothing.png'" />
       <p class="hint-page__text">还没有任何商品</p>
     </div>
     <van-popup :show="isPopup" position="right" @close="togglePopup" class="popup">
@@ -57,6 +57,7 @@ export default {
 
   data() {
     return {
+			imgRoot: this.imgRoot,
       datas: [],
       goods: [],
       isPopup: false,

@@ -15,4 +15,9 @@ class NoAnswer extends WebBase{
 
 //         $this->assign ( 'normal_tips', $strtip );
     }
+    public function config()
+    {
+        $GLOBALS['config_pbid'] = get_pbid(); //保存带上pbid值，即每个公众号的配置要区分开
+        return parent::config();
+    }
 }

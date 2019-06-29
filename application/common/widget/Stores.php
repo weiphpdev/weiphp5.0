@@ -48,6 +48,6 @@ class Stores extends base
         // dump ( $data );exit;
         $this->assign('data', $data);
         $html = $this->fetch('common@widget/stores');
-        echo $html;
+        return $html;
     }
 }

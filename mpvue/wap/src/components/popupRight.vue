@@ -3,7 +3,7 @@
     <van-popup v-model="isPopup" position="right">
       <div class="navbar">
         <p class="navbar-icon_left iconfont icon-fanhui" @click="$emit('closePopup')"></p>
-        <p class="navbar-title overflow-dot_row"></p>
+        <p class="navbar-title overflow-dot_row">{{popupTitle}}</p>
       </div>
       <div class="m-popup__content">
           <div v-html="popupData"></div>
@@ -16,7 +16,8 @@
 export default {
   props: {
     popupData: String,
-    isPopup: Boolean
+    isPopup: Boolean,
+    popupTitle: String
   },
   data() {
     return {

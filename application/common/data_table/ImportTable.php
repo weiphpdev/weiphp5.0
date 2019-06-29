@@ -23,10 +23,12 @@ class ImportTable {
     public $fields = [
       'attach' => [
           'title' => '上传文件',
-          'field' => 'int(10) unsigned NOT NULL ',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'file',
           'remark' => '支持xls,xlsx两种格式',
-          'is_show' => 1
+          'is_show' => 1,
+          'validate_file_size' => 10485760,
+          'is_must' => 1
       ]
   ];
 }

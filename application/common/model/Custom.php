@@ -1,4 +1,5 @@
 <?php
+
 namespace app\common\model;
 
 use app\common\model\Base;
@@ -12,14 +13,14 @@ class Custom extends Base
     protected $table = DB_PREFIX . 'user';
 
     /* 回复文本消息 */
-    public function replyText($uid, $content)
+    public function replyText($uid, $content, $pbid = 0)
     {
-        $param['text']['content'] = $content;
-        return $this->replyData($uid, $param, 'text');
+        $param['text']['content'] = replaceInfo($content, $uid, $pbid);
+        return $this->replyData($uid, $param, 'text', $pbid);
     }
 
     /* 回复图片消息 */
-    public function replyImage($uid, $media_id, $type = 'cover_id')
+    public function replyImage($uid, $media_id, $type = 'cover_id', $pbid = 0)
     {
         $type == 'cover_id' && $media_id = $this->get_image_media_id($media_id);
         // 素材图片id
@@ -29,28 +30,28 @@ class Custom extends Base
                 $media_id = $imageMaterial['media_id'];
             } else {
                 $media_id = $this->get_image_media_id($imageMaterial['cover_id']);
-                if (!empty($media_id) && !empty($imageMaterial['id'])){
-                	//永久素材的media_id
-                	M('material_image')->where('id', $imageMaterial['id'])->setField('media_id',$media_id);
+                if (!empty($media_id) && !empty($imageMaterial['id'])) {
+                    //永久素材的media_id
+                    M('material_image')->where('id', $imageMaterial['id'])->setField('media_id', $media_id);
                 }
             }
         }
         $param['image']['media_id'] = $media_id;
-        
-        return $this->replyData($uid, $param, 'image');
+
+        return $this->replyData($uid, $param, 'image', $pbid);
     }
 
     /* 回复语音消息 */
     /**
      *
      * @param unknown $uid
-     * @param unknown $media_id:
+     * @param unknown $media_id :
      *            id值
      * @param string $type
      *            决定id值的类型： material_file：文件素材的id, file_id:文件id '':media_id
      * @return Ambigous <number, string>
      */
-    public function replyVoice($uid, $media_id, $type = 'file_id')
+    public function replyVoice($uid, $media_id, $type = 'file_id', $pbid = 0)
     {
         $type == 'file_id' && $media_id = $this->get_file_media_id($media_id, 'voice');
         if ($type == 'material_file') {
@@ -62,11 +63,11 @@ class Custom extends Base
             }
         }
         $msg['voice']['media_id'] = $media_id;
-        return $this->replyData($uid, $msg, 'voice');
+        return $this->replyData($uid, $msg, 'voice', $pbid);
     }
 
     /* 回复视频消息 */
-    public function replyVideo($uid, $media_id, $type = 'file_id', $thumb = '', $title = '', $description = '')
+    public function replyVideo($uid, $media_id, $type = 'file_id', $thumb = '', $title = '', $description = '', $pbid = 0)
     {
         $type == 'file_id' && $media_id = $this->get_file_media_id($media_id, 'video');
         if ($type == 'material_file') {
@@ -82,25 +83,25 @@ class Custom extends Base
         $msg['video']['media_id'] = $media_id;
         $msg['video']['thumb_media_id'] = $thumb ? $thumb : $this->get_thumb_media_id(); // 缩略图
         $msg['video']['title'] = $title;
-        $msg['video']['description'] = $description;
-        return $this->replyData($uid, $msg, 'video');
+        $msg['video']['description'] = replaceInfo($description, $uid, $pbid);
+        return $this->replyData($uid, $msg, 'video', $pbid);
     }
 
     /* 回复音乐消息 */
-    public function replyMusic($uid, $media_id, $title = '', $description = '', $music_url, $HQ_music_url)
+    public function replyMusic($uid, $media_id, $title = '', $description = '', $music_url = '', $HQ_music_url = '', $pbid = 0)
     {
         $msg['Music']['ThumbMediaId'] = $media_id;
         $msg['Music']['Title'] = $title;
         $msg['Music']['Description'] = $description;
         $msg['Music']['MusicURL'] = $music_url;
         $msg['Music']['HQMusicUrl'] = $HQ_music_url;
-        return $this->replyData($uid, $msg, 'music');
+        return $this->replyData($uid, $msg, 'music', $pbid);
     }
 
     /*
      * 回复图文消息 传出图文素材的ID
      */
-    public function replyNews($uid, $sucai_id)
+    public function replyNews($uid, $sucai_id, $pbid = 0)
     {
         $map['group_id'] = $sucai_id;
         $appMsgData = M('material_news')->where(wp_where($map))->select();
@@ -111,6 +112,7 @@ class Custom extends Base
             $openid = get_openid();
             if (empty($vo['url'])) {
                 if (empty($vo['content'])) {
+                    $vo['link'] = replaceInfo($vo['link'], $uid, $pbid);
                     $art['url'] = replace_url($vo['link']);
                 }
                 $public_info = get_pbid_appinfo();
@@ -123,36 +125,36 @@ class Custom extends Base
             } else {
                 $art['url'] = $vo['url'];
             }
-            
-            if (! config('USER_OAUTH')) {
+
+            if (!config('USER_OAUTH')) {
                 $art['url'] .= '&openid=' . $openid;
             }
-            
+
             // 获取封面图片URL
             $coverId = $vo['cover_id'];
             $art['picurl'] = get_cover_url($coverId);
             $articles[] = $art;
         }
         $param['news']['articles'] = $articles;
-        
-        return $this->replyData($uid, $param, 'news');
+
+        return $this->replyData($uid, $param, 'news', $pbid);
     }
 
     /* 发送回复消息到微信平台 */
-    function replyData($uid, $param, $msg_type)
+    function replyData($uid, $param, $msg_type, $pbid = 0)
     {
         if (empty($uid)) {
             return false;
         }
-        
-        $map['pbid'] = get_pbid();
+
+        $map['pbid'] = empty($pbid) ? get_pbid() : $pbid;
         $map['uid'] = $uid;
-        
+
         $param['touser'] = M('public_follow')->where(wp_where($map))->value('openid');
         $param['msgtype'] = $msg_type;
-        
+
         $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . get_access_token();
-        
+
         // dump($param);
         // die;
         $result['status'] = 0;
@@ -161,7 +163,7 @@ class Custom extends Base
         if (isset($res['errcode']) && $res['errcode'] != 0) {
             $result['msg'] = error_msg($res);
         } else {
-            $data['ToUserName'] = get_wpid();
+            $data['ToUserName'] = $pbid;
             $data['FromUserName'] = $param['touser'];
             $data['CreateTime'] = NOW_TIME;
             $data['Content'] = isset($param['text']['content']) ? $param['text']['content'] : json_encode($param);
@@ -169,7 +171,7 @@ class Custom extends Base
             $data['type'] = 1;
             $data['is_read'] = 1;
             M('weixin_message')->insert($data);
-            
+
             $result['status'] = 1;
             $result['msg'] = '回复成功';
         }
@@ -177,41 +179,45 @@ class Custom extends Base
     }
 
     // 新增永久图片素材
-    function get_image_media_id($cover_id, $type = 'image')
+    function get_image_media_id($cover_id, $type = 'image', $is_material = true)
     {
         $cover = get_cover($cover_id);
         if (empty($cover)) {
             return 0;
         }
-        
+
         $path = SITE_PATH . '/public' . $cover['path'];
-        
-        if (! file_exists($path)) {
+
+        if (!file_exists($path)) {
             // 先把图片下载到本地
             $pathinfo = pathinfo($path);
             mkdirs($pathinfo['dirname']);
-            
+
             $content = wp_file_get_contents($cover['url']);
             $res = file_put_contents($path, $content);
-            if (! $res) {
+            if (!$res) {
                 addWeixinLog('远程图片下载失败', $type);
                 return 0;
             }
         }
-        
-        if (! $path) {
-            addWeixinLog('获取文章封面失败，请确认是否增加封面', $type);
+
+        if (!$path) {
+            addWeixinLog('获取图片失败，请确认是否增加图片', $type);
             return 0;
         }
-        
+
         $param = upload_param_by_curl($path);
         $param['type'] = $type;
-        
-        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=' . get_access_token();
+        if ($is_material) {
+            $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=' . get_access_token();
+        } else {
+            $url = 'https://api.weixin.qq.com/cgi-bin/media/upload?access_token=' . get_access_token();
+        }
+
         $res = post_data($url, $param, 'file');
-        
+
         if (isset($res['errcode']) && $res['errcode'] != 0) {
-            addWeixinLog(error_msg($res, '封面图上传'), '_thumb_media_id');
+            addWeixinLog(error_msg($res, '图片上传'), '_thumb_media_id');
             return 0;
         }
         if (isset($res['curl_erron']) && $res['curl_error'] != 0) {
@@ -229,11 +235,11 @@ class Custom extends Base
             // dump($fileInfo);
             $path = SITE_PATH . '/public/uploads/download/' . $fileInfo['savepath'] . $fileInfo['savename'];
             // dump($path);
-            if (! $path) {
+            if (!$path) {
                 return 0;
             }
             //媒体文件在微信后台保存时间为3天，即3天后media_id失效。
-            $fileKey = 'get_file_media_id_'.$type.'_'.$fileInfo ['savepath'] . $fileInfo ['savename'];
+            $fileKey = 'get_file_media_id_' . $type . '_' . $fileInfo ['savepath'] . $fileInfo ['savename'];
             $res = S($fileKey);
             if (empty($res)) {
                 $param = upload_param_by_curl($path);
@@ -252,14 +258,14 @@ class Custom extends Base
         } else {
             return 0;
         }
-        
+
         return isset($res['media_id']) ? $res['media_id'] : 0;
     }
 
     // 临时缩略图素材
     function get_thumb_media_id($path = '')
     {
-        if (! $path) {
+        if (!$path) {
             $path = SITE_PATH . '/public/home/images/spec_img_add.jpg';
         }
         $param = upload_param_by_curl($path);

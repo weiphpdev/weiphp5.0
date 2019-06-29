@@ -52,9 +52,9 @@ class CreditData extends Base {
 	}
 	function clearCache($id, $act_type = '', $uid = 0, $more_param = []) {
 	}
-	function updateSubscribeCredit($wpid, $credit, $type = 0) {
+	function updateSubscribeCredit($pbid, $credit, $type = 0) {
 		if ($type == 0) {
-			$config = getAddonConfig ( 'UserCenter', $wpid );
+			$config = getAddonConfig ( 'UserCenter', $pbid );
 			$config ['score'] = $credit ['score'];
 			D('common/PublicConfig' )->setConfig ( 'UserCenter', $config );
 		} else {

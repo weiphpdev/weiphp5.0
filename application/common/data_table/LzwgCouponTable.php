@@ -19,22 +19,22 @@ class LzwgCouponTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '名称',
+          'title' => '名称'
       ],
       'money' => [
-          'title' => '减免金额',
+          'title' => '减免金额'
       ],
       'name' => [
-          'title' => '代金券标题',
+          'title' => '代金券标题'
       ],
       'condition' => [
-          'title' => '抵押条件',
+          'title' => '抵押条件'
       ],
       'intro' => [
-          'title' => '优惠券简述',
+          'title' => '优惠券简述'
       ],
       'sn_str' => [
-          'title' => '数量',
+          'title' => '数量'
       ],
       'urls' => [
           'title' => '操作',
@@ -96,7 +96,7 @@ class LzwgCouponTable {
       ],
       'img' => [
           'title' => '优惠卷图标',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 1
       ]

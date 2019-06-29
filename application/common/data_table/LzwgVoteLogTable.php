@@ -20,20 +20,20 @@ class LzwgVoteLogTable {
     public $list_grid = [
       'vote_id' => [
           'title' => '投票标题',
-		  'width' => '25%'
+          'width' => '25%'
       ],
       'user_id' => [
           'title' => '用户',
-		  'width' => '25%'
+          'width' => '25%'
       ],
       'options' => [
           'title' => '投票选项',
-		  'width' => '25%'
+          'width' => '25%'
       ],
       'cTime' => [
           'title' => '创建时间',
           'function' => 'time_format',
-		  'width' => '25%'
+          'width' => '25%'
       ]
   ];
 
@@ -41,13 +41,13 @@ class LzwgVoteLogTable {
     public $fields = [
       'vote_id' => [
           'title' => '投票ID',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'is_show' => 1
       ],
       'user_id' => [
           'title' => '用户ID',
-          'field' => 'int(10) NULL ',
+          'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1
       ],
@@ -60,7 +60,8 @@ class LzwgVoteLogTable {
       'wpid' => [
           'title' => 'wpid',
           'field' => 'int(10) NOT NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 0
       ],
       'cTime' => [
           'title' => '创建时间',

@@ -25,22 +25,19 @@ class StoresUserTable {
           'title' => 'wpid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'uid' => [
           'title' => 'uid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'store_id' => [
           'title' => 'store_id',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'is_must' => 0
+          'is_show' => 1
       ]
   ];
 }

@@ -27,7 +27,8 @@ class ShopDistributionProfitTable {
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ],
       'uid' => [
           'title' => 'Uid',
@@ -42,9 +43,10 @@ class ShopDistributionProfitTable {
       ],
       'profit' => [
           'title' => '拥金',
-          'field' => 'float(10)  NULL',
+          'field' => 'float NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'profit_shop' => [
           'title' => '获得佣金的店铺',

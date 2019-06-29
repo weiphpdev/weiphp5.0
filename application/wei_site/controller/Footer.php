@@ -177,6 +177,6 @@ class Footer extends Base
     // 底部导航
     public function template()
     {
-        return $this->fetch ();
+        return $this->fetch();
     }
 }

@@ -809,9 +809,14 @@ class Request
             return $this->server('REQUEST_METHOD') ?: 'GET';
         } elseif (!$this->method) {
             if (isset($_POST[$this->config['var_method']])) {
-                $this->method    = strtoupper($_POST[$this->config['var_method']]);
-                $method          = strtolower($this->method);
-                $this->{$method} = $_POST;
+                $method = strtolower($_POST[$this->config['var_method']]);
+                if (in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
+                    $this->method    = strtoupper($method);
+                    $this->{$method} = $_POST;
+                } else {
+                    $this->method = 'POST';
+                }
+                unset($_POST[$this->config['var_method']]);
             } elseif ($this->server('HTTP_X_HTTP_METHOD_OVERRIDE')) {
                 $this->method = strtoupper($this->server('HTTP_X_HTTP_METHOD_OVERRIDE'));
             } else {
@@ -1034,7 +1039,7 @@ class Request
 
     protected function getInputData($content)
     {
-        if (false !== strpos($this->contentType(), 'application/json') || 0 === strpos($content, '{"')) {
+        if ($this->isJson()) {
             return (array) json_decode($content, true);
         } elseif (strpos($content, '=')) {
             parse_str($content, $data);
@@ -1320,7 +1325,8 @@ class Request
      * @param array $data 数据源
      * @return void
      */
-    public function arrayReset(array &$data) {
+    public function arrayReset(array &$data)
+    {
         foreach ($data as &$value) {
             if (is_array($value)) {
                 $this->arrayReset($value);
@@ -1523,7 +1529,7 @@ class Request
      */
     public function has($name, $type = 'param', $checkEmpty = false)
     {
-        if (!in_array($type, ['param', 'get', 'post', 'request', 'put', 'file', 'session', 'cookie', 'env', 'header', 'route'])) {
+        if (!in_array($type, ['param', 'get', 'post', 'request', 'put', 'patch', 'file', 'session', 'cookie', 'env', 'header', 'route'])) {
             return false;
         }
 
@@ -1623,6 +1629,19 @@ class Request
         }
 
         return false;
+    }
+
+    /**
+     * 当前是否JSON请求
+     * @access public
+     * @return bool
+     */
+    public function isJson()
+    {
+        $contentType = $this->contentType();
+        $acceptType  = $this->type();
+
+        return false !== strpos($contentType, 'json') || false !== strpos($acceptType, 'json');
     }
 
     /**

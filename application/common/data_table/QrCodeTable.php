@@ -19,29 +19,29 @@ class QrCodeTable {
     // 列表定义
     public $list_grid = [
       'scene_id' => [
-          'title' => '事件KEY值',
+          'title' => '事件KEY值'
       ],
       'qr_code' => [
           'title' => '二维码',
           'function' => 'get_code_img',
-            'raw' => 1
+          'raw' => 1
       ],
       'action_name' => [
-          'title' => ' 	二维码类型',
+          'title' => ' 	二维码类型'
       ],
       'addon' => [
-          'title' => '所属插件',
+          'title' => '所属插件'
       ],
       'aim_id' => [
-          'title' => '插件数据ID',
+          'title' => '插件数据ID'
       ],
       'cTime' => [
           'title' => '增加时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'request_count' => [
           'title' => '请求数',
-          'function' => 'intval',
+          'function' => 'intval'
       ],
       'urls' => [
           'title' => '操作',
@@ -65,19 +65,22 @@ class QrCodeTable {
           'title' => '二维码',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'addon' => [
           'title' => '二维码所属插件',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'aim_id' => [
           'title' => '插件表里的ID值',
-          'field' => 'int(10) unsigned NOT NULL ',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'cTime' => [
           'title' => '创建时间',
@@ -90,13 +93,13 @@ class QrCodeTable {
       ],
       'extra_text' => [
           'title' => '文本扩展',
-          'field' => 'text NULL ',
+          'field' => 'text NULL',
           'type' => 'textarea',
           'is_show' => 1
       ],
       'extra_int' => [
           'title' => '数字扩展',
-          'field' => 'int(10) NULL ',
+          'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1
       ],
@@ -104,7 +107,8 @@ class QrCodeTable {
           'title' => '场景ID',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'action_name' => [
           'title' => '二维码类型',
@@ -113,18 +117,27 @@ class QrCodeTable {
           'remark' => 'QR_SCENE为临时,QR_LIMIT_SCENE为永久 ',
           'is_show' => 1,
           'extra' => 'QR_SCENE:临时二维码
-QR_LIMIT_SCENE:永久二维码'
+QR_LIMIT_SCENE:永久二维码',
+          'value' => 'QR_SCENE'
       ],
-      'wpid' => [
+      'pbid' => [
           'title' => 'wpid',
           'field' => 'int(10) NOT NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 0
       ],
       'request_count' => [
           'title' => '请求数',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'remark' => '用户回复的次数'
+          'remark' => '用户回复的次数',
+          'value' => 0
+      ],
+      'expire_seconds' => [
+          'title' => '有效期',
+          'field' => 'int(11) NULL',
+          'type' => 'string',
+          'value' => 2592000
       ]
   ];
 }

@@ -99,7 +99,7 @@ class User extends Admin {
 		$nickname = M( 'User' )->getFieldByUid ( UID, 'nickname' );
 		$this->assign ( 'nickname', $nickname );
 		$this->meta_title = '修改昵称';
-		return $this->fetch('updateNickname');
+		return $this->fetch('update_nickname');
 	}
 
 	/**
@@ -147,7 +147,7 @@ class User extends Admin {
 	 */
 	public function updatePassword() {
 		$this->meta_title = '修改密码';
-		return $this->fetch('updatePassword');
+		return $this->fetch('update_password');
 	}
 
 	/**
@@ -407,7 +407,7 @@ class User extends Admin {
 			$this->assign ( 'ucanter', $ucanter );
 			$this->assign ( 'public', $public );
 		}
-		return $this->fetch( 'showMemberPublic' );
+		return $this->fetch( 'show_member_public' );
 	}
 	// 修改审核
 	function changeAudit($is_audit, $uid) {

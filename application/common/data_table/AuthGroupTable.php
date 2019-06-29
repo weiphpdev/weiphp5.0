@@ -19,40 +19,17 @@ class AuthGroupTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '分组名称',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'title',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '分组名称'
       ],
       'description' => [
-          'title' => '描述',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'description',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '描述'
       ],
       'qr_code' => [
-          'title' => '二维码',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'qr_code',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '二维码'
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
-          'width' => '',
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '导出用户',
@@ -62,10 +39,7 @@ class AuthGroupTable {
                   'title' => '编辑',
                   'url' => '[EDIT]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -73,36 +47,32 @@ class AuthGroupTable {
     public $fields = [
       'title' => [
           'title' => '分组名称',
-          'field' => 'varchar(30) NULL',
+          'field' => 'varchar(30) NOT NULL',
           'type' => 'string',
           'is_show' => 1,
-          'is_must' => 1,
-          'placeholder' => '请输入内容'
+          'is_must' => 1
       ],
       'description' => [
           'title' => '描述信息',
           'field' => 'text NULL',
           'type' => 'textarea',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'wechat_group_name' => [
           'title' => '微信端的分组名',
           'field' => 'varchar(100) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'wechat_group_id' => [
           'title' => '微信端的分组ID',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => -1
       ],
       'qr_code' => [
           'title' => '微信二维码',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'is_default' => [
           'title' => '是否默认自动加入',
@@ -111,27 +81,24 @@ class AuthGroupTable {
           'remark' => '只有设置一个默认组，设置当前为默认组后之前的默认组将取消',
           'extra' => '0:否
 1:是',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'pbid' => [
           'title' => '公众号id',
           'type' => 'string',
-          'field' => 'varchar(100) NULL',
-          'is_show' => 0,
-          'is_must' => 0
+          'field' => 'varchar(100) NULL'
       ],
       'manager_id' => [
           'title' => '管理员ID',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '为0时表示系统用户组',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'rules' => [
           'title' => '权限',
           'field' => 'text NULL',
-          'type' => 'textarea',
-          'placeholder' => '请输入内容'
+          'type' => 'textarea'
       ],
       'type' => [
           'title' => '类型',
@@ -141,7 +108,7 @@ class AuthGroupTable {
 1:微信用户组
 2:等级用户组
 3:认证用户组',
-          'placeholder' => '请输入内容'
+          'value' => 1
       ],
       'status' => [
           'title' => '状态',
@@ -150,19 +117,17 @@ class AuthGroupTable {
           'extra' => '1:正常
 0:禁用
 -1:删除',
-          'placeholder' => '请输入内容'
+          'value' => 1
       ],
       'icon' => [
           'title' => '图标',
-          'field' => 'int(10) UNSIGNED NULL',
-          'type' => 'picture',
-          'placeholder' => '请输入内容'
+          'field' => 'int(10) unsigned NULL',
+          'type' => 'picture'
       ],
       'wechat_group_count' => [
           'title' => '微信端用户数',
           'field' => 'int(10) NULL',
-          'type' => 'num',
-          'placeholder' => '请输入内容'
+          'type' => 'num'
       ],
       'is_del' => [
           'title' => '是否已删除',
@@ -170,7 +135,7 @@ class AuthGroupTable {
           'type' => 'bool',
           'extra' => '0:否
 1:是',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ]
   ];
 }

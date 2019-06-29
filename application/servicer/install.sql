@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS `wp_servicer` (
 `uid`  int(10) NULL  COMMENT '用户选择',
 `truename`  varchar(255) NULL  COMMENT '真实姓名',
 `mobile`  varchar(255) NULL  COMMENT '手机号',
-`role`  varchar(100) NULL  COMMENT '授权列表',
+`role`  varchar(100) NULL  DEFAULT 2 COMMENT '授权列表',
 `enable`  int(10) NULL  DEFAULT 1 COMMENT '是否启用',
-`wpid`  int(10) NOT NULL  COMMENT 'wpid',
-`update_at`  int(10) NOT NULL  COMMENT '更新时间',
+`wpid`  int(10) NOT NULL  DEFAULT 0 COMMENT 'wpid',
+`update_at`  int(11) NULL  DEFAULT 0 COMMENT '更新时间',
 `pbid`  int(10) NULL  DEFAULT 0 COMMENT '公众号id',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;

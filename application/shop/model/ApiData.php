@@ -1108,7 +1108,7 @@ class ApiData extends Base
 //                 dump(444);
                 return $this->error('还没配置支付信息');
             }
-            $total_fee=0.01;//TODO 测试期间先固定1分钱
+            //$total_fee=0.01;//TODO 测试期间先固定1分钱
             $product = [
                 'openid' => $orderInfo['openid'],
                 'body' => '商品购买',

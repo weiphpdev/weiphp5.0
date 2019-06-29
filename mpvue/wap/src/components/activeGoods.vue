@@ -1,5 +1,5 @@
 <template>
-	<div class="active-goods">
+	<div class="active-goods" style="margin-bottom: 60px;">
 		<template v-if="activeData">
 			<div class="active-goods__item" v-for="(item,index) in activeData" :key="index">
 				<div class="active-goods__img">
@@ -17,8 +17,8 @@
 						</p>
 						<p class="active-goods__price_cost"><span class="f-mr-xs">¥</span>{{item.market_price}}</p>
 					</div>
-
-					<router-link :to="'/seckill/detail/' + item.id" class="u-button u-button--primary" v-if="activeTime">{{activeType}}</router-link>
+					<router-link :to="'/collage/collage_detail/' + item.id" class="u-button u-button--primary" v-if="activeTime && activeType == '拼团'">{{activeType}}</router-link>
+					<router-link :to="'/seckill/detail/' + item.id" class="u-button u-button--primary" v-else-if="activeTime  && activeType == '秒杀'">{{activeType}}</router-link>
 					<button class="u-button u-button--disable2" v-else>{{activeType}}</button>
 				</div>
 

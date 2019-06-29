@@ -281,6 +281,7 @@ class Order extends Base
 
     public function detail()
     {
+       
         $id = I('id');
         $orderInfo = D('Shop/Order')->getInfo($id);
         if (empty($orderInfo)) {
@@ -344,6 +345,7 @@ class Order extends Base
         
         $save['is_send'] = 1;
         $save['send_time'] = time();
+        $save['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
         
         $res = $orderDao->where('id', $order_id)->update($save);
         if ($res !== false) {

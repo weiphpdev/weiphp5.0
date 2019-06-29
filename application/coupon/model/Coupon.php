@@ -136,7 +136,9 @@ class Coupon extends Base
             $flat = false;
         } elseif (! empty($info['end_time']) && $info['end_time'] < NOW_TIME) {
             $flat = false;
-        }
+        }elseif(!isset($info['wpid'])){
+			$flat = false;
+		}
         
         // $list = D('common/SnCode' )->getMyList ( $uid, $id );
         // $my_count = count ( $list );
@@ -145,13 +147,12 @@ class Coupon extends Base
         // $flat = false;
         // }
         // 判断用户是否有领取会员卡
-        if (is_install('card')){
-        	$cardId = D('card/CardMember')->checkHasMemberCard($uid);
-        	if (empty($cardId)) {
-        		// $msg = '您还未领取会员卡，还不能领取该优惠券！';
-        		$flat = false;
-        	}
-        }
+//        if (is_install('card')){
+//        	$cardId = D('card/CardMember')->checkHasMemberCard($uid);
+//        	if (empty($cardId)) {
+//        		$flat = false;
+//        	}
+//        }
         
         if (! $flat) {
             return false;
@@ -164,7 +165,7 @@ class Coupon extends Base
         $data['wpid'] = $info['wpid'];
         $data['openid'] = get_openid();
         // 金额
-        $data['prize_title'] = $$info['money'];
+        $data['prize_title'] = $info['money'];
         
         $sn_id = D('common/SnCode')->delayAdd($data);
         // $sn_id = D('common/SnCode' )->insertGetId( $data );

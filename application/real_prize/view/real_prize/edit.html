@@ -66,7 +66,7 @@
                     <label class="item-label"><span class="need_flag">*</span> 使用说明 <span class="check-tips">（用户领取成功后才会看到）</span></label>
                     <div class="controls">
                       <label class="textarea input-large">
-                      <textarea class="text input-large" name="use_content" >{$data.use_content}</textarea>
+                      <textarea class="text input-large" name="use_content" >{$data.use_content|raw}</textarea>
                       </label>
                     </div>
                   </li>  
@@ -74,7 +74,7 @@
                     <label class="item-label"><span class="need_flag">*</span> 领取失败提示 <span class="check-tips">（用户领取失败，或者没有领取到时看到的提示）</span></label>
                     <div class="controls">
                       <label class="textarea input-large">
-                      <textarea class="text input-large" name="fail_content" >{$data.fail_content}</textarea>
+                      <textarea class="text input-large" name="fail_content" >{$data.fail_content|raw}</textarea>
                       </label>
                     </div>
                   </li>  

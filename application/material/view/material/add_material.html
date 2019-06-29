@@ -126,19 +126,18 @@
                                 </div>
                            </li>
                            <li class="form-item cf">
-                                <label class="item-label">正文<span class="text-muted">（图片命名不能有特殊符号）</span></label>
+                                <label class="item-label">正文<span class="text-muted">（图片命名不能有特殊符号；图文不同步到微信素材库时可使用动态替换字符， {@nickname}代表粉丝昵称，{@openid}代表粉丝在公众号下的唯一标识openid）</span></label>
                                 <div class="controls">
                                   <label class="textarea">
                                   <textarea style="width:405px; height:200px;" name="p_content" ></textarea>
                                   {:W('common/editor/adminArticleEdit', array('name'=>'p_content','value'=>isset($field['value'])?$field['value']:'','extra'=>isset($field['extra'])?$field['extra']:''))}
-                                  <!-- {://widget('home/EditorForAdminAddon/adminArticleEdit',array('data'=>array('name'=>'p_content','value'=>'')))}-->
                                   </label>
                                   </label>
                                 </div>
                                
                            </li>
                             <li class="form-item cf">
-                            <label class="item-label">外链<span class="text-muted">（有正文时，优先跑到正文里，没有正文时，直接跳转到外链）</span></label>
+                            <label class="item-label">外链<span class="text-muted">（有正文时,优先跑到正文里,没正文时,直接跳转到外链（不同步到微信素材库，否则外链将作为正文内容）,外链可传粉丝openid：{@openid}代表粉丝在公众号下的唯一标识openid）</span></label>
                             <div class="controls">
                               <input type="text" class="form-control" name="p_link" value="">
                             </div>

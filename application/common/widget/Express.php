@@ -58,6 +58,6 @@ class Express extends base
         // dump ( $data );exit;
         $this->assign('data', $data);
         $html = $this->fetch('common@widget/express');
-        echo $html;
+        return $html;
     }
 }

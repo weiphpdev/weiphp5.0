@@ -6,7 +6,7 @@ class MenuTable {
     // 数据表模型配置
     public $config = [
       'name' => 'menu',
-      'title' => '系统菜单',
+      'title' => '公众号管理员菜单',
       'search_key' => '',
       'add_button' => 1,
       'del_button' => 1,
@@ -19,25 +19,25 @@ class MenuTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '菜单名',
+          'title' => '菜单名'
       ],
       'menu_type' => [
-          'title' => '菜单类型',
+          'title' => '菜单类型'
       ],
       'addon_name' => [
-          'title' => '插件名',
+          'title' => '插件名'
       ],
       'url' => [
-          'title' => '外链',
+          'title' => '外链'
       ],
       'target' => [
-          'title' => '打开方式',
+          'title' => '打开方式'
       ],
       'is_hide' => [
-          'title' => '隐藏',
+          'title' => '隐藏'
       ],
       'sort' => [
-          'title' => '排序号',
+          'title' => '排序号'
       ],
       'urls' => [
           'title' => '操作',
@@ -63,14 +63,16 @@ class MenuTable {
           'type' => 'bool',
           'is_show' => 1,
           'extra' => '0:顶级菜单|pid@hide
-1:侧栏菜单|pid@show'
+1:侧栏菜单|pid@show',
+          'value' => 0
       ],
       'pid' => [
           'title' => '上级菜单',
           'field' => 'varchar(50) NULL',
           'type' => 'cascade',
           'is_show' => 1,
-          'extra' => 'type=db&table=menu&menu_type=0&place=[place]&is_hide=0'
+          'extra' => 'type=db&table=menu&menu_type=0&place=[place]&is_hide=0',
+          'value' => 0
       ],
       'title' => [
           'title' => '菜单名',
@@ -84,7 +86,8 @@ class MenuTable {
           'type' => 'bool',
           'is_show' => 1,
           'extra' => '0:插件|addon_name@show,url@hide
-1:外链|addon_name@hide,url@show'
+1:外链|addon_name@hide,url@show',
+          'value' => 0
       ],
       'addon_name' => [
           'title' => '插件名',
@@ -105,7 +108,8 @@ class MenuTable {
           'type' => 'select',
           'is_show' => 1,
           'extra' => '_self:当前窗口打开
-_blank:在新窗口打开'
+_blank:在新窗口打开',
+          'value' => '_self'
       ],
       'is_hide' => [
           'title' => '是否隐藏',
@@ -113,21 +117,23 @@ _blank:在新窗口打开'
           'type' => 'radio',
           'is_show' => 1,
           'extra' => '0:否
-1:是'
+1:是',
+          'value' => 0
       ],
       'sort' => [
           'title' => '排序号',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '值越小越靠前',
-          'is_show' => 1
-			],
-			'place' => [
-					'title' => '位置',
-					'field' => 'tinyint(1) NULL',
-					'type' => 'string',
-					'is_show' => 4,
-					'placeholder' => '请输入内容'
-			]
+          'is_show' => 1,
+          'value' => 0
+      ],
+      'place' => [
+          'title' => '0：运营端，1：开发端',
+          'field' => 'tinyint(1) NULL',
+          'type' => 'string',
+          'is_show' => 4,
+          'value' => 0
+      ]
   ];
 }

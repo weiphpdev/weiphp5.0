@@ -19,21 +19,21 @@ class LzwgActivitiesVoteTable {
     // 列表定义
     public $list_grid = [
       'lzwg_name' => [
-          'title' => '活动名称',
+          'title' => '活动名称'
       ],
       'start_time' => [
           'title' => '活动开始时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'end_time' => [
           'title' => '活动结束时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'lzwg_type' => [
-          'title' => '活动类型',
+          'title' => '活动类型'
       ],
       'vote_title' => [
-          'title' => '题目',
+          'title' => '题目'
       ],
       'urls' => [
           'title' => '操作',
@@ -69,7 +69,8 @@ class LzwgActivitiesVoteTable {
           'type' => 'radio',
           'is_show' => 1,
           'extra' => '0:单选
-1:多选'
+1:多选',
+          'value' => 1
       ],
       'vote_limit' => [
           'title' => '最多选择几项',
@@ -83,7 +84,8 @@ class LzwgActivitiesVoteTable {
           'type' => 'radio',
           'is_show' => 1,
           'extra' => '0:投票
-1:调查'
+1:调查',
+          'value' => 0
       ],
       'vote_id' => [
           'title' => '题目编号',

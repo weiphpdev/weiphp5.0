@@ -97,14 +97,14 @@ class Credit extends Base
         S($key, null);
     }
 
-    public function updateSubscribeCredit($wpid, $credit, $type = 0)
+    public function updateSubscribeCredit($pbid, $credit, $type = 0)
     {
         if ($type == 0) {
-            $config = getAddonConfig('UserCenter', $wpid);
+            $config = getAddonConfig('UserCenter', $pbid);
             $config['score'] = $credit['score'];
             D('common/PublicConfig')->setConfig('UserCenter', $config);
         } else {
-            $data['wpid'] = $wpid;
+            $data['wpid'] = $pbid;
             $data['name'] = 'subscribe';
             
             $info = M('credit_config')->where(wp_where($data))->find();

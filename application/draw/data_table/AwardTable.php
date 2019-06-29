@@ -20,49 +20,24 @@ class AwardTable {
     public $list_grid = [
       'id' => [
           'title' => '编号',
-          'come_from' => 0,
-          'width' => 15,
-          'is_sort' => 0,
-          'name' => 'id',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'width' => 15
       ],
       'name' => [
           'title' => '奖项名称',
-          'come_from' => 0,
-          'width' => 20,
-          'is_sort' => 0,
-          'name' => 'name',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'width' => 20
       ],
       'award_type' => [
           'title' => '奖品类型',
-          'come_from' => 0,
-          'width' => 20,
-          'is_sort' => 0,
-          'name' => 'award_type',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'width' => 20
       ],
       'explain' => [
           'title' => '奖品说明',
-          'come_from' => 0,
-          'width' => 20,
-          'is_sort' => 0,
-          'name' => 'explain',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'width' => 20
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
           'width' => 20,
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '编辑',
@@ -72,10 +47,7 @@ class AwardTable {
                   'title' => '删除',
                   'url' => '[DELETE]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -91,23 +63,21 @@ class AwardTable {
 4:现金红包|score@hide,money@show,coupon_id@hide',
           'value' => 1,
           'remark' => '选择奖品类别',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'name' => [
           'title' => '奖项名称',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_must' => 1
       ],
       'img' => [
           'title' => '奖品图片',
           'type' => 'picture',
           'field' => 'int(10) NULL',
           'remark' => '最佳尺寸200*200',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'score' => [
           'title' => '积分数',
@@ -115,36 +85,32 @@ class AwardTable {
           'type' => 'num',
           'remark' => '积分奖励',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'money' => [
           'title' => '现金',
           'type' => 'num',
           'field' => 'decimal(10,2) NULL',
-          'value' => 0,
+          'value' => 0.00,
           'remark' => '赠送到用户的微信钱包，单位 元，不能低于1元',
-          'is_show' => 1,
-          'is_must' => 0
+          'is_show' => 1
       ],
       'explain' => [
           'title' => '奖品说明',
           'field' => 'text NULL',
           'type' => 'textarea',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'coupon_id' => [
           'title' => '选择赠送券',
           'type' => 'select',
           'field' => 'char(50) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'aim_table' => [
           'title' => '活动标识',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'uid' => [
           'title' => 'uid',
@@ -152,8 +118,7 @@ class AwardTable {
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 3,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'wpid' => [
           'title' => 'wpid',
@@ -162,26 +127,26 @@ class AwardTable {
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
           'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'sort' => [
           'title' => '排序号',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'count' => [
           'title' => '奖品数量',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'price' => [
           'title' => '商品价格',
-          'field' => 'FLOAT(10) NULL',
+          'field' => 'decimal(10,2) NULL',
           'type' => 'num',
           'remark' => '价格默认为0，表示未报价',
-          'placeholder' => '请输入内容'
+          'value' => 0.00
       ],
       'cTime' => [
           'title' => '创建时间',
@@ -190,7 +155,7 @@ class AwardTable {
           'auto_rule' => 'time',
           'auto_time' => 3,
           'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ]
   ];
 }

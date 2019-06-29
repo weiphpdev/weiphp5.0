@@ -231,12 +231,20 @@ sql;
         }
         foreach ($obj->fields as $n => &$f) {
             $f['name'] = $n;
+            isset($f['title']) || $f['title'] = $n;
             isset($f['value']) || $f['value'] = '';
             isset($f['placeholder']) || $f['placeholder'] = '请输入内容';
             isset($f['remark']) || $f['remark'] = '';
             isset($f['is_show']) || $f['is_show'] = 0;
             isset($f['is_must']) || $f['is_must'] = 0;
             isset($f['extra']) || $f['extra'] = '';
+
+            if (!empty($f['extra']) && isset($GLOBALS['extra_data']) && !empty($GLOBALS['extra_data'])) {
+                $original_data = $GLOBALS['extra_data'];
+                $f['extra'] = preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use ($original_data) {
+                    return isset($original_data[$match[1]]) ? $original_data[$match[1]] : '';
+                }, $f['extra']);
+            }
 
             isset($f['validate_type']) || $f['validate_type'] = 'regex';
             isset($f['validate_rule']) || $f['validate_rule'] = '';
@@ -247,7 +255,7 @@ sql;
             isset($f['auto_time']) || $f['auto_time'] = 3;
             isset($f['auto_type']) || $f['auto_type'] = 'function';
 
-            if ($f['type'] == 'file') {
+            if (isset($f['type']) && $f['type'] == 'file') {
                 isset($f['validate_file_exts']) || $f['validate_file_exts'] = '';
                 isset($f['validate_file_size']) || $f['validate_file_size'] = 10485760;
             }
@@ -285,6 +293,22 @@ sql;
         $configStr = $this->wp_var_export($config, 1);
         // dump ( $list_grid );
         // exit ();
+        foreach ($list_grid as $k => $a) {
+            if (empty($a['function']))
+                unset($list_grid[$k]['function']);
+            if (empty($a['width']))
+                unset($list_grid[$k]['width']);
+            if (empty($a['is_sort']))
+                unset($list_grid[$k]['is_sort']);
+            if (empty($a['raw']))
+                unset($list_grid[$k]['raw']);
+            if (empty($a['come_from']))
+                unset($list_grid[$k]['come_from']);
+            if (empty($a['href']) || $a['href'] == '[ ]')
+                unset($list_grid[$k]['href']);
+            if (isset($a['name']))
+                unset($list_grid[$k]['name']);
+        }
 
         $list_grid_str = $this->wp_var_export($list_grid, 1);
         $fieldsArr = [];
@@ -298,7 +322,7 @@ sql;
                     unset($f['validate_rule'], $f['validate_time'], $f['error_info'], $f['validate_type']);
                 }
                 foreach ($f as $k => $i) {
-                    if ($i == '') {
+                    if ($i == '' || $i == '请输入内容') {
                         unset($f[$k]);
                     }
                 }
@@ -327,7 +351,7 @@ str;
         // dump ( $content );
         // exit ();
         file_put_contents($dir . $name . 'Table.php', $content);
-        if ($model['addon'] != $config['addon']) {
+        if (parse_name_lower($model['addon']) != parse_name_lower($config['addon'])) {
             // 删除旧文件
             $file = $this->requireFile($model);
             @unlink($file);
@@ -512,7 +536,7 @@ sql;
         // 获取默认值
         if ($field['value'] === '') {
             $default = '';
-        } elseif (is_numeric($field['value'])) {
+        } elseif (is_numeric($field['value']) || $field['value'] == 'CURRENT_TIMESTAMP') {
             $default = ' DEFAULT ' . $field['value'];
         } elseif (is_string($field['value'])) {
             $default = ' DEFAULT \'' . $field['value'] . '\'';
@@ -550,7 +574,7 @@ sql;
 
     public function parseExtra($extra, $val = null)
     {
-        $arr = parse_config_attr($extra);
+        $arr = parse_field_attr($extra);
 
         if ($val !== null) {
             return isset($arr[$val]) ? $arr[$val] : '';
@@ -558,7 +582,9 @@ sql;
             return $arr;
         }
     }
-    function buildFileByData($data){
+
+    function buildFileByData($data)
+    {
 // dump ( $data );
         $config = [
             'name' => $data['name'],
@@ -569,7 +595,7 @@ sql;
             'search_button' => isset($data['search_button']) ? $data['search_button'] : 1,
             'check_all' => isset($data['check_all']) ? $data['check_all'] : 1,
             'list_row' => isset($data['list_row']) ? $data['list_row'] : 20,
-            'addon' => $data['addon']
+            'addon' => parse_name_lower($data['addon'])
         ];
 
         // dump ( $config );

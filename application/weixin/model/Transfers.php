@@ -251,7 +251,7 @@ class Transfer extends Base
             return $return;
         }
         // 有些状态不能重发
-        if (isset($recode['status']) && ! in_array($recode['status'], [
+        if (isset($recode['status']) && ! in_array($recode['status'], [0,
             1,
             2,
             4

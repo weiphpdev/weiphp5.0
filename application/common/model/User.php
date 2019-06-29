@@ -19,6 +19,7 @@ class User extends Base
 
     function initialize()
     {
+	parent::initialize();
         $this->openCache = true; // 当前model开启getInfo的缓存功能
     }
 
@@ -57,11 +58,11 @@ class User extends Base
             'truename' => $truename,
             'is_audit' => config('REG_AUDIT')
         );
-        
+
         // 验证手机
         empty($mobile) || $data['mobile'] = $mobile;
         /* 添加用户 */
-        
+
         $this->save($data);
         $uid = $this->uid;
         return $uid ? $uid : 0; // 0-未知错误，大于0-注册成功
@@ -92,7 +93,7 @@ class User extends Base
     {
         $username = safe($username, 'text');
         $password = safe($password, 'text');
-        
+
         /* 检测是否在当前应用注册 */
         $map = [];
         switch ($type) {
@@ -111,35 +112,35 @@ class User extends Base
             default:
                 return 0; // 参数错误
         }
-        
+
         /* 获取用户数据 */
-        
+
         $user = $this->field(true)
             ->where(wp_where($map))
             ->find();
-        
-        if (! $user) {
+
+        if (!$user) {
             unset($map);
             $map['login_name'] = $username;
             $user = $this->field(true)
                 ->where(wp_where($map))
                 ->find();
         }
-        
+
         if ($from == 'admin_login' && intval($user['uid']) != config('user_administrator')) {
             $this->error = '没有超级管理员权限，不能登录！';
             return false;
         }
-        
+
         if (intval($user['status']) > 0) {
             /* 验证用户密码 */
             if (think_weiphp_md5($password) === $user['password']) {
                 // 记录行为
                 action_log($from, 'user', $user['uid'], $user['uid']);
-                
+
                 /* 登录用户 */
                 $this->autoLogin($user);
-                
+
                 // 登录成功，返回用户ID
                 return $user['uid'];
             } else {
@@ -161,14 +162,14 @@ class User extends Base
     {
         $wpid = get_wpid();
         session('menu_default', null);
-        session('mid_'.get_pbid(), null);
+        session('mid_' . get_pbid(), null);
         session('mid_0', null);
         session('user_auth', null);
         session('user_auth_sign', null);
         session('wpid', null);
         session('openid_' . $wpid, null);
         session('manager_id', null);
-        
+
         cookie('user_id', null);
     }
 
@@ -190,7 +191,7 @@ class User extends Base
         $this->isUpdate(true)->save($data, [
             'uid' => $user['uid']
         ]);
-        
+
         /* 记录登录SESSION和COOKIES */
         $auth = array(
             'uid' => $user['uid'],
@@ -198,7 +199,7 @@ class User extends Base
             'last_login_time' => NOW_TIME
         );
         session('manager_id', $user['uid']);
-        session('mid_'.$user['wpid'], $user['uid']);
+        session('mid_' . $user['wpid'], $user['uid']);
 //         dump(intval(session('mid_'.get_pbid())));
 //         dump(get_wpid());die;
         session('user_auth', $auth);
@@ -216,13 +217,13 @@ class User extends Base
      */
     public function getUserInfo($uid, $update = false)
     {
-        if (! ($uid > 0)) {
+        if (!($uid > 0)) {
             return false;
         }
-        
-		$key = cache_key('uid:'.$uid, $this->name);
+
+        $key = cache_key('uid:' . $uid, $this->name);
         $userInfo = S($key);
-        
+
         if ($userInfo === false || $update) {
             // 获取用户基本信息
             $userInfo = $this->where('uid', $uid)->find();
@@ -238,11 +239,11 @@ class User extends Base
                 $userInfo['remarks'][$t['pbid']] = $t['remark'];
                 $userInfo['has_subscribe'][$t['pbid']] = $t['has_subscribe'];
             }
-            
+
             // 是否为系统管理员
             $userInfo['is_root'] = is_administrator($uid);
             $userInfo['headimgurl'] = empty($userInfo['headimgurl']) ? __ROOT__ . '/static/face/default_head_50.png' : $userInfo['headimgurl'];
-            
+
             $sexArr = array(
                 0 => '保密',
                 1 => '男',
@@ -256,11 +257,11 @@ class User extends Base
             $userInfo['sex'] = isset($userInfo['sex']) ? intval($userInfo['sex']) : '';
             $userInfo['sex_name'] = isset($sexArr[$userInfo['sex']]) ? $sexArr[$userInfo['sex']] : '';
             $userInfo['sex_alias'] = isset($sexArr2[$userInfo['sex']]) ? $sexArr2[$userInfo['sex']] : '';
-            
+
             // 获取标签信息
             $tag_map['uid'] = $uid;
             $userInfo['tag_ids'] = M('user_tag_link')->where(wp_where($tag_map))->column('tag_id');
-            if (! empty($userInfo['tag_ids'])) {
+            if (!empty($userInfo['tag_ids'])) {
                 $tag_map2['id'] = array(
                     'in',
                     $userInfo['tag_ids']
@@ -268,11 +269,11 @@ class User extends Base
                 $tags = M('user_tag')->where(wp_where($tag_map2))
                     ->field('title,rule')
                     ->select();
-                
+
                 $titles = $rules = [];
                 foreach ($tags as $t) {
                     $titles[] = $t['title'];
-                    if (! empty($t['rule'])) {
+                    if (!empty($t['rule'])) {
                         $rids = explode(',', $t['rule']);
                         foreach ($rids as $id) {
                             $rules[$id] = 1;
@@ -289,25 +290,24 @@ class User extends Base
             $group_info = M('auth_group_access')->alias('a')
                 ->join('auth_group s', 'a.group_id=s.id')
                 ->where([
-                'uid' => $uid
-            ])
+                    'uid' => $uid
+                ])
                 ->select();
             $userInfo['groups'] = $group_info;
-            
+
             S($key, $userInfo, 86400);
         }
-        
+
         $pbid = session('pbid');
-        if ($pbid && ! empty($userInfo['remarks'][$pbid])) {
+        if ($pbid && !empty($userInfo['remarks'][$pbid])) {
             $userInfo['nickname'] = $userInfo['remarks'][$pbid];
         }
-        
+
         return $userInfo;
     }
 
     public function getUserInfoByOpenid($openid, $update = false)
     {
-        $map['pbid'] = get_pbid();
         $map['openid'] = $openid;
         $uid = M('public_follow')->where(wp_where($map))->value('uid');
         return $this->getUserInfo($uid, $update);
@@ -318,10 +318,10 @@ class User extends Base
         if (empty($uid)) {
             return false;
         }
-        
+
         $map['uid'] = $uid;
         $res = $this->where(wp_where($map))->update($save);
-        if ($res!==false) {
+        if ($res !== false) {
             $this->getUserInfo($uid, true);
         }
         return $res;
@@ -345,16 +345,16 @@ class User extends Base
             $this->error = '参数错误！';
             return false;
         }
-        
+
         // 更新前检查用户密码
-        if (! $this->verifyUser($uid, $password)) {
+        if (!$this->verifyUser($uid, $password)) {
             $this->error = '验证出错：密码不正确！';
             return false;
         }
         if (isset($data['password'])) {
             $data['password'] = think_weiphp_md5($data['password']);
         }
-        
+
         // 更新用户信息
         if ($data) {
             $res = $this->where('uid=' . $uid)->update($data);
@@ -390,11 +390,11 @@ class User extends Base
         if (empty($param)) {
             return 0;
         }
-        
+
         // 搜索标签
         if (isset($param['tag_id']) && $param['tag_id']) {
-            
-            $uids = (array) M('user_tag_link')->where('tag_id', $param['tag_id'])->column('uid');
+
+            $uids = (array)M('user_tag_link')->where('tag_id', $param['tag_id'])->column('uid');
         }
         if (empty($uids)) {
             return 0;
@@ -408,32 +408,32 @@ class User extends Base
         if (empty($key)) {
             return 0;
         }
-        
+
         if ($openid) {
-            $uids = (array) M('public_follow')->where('openid', 'like', "%$openid%")->column('uid');
+            $uids = (array)M('public_follow')->where('openid', 'like', "%$openid%")->column('uid');
         } else {
             // 搜索用户表
             $where = "nickname LIKE '%$key%' OR truename LIKE '%$key%'";
-            $uids = (array) $this->where(wp_where($where))->column('uid');
+            $uids = (array)$this->where(wp_where($where))->column('uid');
             // 搜索用户名备注
             $where2 = "remark LIKE '%$key%'";
-            $uids2 = (array) M('public_follow')->where(wp_where($where2))->column('uid');
-            
+            $uids2 = (array)M('public_follow')->where(wp_where($where2))->column('uid');
+
             // 搜索标签
             $where3 = "title LIKE '%$key%'";
-            $tag_ids = (array) M('user_tag')->where(wp_where($where3))->column('id');
+            $tag_ids = (array)M('user_tag')->where(wp_where($where3))->column('id');
             $uids3 = [];
-            if (! empty($tag_ids)) {
+            if (!empty($tag_ids)) {
                 $map['tag_id'] = array(
                     'in',
                     $tag_ids
                 );
-                $uids3 = (array) M('user_tag_link')->where(wp_where($map))->column('uid');
+                $uids3 = (array)M('user_tag_link')->where(wp_where($map))->column('uid');
             }
-            
+
             $uids = array_unique(array_merge($uids, $uids2, $uids3));
         }
-        
+
         if (empty($uids)) {
             return 0;
         } else {

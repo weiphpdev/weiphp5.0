@@ -148,14 +148,14 @@ function get_attribute_type($type = '')
             '图文素材选择器',
             'int(10) NULL'
         ),
-        'image' => array(
-            '图片素材选择器',
-            'int(10) NULL'
-        ),
-        'goods' => array(
-            '商品选择器',
-            'int(11) NULL'
-        ),
+//        'image' => array(
+//            '图片素材选择器',
+//            'int(10) NULL'
+//        ),
+//        'goods' => array(
+//            '商品选择器',
+//            'int(11) NULL'
+//        ),
         
         'user' => array(
             '单用户选择',
@@ -163,7 +163,7 @@ function get_attribute_type($type = '')
         ),
         'users' => array(
             '多用户选择',
-            'int(10) NULL'
+            'varchar(255) NULL'
         )
     );
     return $type ? $_type[$type][0] : $_type;

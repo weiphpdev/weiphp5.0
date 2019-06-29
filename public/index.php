@@ -21,7 +21,7 @@ if (version_compare ( PHP_VERSION, '5.6.0', '<' ))
  */
 define('SYSTEM_TOKEN', 'weiphp');
 
-define('WORKERMAN_URL', '115.29.168.253');
+define('WORKERMAN_URL', 'localhost');
 
 if (!empty($_GET['echostr']) && !empty($_GET["signature"]) && !empty($_GET["nonce"])) {
     $signature = $_GET["signature"];

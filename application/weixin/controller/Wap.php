@@ -48,7 +48,7 @@ class Wap extends WapBase
         $info = get_pbid_appinfo();
         $param['appid'] = $info['appid'];
         $callback = U('bind');
-        $state = input('state','');
+        $state = input('state', '');
         if ($state != 'weiphp') {
             $param['redirect_uri'] = $callback;
             $param['response_type'] = 'code';
@@ -88,12 +88,12 @@ class Wap extends WapBase
             $suburl = 'https://api.weixin.qq.com/sns/userinfo?access_token=' . $content['access_token'] . '&openid=' . $content['openid'] . '&lang=zh_CN';
             $data = wp_file_get_contents($suburl);
             $data = json_decode($data, true);
-            $subscribe = isset($data['subscribe'])?$data['subscribe']:0;
+            $subscribe = isset($data['subscribe']) ? $data['subscribe'] : 0;
 
             if (!empty($data['errmsg'])) {
                 exit($data['errmsg']);
             }
-
+            !empty($data['openid']) && get_openid($data['openid']);
             $data['status'] = 2;
             empty($data['headimgurl']) && $data['headimgurl'] = ADDON_PUBLIC_PATH . '/default_head.png';
 
@@ -107,12 +107,12 @@ class Wap extends WapBase
             if ($url) {
                 cookie('__forward__', null);
             } else {
-                $url = U('user_center');
+                $url = U('userCenter');
             }
 
             return redirect($url);
         }
-        
+
     }
 
     // 绑定领奖信息
@@ -326,9 +326,7 @@ class Wap extends WapBase
         if (!is_login()) {
             $forward = cookie('__forward__');
             empty($forward) && cookie('__forward__', $_SERVER['REQUEST_URI']);
-            return redirect(U('home/user/login', array(
-                'from' => 2
-            )));
+            return redirect(U('home/user/login', array('from' => 2)));
         }
 
         $this->mid = 382;
@@ -427,9 +425,9 @@ class Wap extends WapBase
 
     function curl_data($url, $param)
     {
-		if(function_exists('set_time_limit')){
-			set_time_limit(0);
-		}
+        if (function_exists('set_time_limit')) {
+            set_time_limit(0);
+        }
         $ch = curl_init();
         if (class_exists('/CURLFile')) { // php5.5跟php5.6中的CURLOPT_SAFE_UPLOAD的默认值不同
             curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);

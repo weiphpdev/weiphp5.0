@@ -20,20 +20,20 @@ class LzwgCouponReceiveTable {
     public $list_grid = [
       'follow_id' => [
           'title' => '领取人',
-          'function' => 'get_nickname',
+          'function' => 'get_nickname'
       ],
       'cTime' => [
           'title' => '领取时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'coupon_title' => [
-          'title' => '优惠券名称',
+          'title' => '优惠券名称'
       ],
       'sn' => [
-          'title' => '序列号',
+          'title' => '序列号'
       ],
       'is_use' => [
-          'title' => '是否使用',
+          'title' => '是否使用'
       ]
   ];
 

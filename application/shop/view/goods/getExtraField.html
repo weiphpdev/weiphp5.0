@@ -26,10 +26,10 @@
             </label>
           {/case}
           {case value="datetime"}
-            <input type="datetime" name="{$field.name}" class="text input-large time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+            <input type="datetime" autocomplete="off" name="{$field.name}" class="text input-large time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
           {/case}
           {case value="date"}
-            <input type="datetime" name="{$field.name}" class="text input-large date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
+            <input type="datetime" autocomplete="off" name="{$field.name}" class="text input-large date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
           {/case}                        
           {case value="bool"}
             <select name="{$field.name}">
@@ -67,7 +67,7 @@
           {/case} 
           {case value="image"}
           <div id="image_{$field.name}"></div>
-          {:hook('image', array('name'=>$field['name'],'value'=>$data[$field['name']],'extra'=>$field['extra']))}
+          {:W('image', array('name'=>$field['name'],'value'=>$data[$field['name']],'extra'=>$field['extra']))}
           {/case}                                                    
           {case value="radio"}
             {volist name=":parse_field_attr($field['extra'])" id="vo"}
@@ -179,10 +179,10 @@
             </label>
           {/case}
           {case value="datetime"}
-            <input type="datetime" name="{$field.name}" class="text input-large time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+            <input type="datetime" autocomplete="off" name="{$field.name}" class="text input-large time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
           {/case}
           {case value="date"}
-            <input type="datetime" name="{$field.name}" class="text input-large date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
+            <input type="datetime" autocomplete="off" name="{$field.name}" class="text input-large date" value="{$data[$field['name']]|time_format='Y-m-d'}" placeholder="请选择时间" />
           {/case}                        
           {case value="bool"}
             <select name="{$field.name}">
@@ -220,7 +220,7 @@
           {/case} 
           {case value="image"}
           <div id="image_{$field.name}"></div>
-          {:hook('image', array('name'=>$field['name'],'value'=>$data[$field['name']],'extra'=>$field['extra']))}
+          {:W('image', array('name'=>$field['name'],'value'=>$data[$field['name']],'extra'=>$field['extra']))}
           {/case}                                                    
           {case value="radio"}
             {volist name=":parse_field_attr($field['extra'])" id="vo"}

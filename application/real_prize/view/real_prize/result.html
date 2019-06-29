@@ -23,12 +23,12 @@
                         </p>
                     {/notempty}
                     <p><strong>使用说明：</strong><br/>
-                        {$data.use_content}
+                        {$data.use_content|raw}
                      </p>
                 </div>
             {else/}
             	 <div class="result_content">
-                 	 {$data.fail_content}
+                 	 {$data.fail_content|raw}
                  </div>
             {/if}
             <a href="javascript:;" onClick="wx.closeWindow();" class="common_btn m_15">返回微信</a>

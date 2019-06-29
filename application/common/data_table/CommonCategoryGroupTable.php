@@ -19,10 +19,10 @@ class CommonCategoryGroupTable {
     // 列表定义
     public $list_grid = [
       'name' => [
-          'title' => '分组标识',
+          'title' => '分组标识'
       ],
       'title' => [
-          'title' => '分组标题',
+          'title' => '分组标题'
       ],
       'urls' => [
           'title' => '操作',
@@ -51,17 +51,19 @@ class CommonCategoryGroupTable {
           'field' => 'varchar(100) NOT NULL',
           'type' => 'string',
           'remark' => '英文字母或者下划线，长度不超过30',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'title' => [
           'title' => '分组标题',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'cTime' => [
           'title' => '发布时间',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'datetime',
           'auto_rule' => 'time',
           'auto_time' => 1,
@@ -78,15 +80,17 @@ class CommonCategoryGroupTable {
 4:4级
 5:5级
 6:6级
-7:7级'
+7:7级',
+          'value' => 3
       ],
       'wpid' => [
           'title' => 'wpid',
-          'field' => 'varchar(100) NULL',
+          'field' => 'int(10) NOT NULL',
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ]
   ];
 }

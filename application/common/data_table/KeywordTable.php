@@ -19,24 +19,24 @@ class KeywordTable {
     // 列表定义
     public $list_grid = [
       'id' => [
-          'title' => '编号',
+          'title' => '编号'
       ],
       'keyword' => [
-          'title' => '关键词',
+          'title' => '关键词'
       ],
       'addon' => [
-          'title' => '所属插件',
+          'title' => '所属插件'
       ],
       'aim_id' => [
-          'title' => '插件数据ID',
+          'title' => '插件数据ID'
       ],
       'cTime' => [
           'title' => '增加时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'request_count' => [
           'title' => '请求数',
-          'function' => 'intval',
+          'function' => 'intval'
       ],
       'urls' => [
           'title' => '操作',
@@ -58,13 +58,14 @@ class KeywordTable {
     public $fields = [
       'keyword' => [
           'title' => '关键词',
-          'field' => 'varchar(100) NOT NULL ',
+          'field' => 'varchar(100) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'keyword_type' => [
           'title' => '匹配类型',
-          'field' => 'tinyint(2) NULL ',
+          'field' => 'tinyint(2) NULL',
           'type' => 'select',
           'is_show' => 1,
           'extra' => '0:完全匹配
@@ -72,25 +73,29 @@ class KeywordTable {
 2:右边匹配
 3:模糊匹配
 4:正则匹配
-5:随机匹配'
+5:随机匹配',
+          'value' => 0
       ],
       'addon' => [
           'title' => '关键词所属插件',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'aim_id' => [
           'title' => '插件表里的ID值',
-          'field' => 'int(10) unsigned NOT NULL ',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'keyword_length' => [
           'title' => '关键词长度',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'cTime' => [
           'title' => '创建时间',
@@ -102,27 +107,29 @@ class KeywordTable {
       ],
       'extra_text' => [
           'title' => '文本扩展',
-          'field' => 'text NULL ',
+          'field' => 'text NULL',
           'type' => 'textarea'
       ],
       'extra_int' => [
           'title' => '数字扩展',
-          'field' => 'int(10) NULL ',
+          'field' => 'int(10) NULL',
           'type' => 'num'
       ],
       'wpid' => [
           'title' => 'wpid',
-          'field' => 'varchar(100) NULL ',
+          'field' => 'int(10) NOT NULL',
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ],
       'request_count' => [
           'title' => '请求数',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'remark' => '用户回复的次数'
+          'remark' => '用户回复的次数',
+          'value' => 0
       ]
   ];
 }

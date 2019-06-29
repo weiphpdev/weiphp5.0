@@ -184,6 +184,11 @@ class Menu extends Admin
         $place = session('admin_place');
         $fields ['pid'] ['extra'] = str_replace('[place]', $place, $fields ['pid'] ['extra']);
 
+        $hasPid= input('pid/d',0);
+        if ($hasPid>0){
+        	$fields['menu_type']['value']=1;
+        	$fields['pid']['value']=$hasPid;
+        }
         $this->assign('fields', $fields);
     }
 

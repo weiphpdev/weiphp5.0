@@ -45,6 +45,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // split vendor js into its own file
+		// extract webpack runtime and module manifest to its own file in order to
+		// prevent vendor hash from being updated whenever app bundle is updated
+		
+		
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common/vendor',
       minChunks: function (module, count) {
@@ -56,12 +60,11 @@ const webpackConfig = merge(baseWebpackConfig, {
         ) || count > 1
       }
     }),
-    // extract webpack runtime and module manifest to its own file in order to
-    // prevent vendor hash from being updated whenever app bundle is updated
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/manifest',
-      chunks: ['common/vendor']
-    }),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'common/manifest',
+			chunks: ['common/vendor']
+		}),
+    
   ]
 })
 

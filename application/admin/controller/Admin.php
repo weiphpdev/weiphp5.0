@@ -22,7 +22,9 @@ class Admin extends WebBase
     public function initialize()
     {
         parent::initialize();
-        
+
+        $this->assign('meta_title', '');
+
         // 获取当前用户ID
         if (defined('UID')) {
             return;
@@ -61,8 +63,6 @@ class Admin extends WebBase
                 }
             }
         }
-        
-        $this->assign('meta_title', '');
     }
 
     /**

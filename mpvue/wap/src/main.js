@@ -23,8 +23,8 @@ Vue.use(Vant)
 Vue.use(Lazyload, {
     lazyComponent: true,
     preLoad: 1.3,
-    loading: '/static/img/icon-loading_before.png',
-    error: '/static/img/icon-loading_after.png'
+    loading: '../static/base/images/icon-loading_before.png',
+    error: '../static/base/images/icon-loading_after.png'
 })
 
 import VueScroller from 'vue-scroller'

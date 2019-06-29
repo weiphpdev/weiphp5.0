@@ -86,7 +86,7 @@ class WapBase extends Base
         }
         $status = getUserInfo($info['uid'], 'status');
         if ($status == 0 && ACTION_NAME != 'logout' && ACTION_NAME != 'login') {
-            $this->error('您好，该账号已到期', U('home/user/logout'));
+            //$this->error('您好，该账号已到期', U('home/user/logout'));
         }
         
         // 公众号接口权限

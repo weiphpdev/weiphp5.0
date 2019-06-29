@@ -24,16 +24,12 @@ class ShopOrderGoodsTable {
       'order_id' => [
           'title' => '订单ID',
           'type' => 'num',
-          'field' => 'int(10) NOT NULL',
-          'is_must' => 1,
-          'placeholder' => '请输入内容'
+          'field' => 'int(10) NOT NULL'
       ],
       'goods_id' => [
           'title' => '商品ID',
           'type' => 'num',
-          'field' => 'int(10) NOT NULL',
-          'is_must' => 1,
-          'placeholder' => '请输入内容'
+          'field' => 'int(10) NOT NULL'
       ]
   ];
 }

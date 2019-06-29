@@ -6,9 +6,10 @@
         <input type="text" class="search-input" placeholder="输入关键字搜索商品" placeholder-style="color:#aaa" v-model="key" @keyup.13="startSearch">
       </div>
 
-      <span class="icon-filter" @click="togglePopup"></span>
+      <span class="icon-filter" @click="isPopup=true"></span>
     </div>
-    <goodsList v-if='goods[0]' :goodsData='goods'></goodsList>
+		
+    <goodsList :goodsData='goods' v-if="goods.length>0"></goodsList>
 
     <!-- 没有商品 -->
     <div class="hint-page" v-else>
@@ -17,7 +18,7 @@
     </div>
     
     </scroller>
-    <van-popup v-model="isPopup" position="right" @close="togglePopup" class="popup">
+    <van-popup v-model="isPopup" position="right" @close="isPopup=false" class="popup">
       <from>
         <div class="popup-item">
           <p class="popup-item__tt">价格区间(元)</p>
@@ -131,10 +132,7 @@ export default {
         _this.goods = data.goods;
       })
     },
-    togglePopup() {
-      this.isPopup = !this.isPopup;
-      
-    },
+    
     getQueryString (name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
       var r = window.location.search.substr(1).match(reg); 
@@ -145,7 +143,7 @@ export default {
   activated() {
     if (this.$route.meta.isBack) {
       Object.assign(this.$data, this.$options.data())
-      console.log('走这里')
+      // console.log('走这里')
       const _this = this
       if(this.getQueryString('id')) {
         this.id = this.getQueryString('id').replace('/','')
@@ -157,10 +155,7 @@ export default {
       this.tab = this.$route.params.tab
       this.key = this.$route.params.key
 
-      // 获取分类
-      get('shop/api/category').then(res => {
-        this.sortList = res
-      })
+      
       // 同款
       if(this.tab) {
         console.log('tab不为空')
@@ -194,9 +189,15 @@ export default {
     next()
   },
   mounted() {
-     post("shop/api/lists").then(res => {
+		console.log('===mounted===')
+		console.log(this.$route.params)
+     post("shop/api/lists", this.$route.params).then(res => {
         this.goods = res.goods;
       });
+			// 获取分类
+			post('shop/api/category').then(res => {
+			  this.sortList = res
+			})
   }
 
 }
@@ -333,7 +334,7 @@ export default {
   display: inline-block;
 }
 .search {
-    background: url('http://shengxun.weiphp.cn/uploads/picture//20181017/5bc6afa9716ee.png') no-repeat -10px -10px;
+    background: url('~images/search.png') no-repeat -10px -10px;
     background-size: 34px;
     background-position: 10px;
     height: 35px;
@@ -344,7 +345,7 @@ export default {
       width: 100%;
       margin-left:50px;
       height:35px;
-      font-size: 16px;
+      font-size: 14px;
       border: 0;
       background: transparent;
     }

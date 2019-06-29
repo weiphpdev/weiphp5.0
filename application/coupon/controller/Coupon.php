@@ -76,18 +76,17 @@ class Coupon extends WebBase
     {
         // $page = I ( 'p', 1, 'intval' );
         $map['wpid'] = get_wpid();
-        $map['aim_table'] = 'lottery_games';
         $dao = D('Coupon/Coupon');
-        $list_data = $dao->where(wp_where($map))
+        $data = to_array($dao->where(wp_where($map))
             ->field('id')
             ->order('id DESC')
-            ->select();
+            ->select());
         
-        foreach ($list_data as &$v) {
+        foreach ($data as &$v) {
             $v = $dao->getInfo($v['id']);
             $v['background'] = get_cover_url($v['background']);
         }
-        $list_data['list_data'] = $list_data;
+        $list_data['list_data'] = $data;
         // dump ( $list_data );
         $this->ajaxReturn($list_data, 'JSON');
     }

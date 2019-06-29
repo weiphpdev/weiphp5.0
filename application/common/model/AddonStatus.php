@@ -21,7 +21,7 @@ class AddonStatus extends Base
         }
         $info = get_pbid_appinfo($map ['id']);
         if (! $info) {
-            $map ['uid'] = session('mid');
+            $map ['uid'] = session('mid_' . get_pbid());
             $addon_status [$addon] = intval($status);
             $map ['addon_status'] = json_encode($addon_status);
             $info ['id'] = M('publics')->insertGetId($map);

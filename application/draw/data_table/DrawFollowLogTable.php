@@ -19,16 +19,10 @@ class DrawFollowLogTable {
     // 列表定义
     public $list_grid = [
       'follow_id' => [
-          'title' => '是否中奖',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '是否中奖'
       ],
       'cTime' => [
-          'title' => '参与时间',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '参与时间'
       ]
   ];
 
@@ -38,29 +32,26 @@ class DrawFollowLogTable {
           'title' => '粉丝id',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'sports_id' => [
           'title' => '场次id',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'count' => [
           'title' => '抽奖次数',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'cTime' => [
           'title' => '支持时间',
           'field' => 'int(10) NULL',
           'type' => 'datetime',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'uid' => [
           'title' => 'uid',
@@ -68,8 +59,7 @@ class DrawFollowLogTable {
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 3,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'wpid' => [
           'title' => 'wpid',
@@ -78,7 +68,7 @@ class DrawFollowLogTable {
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
           'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ]
   ];
 }

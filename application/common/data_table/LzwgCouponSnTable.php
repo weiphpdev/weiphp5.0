@@ -37,12 +37,14 @@ class LzwgCouponSnTable {
           'title' => '是否已领取',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'is_get' => [
           'title' => '是否已经被领取',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ]
   ];
 }

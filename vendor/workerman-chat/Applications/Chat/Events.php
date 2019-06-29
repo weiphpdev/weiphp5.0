@@ -122,7 +122,7 @@ class Events
                 $param['create_at'] = time();
                 $param['is_read'] = 0;
                 
-                $url = 'http://demo.weiphp.cn/index.php/home/index/chat'; // TODO 上传部署时修改成正式的网址
+                $url = 'https://www.weiphp.cn/index.php/home/index/chat'; // TODO 上传部署时修改成正式的网址
                 $res = post_data($url, $param);
                 
                 return;

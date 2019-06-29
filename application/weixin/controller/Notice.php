@@ -89,7 +89,7 @@ class Notice extends WebBase
         
         $mod = $arr[0] . '/' . $arr[1];
         $act = $arr[2];
-        $res = D($mod)->$act($data);
+        $res = D($mod)->$act($data, $payment);
         if ($res['status'] == 0) {
             $this->return_error($res['msg']);
         } else {

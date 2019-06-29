@@ -121,12 +121,14 @@ class Install extends Base
             $this->redirect('step2');
         }
 
-        $content = $this->fetch();
-        echo $content;
+        echo '安装数据库中...<br/><br/>';
+
         flush();
         ob_flush();
 
         $this->doInstall();
+
+        return $this->fetch();
     }
 
     public function doInstall()

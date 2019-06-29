@@ -75,6 +75,7 @@ class Config extends Admin
             $Config = D('Config');
             $data = input('post.');
             if ($data) {
+                $data['status'] = 1;
                 if ($Config->insertGetId($data)) {
                     S('DB_CONFIG_DATA', null);
                     $this->success('新增成功', U('index'));

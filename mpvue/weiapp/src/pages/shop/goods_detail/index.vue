@@ -245,7 +245,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
 @mixin overflow-dot($line: 2) {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -369,10 +368,10 @@ export default {
   height:55px;
   background:#fff;
 
-  &__collect  &__icon{ background-image: url('~images/new_icon/icon_heart.png')}
-  &__collect  &__icon--active{ background-image: url('~images/new_icon/icon_heart_active.png')}
-  &__service  &__icon{ background-image: url('~images/new_icon/icon_service2.png')}
-  &__cart  &__icon{ background-image: url('~images/new_icon/icon_cart2.png')}
+  &__collect  &__icon{ background-image: url($imgRoot+'/new_icon/icon_heart.png')}
+  &__collect  &__icon--active{ background-image: url($imgRoot+'/new_icon/icon_heart_active.png')}
+  &__service  &__icon{ background-image: url($imgRoot+'/new_icon/icon_service2.png')}
+  &__cart  &__icon{ background-image: url($imgRoot+'/new_icon/icon_cart2.png')}
   &__icon--active,
   &__icon {
     position: relative;

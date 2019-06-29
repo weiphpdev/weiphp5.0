@@ -4,7 +4,7 @@ namespace app\common\model;
 /**
  * 生成多层树状下拉选框的工具模型
  */
-class Tree {
+class Tree extends Base {
 	/**
      * 把返回的数据集转换成Tree
      * @access public

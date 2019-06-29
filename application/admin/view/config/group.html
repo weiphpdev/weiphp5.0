@@ -51,7 +51,7 @@
 			{/case}
 			{case value="4"}
 			<select name="{$config.name}">
-				{volist name=":parse_config_attr($config['extra'])" id="vo"}
+				{volist name=":parse_field_attr($config['extra'])" id="vo"}
 					<option value="{$key}" {eq name="config.value" value="$key"}selected{/eq}>{$vo}</option>
 				{/volist}
 			</select>

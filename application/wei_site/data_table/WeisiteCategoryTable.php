@@ -20,33 +20,32 @@ class WeisiteCategoryTable {
     public $list_grid = [
       'title' => [
           'title' => '分类标题',
-		  'width' => '15%'
+          'width' => '15%'
       ],
       'icon' => [
           'title' => '分类图片',
           'function' => 'get_img_html',
-          'raw' => 1,
-
+          'raw' => 1
       ],
       'url' => [
           'title' => '外链',
-		  'width' => '30%'
+          'width' => '30%'
       ],
       'sort' => [
           'title' => '排序号',
-		  'width' => '10%'
+          'width' => '10%'
       ],
       'pid' => [
           'title' => '一级目录',
-		  'width' => '10%'
+          'width' => '10%'
       ],
       'is_show' => [
           'title' => '显示',
-		  'width' => '10%'
+          'width' => '10%'
       ],
       'urls' => [
           'title' => '操作',
-		  'width' => '10%',
+          'width' => '10%',
           'come_from' => 1,
           'href' => [
               '0' => [
@@ -67,14 +66,15 @@ class WeisiteCategoryTable {
           'title' => '分类标题',
           'field' => 'varchar(100) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'icon' => [
           'title' => '分类图片',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 1,
-          'remark' => '建议上传90*70的图片',
+          'remark' => '建议上传90*70的图片'
       ],
       'url' => [
           'title' => '外链',
@@ -89,29 +89,33 @@ class WeisiteCategoryTable {
           'type' => 'bool',
           'is_show' => 1,
           'extra' => '0:不显示
-1:显示'
+1:显示',
+          'value' => 1
       ],
       'sort' => [
           'title' => '排序号',
-          'field' => 'int(10) NULL ',
+          'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '数值越小越靠前',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'pid' => [
           'title' => '一级目录',
           'field' => 'int(10) NULL',
           'type' => 'cascade',
           'is_show' => 1,
-          'extra' => 'type=extra&data='
+          'extra' => 'type=db&table=weisite_category&pid=id',
+          'value' => 0
       ],
       'wpid' => [
           'title' => 'wpid',
-          'field' => 'varchar(100) NULL ',
+          'field' => 'int(10) NOT NULL',
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ]
   ];
 }

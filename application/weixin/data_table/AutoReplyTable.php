@@ -19,22 +19,15 @@ class AutoReplyTable {
     // 列表定义
     public $list_grid = [
       'keyword' => [
-          'title' => '关键词',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '关键词'
       ],
-      'img_id' => [
+      'content' => [
           'title' => '回复内容',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'raw' => 1
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
-          'width' => '',
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '编辑',
@@ -49,5 +42,69 @@ class AutoReplyTable {
   ];
 
     // 字段定义
-    public $fields = [ ];
+    public $fields = [
+      'img_id' => [
+          'title' => '上传图片',
+          'field' => 'int(10) unsigned NULL',
+          'type' => 'picture',
+          'is_show' => 1
+      ],
+      'news_id' => [
+          'title' => '图文',
+          'field' => 'int(10) NULL',
+          'type' => 'news',
+          'is_show' => 1
+      ],
+      'keyword' => [
+          'title' => '关键词',
+          'field' => 'varchar(255) NULL',
+          'type' => 'string',
+          'remark' => '多个关键词可以用空格分开，如“高富帅 白富美”',
+          'is_show' => 1
+      ],
+      'video_id' => [
+          'title' => '视频素材id',
+          'field' => 'int(10) NULL',
+          'type' => 'num',
+          'is_show' => 4
+      ],
+      'voice_id' => [
+          'title' => '语音素材id',
+          'field' => 'int(10) NULL',
+          'type' => 'num',
+          'is_show' => 4
+      ],
+      'image_material' => [
+          'title' => '素材图片id',
+          'field' => 'int(10) NULL',
+          'type' => 'num'
+      ],
+      'pbid' => [
+          'title' => '公众号id',
+          'type' => 'string',
+          'field' => 'varchar(50) NULL'
+      ],
+      'manager_id' => [
+          'title' => '管理员ID',
+          'field' => 'int(10) NULL',
+          'type' => 'num'
+      ],
+      'msg_type' => [
+          'title' => '消息类型',
+          'field' => 'char(50) NULL',
+          'type' => 'select',
+          'extra' => 'text:文本|content@show,group_id@hide,image_id@hide,voice_id@hide,video_id@hide
+news:图文|content@hide,group_id@show,image_id@hide,voice_id@hide,video_id@hide
+image:图片|content@hide,group_id@hide,image_id@show,voice_id@hide,video_id@hide
+voice:语音|content@hide,group_id@hide,image_id@hide,voice_id@show,video_id@hide
+video:视频|content@hide,group_id@hide,image_id@hide,voice_id@hide,video_id@show
+',
+          'value' => 'text'
+      ],
+      'text_id' => [
+          'title' => '文本素材id',
+          'field' => 'int(10) NULL',
+          'type' => 'num'
+      ]
+  ];
 }

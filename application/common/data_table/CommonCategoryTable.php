@@ -19,21 +19,21 @@ class CommonCategoryTable {
     // 列表定义
     public $list_grid = [
       'code' => [
-          'title' => '编号',
+          'title' => '编号'
       ],
       'title' => [
-          'title' => '标题',
+          'title' => '标题'
       ],
       'icon' => [
           'title' => '图标',
           'function' => 'get_img_html',
-          'raw' => 1,
+          'raw' => 1
       ],
       'sort' => [
-          'title' => '排序号',
+          'title' => '排序号'
       ],
       'is_show' => [
-          'title' => '显示',
+          'title' => '显示'
       ],
       'urls' => [
           'title' => '操作',
@@ -55,21 +55,23 @@ class CommonCategoryTable {
     public $fields = [
       'pid' => [
           'title' => '上一级分类',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'select',
           'remark' => '如果你要增加一级分类，这里选择“无”即可',
           'is_show' => 1,
-          'extra' => '0:无'
+          'extra' => '0:无',
+          'value' => 0
       ],
       'title' => [
           'title' => '分类标题',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'icon' => [
           'title' => '分类图标',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 1
       ],
@@ -81,10 +83,11 @@ class CommonCategoryTable {
       ],
       'sort' => [
           'title' => '排序号',
-          'field' => 'int(10) unsigned NULL ',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
           'remark' => '数值越小越靠前',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'is_show' => [
           'title' => '是否显示',
@@ -92,7 +95,8 @@ class CommonCategoryTable {
           'type' => 'bool',
           'is_show' => 1,
           'extra' => '0:不显示
-1:显示'
+1:显示',
+          'value' => 1
       ],
       'name' => [
           'title' => '分类标识',
@@ -116,7 +120,8 @@ class CommonCategoryTable {
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ],
       'code' => [
           'title' => '分类扩展编号',

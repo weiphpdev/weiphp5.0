@@ -22,8 +22,8 @@ class CustomSendallTable {
     // 字段定义
     public $fields = [
       'ToUserName' => [
-          'title' => 'wpid',
-          'field' => 'int(10) NOT NULL',
+          'title' => 'token',
+          'field' => 'varchar(255) NULL',
           'type' => 'string',
           'is_show' => 1
       ],
@@ -79,7 +79,7 @@ class CustomSendallTable {
       ],
       'news_group_id' => [
           'title' => '图文组id',
-          'field' => 'varchar(255) NULL',
+          'field' => 'varchar(10) NULL',
           'type' => 'string',
           'is_show' => 1
       ],
@@ -143,7 +143,8 @@ class CustomSendallTable {
           'title' => '区分消息标识',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ]
   ];
 }

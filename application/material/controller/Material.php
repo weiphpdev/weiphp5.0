@@ -152,13 +152,22 @@ class Material extends \app\home\controller\Home
         $count = M()->query("SELECT COUNT( distinct `group_id`) AS tp_count FROM `wp_material_news` WHERE {$where} LIMIT 1");
         $count = isset($count[0]['tp_count']) ? $count[0]['tp_count'] : 0;
 
-        $field = 'id,title,cover_id,intro,group_id,cTime';
+//         $field = 'any_value(id) id,any_value(title) title,any_value(cover_id) cover_id,any_value(intro) intro,group_id,any_value(cTime) cTime';
         $data = M('material_news')->where(wp_where($map))
-            ->field($field . ',count(id) as count')
+            ->field('min(id) as id,group_id,count(id) as count')
             ->group('group_id')
-            ->order('cTime desc, group_id desc')
+            ->order('group_id desc,id asc')
             ->paginate($row, $count);
         $list = dealPage($data);
+        
+        $field = 'id,title,cover_id,intro,group_id,cTime';
+//         dump($list);
+        $idsArr=getSubByKey($list['list_data'], 'id');
+        $map1=[];
+        if (!empty($idsArr)){
+        	$map1['id']=array('in',$idsArr);
+        }
+        $all = M('material_news')->order('id desc')->where(wp_where($map1))->column($field);
         
         foreach ($list['list_data'] as &$vo) {
         	if (empty($vo['group_id'])){
@@ -166,6 +175,9 @@ class Material extends \app\home\controller\Home
 				M('material_news')->where('id',$vo['id'])->setField('group_id',  $vo ['id']);
         	}
             if ($vo['count'] == 1) {
+            	if (isset($all[$vo['id']])){
+            		$vo=array_merge($vo,$all[$vo['id']]);
+            	}
                 continue;
             }
 
@@ -184,7 +196,7 @@ class Material extends \app\home\controller\Home
         // 分页
         /*
          * if ($count > $row) {
-         * $page = new \Think\Page ( $count, $row );
+         * $page = new \think\Page ( $count, $row );
          * $page->setConfig ( 'theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%' );
          * $this->assign ( '_page', $page->show () );
          * }
@@ -256,14 +268,24 @@ class Material extends \app\home\controller\Home
         $map['pbid'] = get_pbid();
 
         $field = 'id,title,cover_id,intro,group_id,cTime';
+//         $field = 'any_value(id) id,any_value(title) title,any_value(cover_id) cover_id,any_value(intro) intro,group_id,any_value(cTime) cTime';
+        
         $data = M('material_news')->where(wp_where($map))
-            ->field($field . ',count(id) as count')
+           ->field('min(id) as id,group_id,count(id) as count')
             ->group('group_id')
-            ->order('cTime DESC, group_id desc')
+             ->order('group_id desc,id asc')
             ->paginate($row);
         $list_data = $this->parsePageData($data, [], [], false);
-
+        $idsArr=getSubByKey($list_data['list_data'], 'id');
+        $map1=[];
+        if (!empty($idsArr)){
+        	$map1['id']=array('in',$idsArr);
+        }
+        $all = M('material_news')->order('id desc')->where(wp_where($map1))->column($field);
         foreach ($list_data['list_data'] as &$vo) {
+        	if (isset($all[$vo['id']])){
+        		$vo=array_merge($vo,$all[$vo['id']]);
+        	}
             if ($vo['count'] == 1) {
                 continue;
             }
@@ -856,18 +878,18 @@ class Material extends \app\home\controller\Home
         );
 
         $map['pbid'] = get_pbid();
-        $has = M('material_image')->where(wp_where($map))->column('DISTINCT media_id,id');
-        // dump($map);
-        // dump($has);
+        
+        
+        $has = M('material_image')->where(wp_where($map))->column('media_id,id');
+        
 
         foreach ($list['item'] as $item) {
             $media_id = $item['media_id'];
             if (isset($has[$media_id])) {
                 continue;
             }
-
             if ($item['url']) {
-                $ids = [];
+                $data = [];
                 $data['cover_id'] = $this->_download_imgage($media_id, $item['url']);
                 $data['cover_url'] = get_cover_url($data['cover_id']);
                 $data['wechat_url'] = $item['url'];
@@ -875,7 +897,8 @@ class Material extends \app\home\controller\Home
                 $data['cTime'] = NOW_TIME;
                 $data['manager_id'] = $this->mid;
                 $data['pbid'] = get_pbid();
-                $ids[] = M('material_image')->insertGetId($data);
+//                 addWeixinLog($data,'syc_image_from_wechat'.get_pbid().'--4444');
+                $ids[] =M('material_image')->insertGetId($data);
             }
         }
         $url = U('syc_image_from_wechat', array(

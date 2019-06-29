@@ -1,4 +1,5 @@
 <?php
+
 namespace app\common\model;
 
 use think\Model;
@@ -58,8 +59,8 @@ class Base extends Model
                 $infoObj = $Obj->field($field, true)->find();
             }
         }
-        
-        if (! empty($infoObj)) {
+
+        if (!empty($infoObj)) {
             $info = $infoObj->toArray();
         } else {
             $info = [];
@@ -72,22 +73,22 @@ class Base extends Model
         if (empty($id)) {
             return [];
         }
-        
+
         $field = '';
         $allow = true;
-        if (! empty($this->cacheFiledAllow)) {
+        if (!empty($this->cacheFiledAllow)) {
             $field = wp_explode($this->cacheFiledAllow);
-        } elseif (! empty($this->cacheFiledFobit)) {
+        } elseif (!empty($this->cacheFiledFobit)) {
             $allow = false;
             $field = wp_explode($this->cacheFiledFobit);
         }
-        
-        if (! $this->openCache) {
+
+        if (!$this->openCache) {
             $info = $this->findById($id, $field, $allow);
         } else {
             $key = cache_key('id:' . $id, $this->name);
             $info = S($key);
-            if ($info === false || $update || ! empty($data)) {
+            if ($info === false || $update || !empty($data)) {
                 if (empty($data)) {
                     $info = $this->findById($id, $field, $allow);
                 } else {
@@ -109,17 +110,17 @@ class Base extends Model
      */
     public function clearCache($id, $act_type = '', $uid = 0, $more_param = [])
     {
-        if (! $this->openCache) {
+        if (!$this->openCache) {
             return true;
         }
-        if (is_array ( $id )) {
-			foreach ( $id as $ii ) {
-				$this->getInfo ( $ii, true );
-			}
-			return true;
-		} else {
-			return $this->getInfo ( $id, true );
-		}
+        if (is_array($id)) {
+            foreach ($id as $ii) {
+                $this->getInfo($ii, true);
+            }
+            return true;
+        } else {
+            return $this->getInfo($id, true);
+        }
     }
 
     public function getFieldByInfo($id, $filed = '', $update = false, $data = [])

@@ -19,64 +19,22 @@ class TemplateMessagesTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '消息标题',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'title',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '消息标题'
       ],
       'content' => [
-          'title' => '消息内容',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'content',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '消息内容'
       ],
       'sender' => [
-          'title' => '发起人',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'sender',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '发起人'
       ],
       'jamp_url' => [
-          'title' => '跳转链接',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'jamp_url',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '跳转链接'
       ],
       'send_type' => [
-          'title' => '发送方式',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'send_type',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '发送方式'
       ],
       'send_count' => [
-          'title' => '成功发送人数',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0,
-          'name' => 'send_count',
-          'function' => '',
-          'raw' => 0,
-          'href' => [ ]
+          'title' => '成功发送人数'
       ]
   ];
 
@@ -85,43 +43,36 @@ class TemplateMessagesTable {
       'pbid' => [
           'title' => '公众号id',
           'type' => 'num',
-          'field' => 'int(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0
+          'field' => 'int(10) NULL'
       ],
       'cTime' => [
           'title' => '创建时间',
           'type' => 'datetime',
-          'field' => 'int(10) NULL',
-          'placeholder' => '请输入内容'
+          'field' => 'int(10) NULL'
       ],
       'title' => [
           'title' => '消息标题',
           'type' => 'string',
           'field' => 'varchar(255) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'content' => [
           'title' => '消息内容',
           'type' => 'textarea',
           'field' => 'text NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'sender' => [
           'title' => '发起人',
           'type' => 'string',
           'field' => 'varchar(255) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'jamp_url' => [
           'title' => '跳转url',
           'type' => 'string',
           'field' => 'varchar(555) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'send_type' => [
           'title' => '发送方式',
@@ -130,28 +81,26 @@ class TemplateMessagesTable {
           'extra' => '0:按用户组发送
 1:指定OpenID发送',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'send_openids' => [
           'title' => '发送openid',
           'type' => 'string',
           'field' => 'varchar(255) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'group_id' => [
           'title' => '发送分组id',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'send_count' => [
           'title' => '发送人数',
           'type' => 'num',
           'field' => 'int(10) NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ]
   ];
 }

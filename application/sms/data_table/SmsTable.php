@@ -25,29 +25,25 @@ class SmsTable {
           'title' => '用途',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'code' => [
           'title' => '验证码',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'smsId' => [
           'title' => '短信唯一标识',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'phone' => [
           'title' => '手机号',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'cTime' => [
           'title' => '创建时间',
@@ -55,30 +51,25 @@ class SmsTable {
           'type' => 'datetime',
           'auto_rule' => 'time',
           'auto_time' => 3,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'status' => [
           'title' => '使用状态',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'plat_type' => [
           'title' => '平台标识',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'wpid' => [
           'title' => '公众号id',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'value' => 0,
-          'is_show' => 0,
-          'is_must' => 0
+          'value' => 0
       ]
   ];
 }

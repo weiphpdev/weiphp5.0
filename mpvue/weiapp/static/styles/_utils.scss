@@ -33,6 +33,10 @@
     color: #aaa;
 }
 
+.s-black {
+    color: #333;
+}
+
 .s-red {
     color: #ff0204;
 }
@@ -41,8 +45,6 @@
     color: $link-color;
 }
 
-
-
 .s-bg-gray {
     background: #f9f9f9;
 }
@@ -50,6 +52,10 @@
 // 字体
 .f-font-sm {
     font-size: 12px
+}
+
+.f-font-md {
+    font-size: 14px
 }
 
 // margin
@@ -157,8 +163,8 @@
         width: 30px;
         height: 30px;
         background-color: rgba(255, 2, 4, .05);
+		background-image: url($imgRoot+'/new_icon/icon_cart_red.png');
         border-radius: 50%;
-        background-image: url('~images/new_icon/icon_cart_red.png');
         background-repeat: no-repeat;
         background-size: 20px 20px;
         background-position: center center;
@@ -291,4 +297,8 @@
     overflow-y: scroll;
 }
 
+// 占位符
+%h100 {
+    height: 100%;
+}
 

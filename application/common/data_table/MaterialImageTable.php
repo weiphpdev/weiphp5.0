@@ -34,7 +34,8 @@ class MaterialImageTable {
       'media_id' => [
           'title' => '微信端图文消息素材的media_id',
           'field' => 'varchar(100) NULL',
-          'type' => 'string'
+          'type' => 'string',
+          'value' => 0
       ],
       'wechat_url' => [
           'title' => '微信端的图片地址',
@@ -53,15 +54,17 @@ class MaterialImageTable {
       ],
       'pbid' => [
           'title' => 'pbid',
-          'field' => 'varchar(100) NULL',
-          'type' => 'string'
+          'field' => 'int(10) NOT NULL',
+          'type' => 'string',
+          'value' => 0
       ],
       'is_use' => [
           'title' => '可否使用',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'extra' => '0:不可用
-1:可用'
+1:可用',
+          'value' => 1
       ],
       'aim_id' => [
           'title' => '添加来源标识id',
@@ -71,6 +74,16 @@ class MaterialImageTable {
       'aim_table' => [
           'title' => '来源表名',
           'field' => 'varchar(255) NULL',
+          'type' => 'string'
+      ],
+      'admin_uid' => [
+          'title' => '操作员UID',
+          'field' => 'int(11) NULL',
+          'type' => 'string'
+      ],
+      'pub_id' => [
+          'title' => '共享素材ID，用于去重',
+          'field' => 'int(11) NULL',
           'type' => 'string'
       ]
   ];

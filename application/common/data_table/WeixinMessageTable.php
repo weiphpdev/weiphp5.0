@@ -19,20 +19,20 @@ class WeixinMessageTable {
     // 列表定义
     public $list_grid = [
       'FromUserName' => [
-          'title' => '用户',
+          'title' => '用户'
       ],
       'content' => [
-          'title' => '内容',
+          'title' => '内容'
       ],
       'CreateTime' => [
-          'title' => '时间',
+          'title' => '时间'
       ]
   ];
 
     // 字段定义
     public $fields = [
       'ToUserName' => [
-          'title' => 'wpid',
+          'title' => 'Token',
           'field' => 'varchar(100) NULL',
           'type' => 'string'
       ],
@@ -101,14 +101,16 @@ class WeixinMessageTable {
           'field' => 'tinyint(1) NULL',
           'type' => 'bool',
           'extra' => '0:未收藏
-1:已收藏'
+1:已收藏',
+          'value' => 0
       ],
       'deal' => [
           'title' => '处理状态',
           'field' => 'tinyint(1) NULL',
           'type' => 'bool',
           'extra' => '0:未处理
-1:已处理'
+1:已处理',
+          'value' => 0
       ],
       'is_read' => [
           'title' => '是否已读',
@@ -116,7 +118,8 @@ class WeixinMessageTable {
           'type' => 'bool',
           'is_show' => 1,
           'extra' => '0:未读
-1:已读'
+1:已读',
+          'value' => 0
       ],
       'type' => [
           'title' => '消息分类',
@@ -124,14 +127,16 @@ class WeixinMessageTable {
           'type' => 'bool',
           'is_show' => 1,
           'extra' => '0:用户消息
-1:管理员回复消息'
+1:管理员回复消息',
+          'value' => 0
       ],
       'is_material' => [
           'title' => '设置为文本素材',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'extra' => '0:不设置
-1:设置'
+1:设置',
+          'value' => 0
       ]
   ];
 }

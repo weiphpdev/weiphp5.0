@@ -3,6 +3,7 @@ var fly = new Fly
 const wx = require('weixin-js-sdk');
 
 import router from "../router/index";
+import store from '../store';
 import { Toast, Dialog } from 'vant';
 
 
@@ -10,21 +11,17 @@ let host = (function () {
     // 解析url
     var url = window.location.href;
     let pbid = window.localStorage.getItem('pbid')
-
+console.log('pbid',pbid)
     
     if((window.location.href).indexOf('localhost') != -1) {
         // 开启本地代理模式
         return `yi/public/index.php?pbid=${pbid}&s=/`
     } else {
         var urlArr = url.split("wap/index.html");
-        var reg = new RegExp("pbid=([^&]*)(&|$)");
-        var param=urlArr[1].match(reg);
-        var get_pbid = String(param[1]).replace('#/','')
         var root_url = urlArr[0]
-        console.log('get_pbid',get_pbid)
         console.log('root_url',root_url)
-        console.log(`${root_url}index.php?pbid=${get_pbid}&s=/`)
-        return `${root_url}index.php?pbid=${get_pbid}&s=/`
+        console.log(`${root_url}index.php?pbid=${pbid}&s=/`)
+        return `${root_url}index.php?pbid=${pbid}&s=/`
     }
 })()
 
@@ -32,7 +29,8 @@ let host = (function () {
 /** 
  ** 请求封装
  */
-function request(url, method, data, header = {}) {
+function request(url, method, data, opt) {
+		store.commit('togglePageStatus', false)
     return new Promise((resolve, reject) => {
         var new_host = host
         Toast.loading();
@@ -41,6 +39,7 @@ function request(url, method, data, header = {}) {
             fly.get(new_host + url)
                 .then(function (res) {
                     Toast.clear();
+										store.commit('togglePageStatus', true)
                     // console.log('get为', res)
                     resolve(res.data)
                 })
@@ -52,6 +51,7 @@ function request(url, method, data, header = {}) {
                 .then(function (res) {
                     // console.log('post为', res)
                     Toast.clear();
+										store.commit('togglePageStatus', true)
                     resolve(res.data)
                 })
                 .catch(function (error) {
@@ -67,11 +67,15 @@ function request(url, method, data, header = {}) {
 }
 
 function get(url, data) {
-    return request(url, 'GET', data)
+    return request(url, 'GET', data,{
+			isShowLoading: true
+		})
 }
 
 function post(url, data) {
-    return request(url, 'POST', data)
+    return request(url, 'POST', data,{
+			isShowLoading: true
+		})
 }
 
 
@@ -195,15 +199,18 @@ function wxConfig(isdebug) {
 // 分享
 function goShare(shareData) {
     wxConfig();
-    
+    console.log('host:',host);
+	var urlArr = host.split("/index.php");
+	var root_url = urlArr[0]
+	
     shareData.title=shareData.title?shareData.title:'';
     shareData.desc=shareData.desc?shareData.desc:'';
-    shareData.link=shareData.link?shareData.link:'';
+    shareData.link=shareData.link ? root_url + '/redirect.html?app3Redirect=' + encodeURIComponent(shareData.link) : '';
     shareData.imgUrl=shareData.imgUrl?shareData.imgUrl:'';
     shareData.type=shareData.type?shareData.type:'';
     shareData.dataUrl=shareData.dataUrl?shareData.dataUrl:'';
     
-    //console.log('goShare:',shareData);
+    console.log('goShare:',shareData);
     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
         //alert('this is ready');
         //alert(JSON.stringify(shareData));
@@ -4156,7 +4163,13 @@ let data = {
         '820201': '离岛'
     }
 }
-
+function checkPhone(phone){ 
+    if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+        return false;
+    } else {
+			return true
+		}
+}
 
 
 
@@ -4171,5 +4184,6 @@ export {
     goPay,
     goReceiving,
     goShare,
-    wxConfig
+    wxConfig,
+		checkPhone
 }

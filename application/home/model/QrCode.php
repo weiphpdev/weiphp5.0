@@ -28,6 +28,8 @@ class QrCode extends Base
 
     public function initialize()
     {
+		parent::initialize();
+		
         $this->pbid = $pbid = get_pbid();
         if ((empty($pbid) || $pbid == - 1) && DEFAULT_PBID != - 1) {
             $this->pbid = $pbid = DEFAULT_PBID;

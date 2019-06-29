@@ -39,7 +39,7 @@
             <img src="~images/new_icon/center-icon-md1.png" class="icon-area__img">
             <p class="icon-area__txt">优惠劵</p>
           </router-link>
-          <router-link to class="icon-area__item">
+          <router-link to="/members/index" class="icon-area__item">
             <img src="~images/new_icon/center-icon-md2.png" class="icon-area__img">
             <p class="icon-area__txt">会员卡</p>
           </router-link>

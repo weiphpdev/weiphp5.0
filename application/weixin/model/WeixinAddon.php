@@ -68,8 +68,14 @@ class WeixinAddon extends Weixin
 
             $this->material_reply($dataArr['auto_reply']);
         } elseif (isset($dataArr['noAnswer'])) {
+            $config = D('common/PublicConfig')->getConfig('weixin', 'weixin_no_answer');
 
-            $this->material_reply($dataArr['noAnswer']);
+            if ($config ['data_type'] == 1) { // 人工客服
+                $this->transferCustomer();
+            } else {
+                $this->material_reply($dataArr['noAnswer']);
+            }
+
         }
     }
 
@@ -221,7 +227,7 @@ class WeixinAddon extends Weixin
                 $link['cTime'] = time();
                 M('member_follow_link')->insert($link);
             }
-			$pbid = get_pbid();
+            $pbid = get_pbid();
             $config = getAddonConfig('Card', $pbid); // 获取后台插件的配置参数
             $articles[0] = array(
                 'Title' => '点击进入免费领取微会员哦~',

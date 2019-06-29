@@ -1,6 +1,6 @@
 <template>
-  <div class="index" v-cloak>
-    <scroller >
+  <div class="index">
+    <scroller>
       <search></search>
       <div class="m15 swiper">
         <van-swipe>

@@ -103,7 +103,9 @@ str;
             $files[] = "{$addon_dir}view/";
             $files[] = "{$addon_dir}view/{$app_name}/";
             $files[] = "{$addon_dir}view/wap/";
+            $files[] = "{$addon_dir}data_table/";
         }
+
         $custom_config = trim($data['custom_config']);
         if ($custom_config) {
             $data[] = "{$addon_dir}{$custom_config}";
@@ -224,7 +226,7 @@ str;
         if (isset($data['has_config']) && $data['has_config'] == 1) {
             file_put_contents("{$addon_dir}config.php", $data['config']);
         }
-        if($data['has_adminlist']=='1'){
+        if ($data['has_adminlist'] == '1') {
             //创建默认的数据模型
             $model['name'] = $app_name;
             $model['title'] = $data['info']['title'];
@@ -586,7 +588,7 @@ sql;
             $menu_list = D('common/Menu')->where(wp_where($map))->select();
             $this->assign('menu_list', $menu_list);
             $this->assign('id', $id);
-            $title = I('title', '');
+            $title = urldecode(input('title'));
             if (empty($title)) {
                 $app_info = D('Apps')->where('id', $id)->find();
                 $title = $app_info['title'];
@@ -666,11 +668,18 @@ sql;
 
         $res = $addonsModel->insertGetId($info);
         if ($res) {
-            // 初始化菜单
-            $this->success('安装成功', U('menu', [
+        	$url=U('menu', [
                 'id' => $res,
                 'title' => $addons->info['title']
-            ]));
+            ]);
+        	//判断是否已经存在菜单
+        	$hasMenu=M('menu')->where('url_type',0)->where('addon_name',$addon_name)->value('id');
+        	if ($hasMenu>0){
+        		$url=U('index');
+        	}
+        	
+            // 初始化菜单
+            $this->success('安装成功', $url);
         } else {
             $this->error('写入应用数据失败');
         }

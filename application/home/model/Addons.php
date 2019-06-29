@@ -59,7 +59,7 @@ class Addons extends Base
 
     public function getList($update = false)
     {
-		$map['status'] = 1;
+	$map['status'] = 1;
         $key = cache_key($map, $this->table);
         $list = S($key);
         if ($list === false || $update || true) {            

@@ -44,17 +44,17 @@
     },
     {
         "name": "topthink/framework",
-        "version": "v5.1.32",
-        "version_normalized": "5.1.32.0",
+        "version": "5.1.x-dev",
+        "version_normalized": "5.1.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/framework.git",
-            "reference": "88a2ab625b35e047896718db320e08375cf021da"
+            "reference": "4abe3494b9f637c8b8aea4fa56dcaf9db0efab27"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/top-think/framework/zipball/88a2ab625b35e047896718db320e08375cf021da",
-            "reference": "88a2ab625b35e047896718db320e08375cf021da",
+            "url": "https://api.github.com/repos/top-think/framework/zipball/4abe3494b9f637c8b8aea4fa56dcaf9db0efab27",
+            "reference": "4abe3494b9f637c8b8aea4fa56dcaf9db0efab27",
             "shasum": ""
         },
         "require": {
@@ -70,7 +70,7 @@
             "sebastian/phpcpd": "2.*",
             "squizlabs/php_codesniffer": "2.*"
         },
-        "time": "2018-12-23T13:42:11+00:00",
+        "time": "2019-06-17T11:18:46+00:00",
         "type": "think-framework",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -97,8 +97,8 @@
     },
     {
         "name": "topthink/think-captcha",
-        "version": "v2.0.2",
-        "version_normalized": "2.0.2.0",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/think-captcha.git",
@@ -180,8 +180,8 @@
     },
     {
         "name": "topthink/think-installer",
-        "version": "v2.0.0",
-        "version_normalized": "2.0.0.0",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/think-installer.git",
@@ -223,8 +223,8 @@
     },
     {
         "name": "topthink/think-migration",
-        "version": "v2.0.3",
-        "version_normalized": "2.0.3.0",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/think-migration.git",

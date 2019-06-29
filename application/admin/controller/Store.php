@@ -18,9 +18,6 @@ class Store extends Admin
     {
         parent::initialize();
 
-        config('SESSION_PREFIX', 'weiphp_home');
-        config('COOKIE_PREFIX', 'weiphp_home_');
-
         $host_url = isset($_GET['callback']) ? urldecode($_GET ['callback']) : '';
         if ($host_url) {
             $this->assign('host_url', $host_url);

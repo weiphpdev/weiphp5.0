@@ -9,69 +9,80 @@ use app\common\controller\base;
  *
  * @author 凡星
  */
-class Prize extends base {
-	public $info = array (
-			'name' => 'Prize',
-			'title' => '奖品选择',
-			'description' => '支持多种奖品选择',
-			'status' => 1,
-			'author' => '凡星',
-			'version' => '0.1',
-			'has_adminlist' => 0,
-			'type' => 0
-	);
-	public function install() {
-		return true;
-	}
-	public function uninstall() {
-		return true;
-	}
+class Prize extends base
+{
+    public $info = array(
+        'name' => 'Prize',
+        'title' => '奖品选择',
+        'description' => '支持多种奖品选择',
+        'status' => 1,
+        'author' => '凡星',
+        'version' => '0.1',
+        'has_adminlist' => 0,
+        'type' => 0
+    );
 
-	/**
-	 * 编辑器挂载的后台文档模型文章内容钩子
-	 *
-	 * table=addons&type=1&value_field=name&title_field=title&order=id desc
-	 */
-	public function prize($data) {
-		$key = 'prize_' . $data ['name'] . '_' . get_wpid ();
-		$res = S ( $key );
-		if ($res === false || true) {
-			$manager_id = $GLOBALS ['uid'];
-			$wpid = get_wpid ();
-			$data ['extra'] = str_replace ( array (
-					'[manager_id]',
-					'[wpid]'
-			), array (
-					$manager_id,
-					$wpid
-			), $data ['extra'] );
+    public function install()
+    {
+        return true;
+    }
 
-			parse_str ( $data ['extra'], $arr );
+    public function uninstall()
+    {
+        return true;
+    }
 
-			$table = isset ( $arr ['table'] ) ? $arr ['table'] : 'common_category';
-			$value_field = isset ( $arr ['value_field'] ) ? $arr ['value_field'] : 'id';
-			$title_field = isset ( $arr ['title_field'] ) ? $arr ['title_field'] : 'title';
-			$order = isset ( $arr ['order'] ) ? $arr ['order'] : $value_field . ' asc';
+    /**
+     * 编辑器挂载的后台文档模型文章内容钩子
+     *
+     * table=addons&type=1&value_field=name&title_field=title&order=id desc
+     */
+    public function prize($data)
+    {
+        $key = 'prize_' . $data ['name'] . '_' . get_wpid();
+        $res = S($key);
+        if ($res === false || true) {
+            $manager_id = $GLOBALS ['uid'];
+            $wpid = get_wpid();
+            $data ['extra'] = str_replace(array(
+                '[manager_id]',
+                '[wpid]'
+            ), array(
+                $manager_id,
+                $wpid
+            ), $data ['extra']);
 
-			unset ( $arr ['table'], $arr ['value_field'], $arr ['title_field'], $arr ['order'] );
-			// dump($arr);
-			$arr ['wpid'] = get_wpid ();
-			$list = M( $table )->where ( wp_where( $arr ) )->field ( $value_field . ',' . $title_field )->order ( $order )->select ();
+            parse_str($data ['extra'], $arr);
 
-			$res = [];
-			foreach ( $list as $v ) {
-				$res [$v [$value_field]] = $v [$title_field];
-			}
+            $table = isset ($arr ['table']) ? $arr ['table'] : 'common_category';
+            $value_field = isset ($arr ['value_field']) ? $arr ['value_field'] : 'id';
+            $title_field = isset ($arr ['title_field']) ? $arr ['title_field'] : 'title';
+            $order = isset ($arr ['order']) ? $arr ['order'] : $value_field . ' asc';
 
-			S ( $key, $res, 86400 );
-		}
-		// dump ( $json );
-		$this->assign ( 'list', $res );
+            unset ($arr ['table'], $arr ['value_field'], $arr ['title_field'], $arr ['order']);
+            // dump($arr);
+            $arr ['wpid'] = get_wpid();
+            $list = M($table)->where(wp_where($arr))->field($value_field . ',' . $title_field)->order($order)->select();
+
+            $res = [];
+            foreach ($list as $v) {
+                $res [$v [$value_field]] = $v [$title_field];
+            }
+
+            S($key, $res, 86400);
+        }
+        // dump ( $json );
+        $this->assign('list', $res);
 
 // 		$data ['default_value'] = $data ['value'] = is_array ( $data ['value'] ) ? $data ['value'] : explode ( ',', $data ['value'] );
-		$data ['default_value'] = $data ['value'] ;
-		$data ['prize_detail'] = get_prize_detail($data['value']);
-		$this->assign ( $data );
-		return $this->fetch( 'common@widget/prize' );
-	}
+
+        $data ['default_value'] = $data ['value'];
+        $data ['prize_detail'] = get_prize_detail($data['value']);
+
+        isset($data['default_type']) || $data['default_type'] = isset($data ['prize_detail']['type']) ? $data ['prize_detail']['type'][0] : '';
+        isset($data['default_id']) || $data['default_id'] = isset($data ['prize_detail']['id']) ? $data ['prize_detail']['id'][0] : '';
+        //dump($data);exit;
+        $this->assign($data);
+        return $this->fetch('common@widget/prize');
+    }
 }

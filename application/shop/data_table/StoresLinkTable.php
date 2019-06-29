@@ -20,5 +20,16 @@ class StoresLinkTable {
     public $list_grid = [ ];
 
     // 字段定义
-    public $fields = [ ];
+    public $fields = [
+      'coupon_id' => [
+          'title' => 'coupon_id',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'wpid' => [
+          'title' => 'shop_id',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ]
+  ];
 }

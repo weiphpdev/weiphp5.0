@@ -35,7 +35,7 @@ class MaterialNewsTable {
       ],
       'cover_id' => [
           'title' => '封面',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
           'is_show' => 1
       ],
@@ -47,7 +47,7 @@ class MaterialNewsTable {
       ],
       'content' => [
           'title' => '内容',
-          'field' => 'longtext  NULL',
+          'field' => 'longtext NULL',
           'type' => 'editor',
           'is_show' => 1
       ],
@@ -61,7 +61,8 @@ class MaterialNewsTable {
           'title' => '多图文组的ID',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'remark' => '0 表示单图文，多于0 表示多图文中的第一个图文的ID值'
+          'remark' => '0 表示单图文，多于0 表示多图文中的第一个图文的ID值',
+          'value' => 0
       ],
       'thumb_media_id' => [
           'title' => '图文消息的封面图片素材id（必须是永久mediaID）',
@@ -72,7 +73,8 @@ class MaterialNewsTable {
           'title' => '微信端图文消息素材的media_id',
           'field' => 'varchar(100) NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ],
       'manager_id' => [
           'title' => '管理员ID',
@@ -81,8 +83,9 @@ class MaterialNewsTable {
       ],
       'pbid' => [
           'title' => 'pbid',
-          'field' => 'varchar(100) NULL',
-          'type' => 'string'
+          'field' => 'int(10) NOT NULL',
+          'type' => 'string',
+          'value' => 0
       ],
       'cTime' => [
           'title' => '发布时间',
@@ -99,7 +102,8 @@ class MaterialNewsTable {
           'field' => 'int(10) NULL',
           'type' => 'num',
           'extra' => '0:不可用
-1:可用'
+1:可用',
+          'value' => 1
       ],
       'aim_id' => [
           'title' => '添加来源标识id',
@@ -114,7 +118,18 @@ class MaterialNewsTable {
       'update_time' => [
           'title' => 'update_time',
           'field' => 'int(10) NULL',
-          'type' => 'datetime'
+          'type' => 'datetime',
+          'value' => 0
+      ],
+      'admin_uid' => [
+          'title' => '操作员UID',
+          'field' => 'int(11) NULL',
+          'type' => 'string'
+      ],
+      'pub_id' => [
+          'title' => '共享素材ID，用于去重',
+          'field' => 'int(11) NULL',
+          'type' => 'string'
       ]
   ];
 }

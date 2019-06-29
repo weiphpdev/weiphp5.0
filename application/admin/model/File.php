@@ -10,7 +10,7 @@
 namespace app\admin\model;
 use app\common\model\Base;
 
-use Think\Upload;
+use think\Upload;
 
 /**
  * 文件模型
@@ -168,7 +168,7 @@ class File extends Base{
 
 		$data = array($file['savepath'], $file['savename'], $file['name'], $file['mime']);
 		$data = json_encode($data);
-		$key = think_encrypt($data, config('DATA_AUTH_KEY'), 600);
+		$key = think_encrypt($data, config('database.data_auth_key'), 600);
 
 		header("Location:http://{$host}/onethink.php?key={$key}");
 	}

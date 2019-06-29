@@ -8,14 +8,14 @@
 // +----------------------------------------------------------------------
 namespace app\common\widget;
 
-use app\common\controller\WebBase;
+use app\common\controller\WapBase;
 
 /**
  * 编辑器插件
  *
  * @author yangweijie <yangweijiester@gmail.com>
  */
-class Editor extends WebBase {
+class Editor extends WapBase {
 	public $info = array (
 			'name' => 'EditorForAdmin',
 			'title' => '后台编辑器',
@@ -83,6 +83,6 @@ class Editor extends WebBase {
 		}
 		$this->assign('driver_file', $driverfile);
 
-		return $this->fetch( 'common@widget/edit_uploadBtn' );
+		return $this->fetch( 'common@widget/edit_upload_btn' );
 	}
 }

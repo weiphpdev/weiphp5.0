@@ -34,7 +34,8 @@ class ShopGoodsScoreTable {
       'score' => [
           'title' => '得分',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'cTime' => [
           'title' => '创建时间',

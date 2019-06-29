@@ -31,7 +31,7 @@ class Attribute extends Admin
         $this->assign('_list', $list);
         $this->assign('model_id', $model_id);
         $this->assign('model_title', $obj->config['title']);
-        
+
         return $this->fetch();
     }
 
@@ -46,7 +46,7 @@ class Attribute extends Admin
         $model = M('model')->field('id,title,name')->find($model_id);
 
         $this->assign('model', $model);
-        
+
         $this->assign('info', array(
             'model_id' => $model_id
         ));
@@ -67,24 +67,24 @@ class Attribute extends Admin
         if (empty($name)) {
             $this->error('140065:参数不能为空！');
         }
-        
+
         /* 获取一条记录的详细数据 */
         $obj = $dao->getFileInfo($model_id);
         $list = $obj->fields;
-        
+
         // 虚拟一个ID值，用于编辑
         $i = 1;
         foreach ($list as &$vo) {
             $vo['id'] = $i;
             $vo['model_id'] = $model_id;
-            $i ++;
+            $i++;
         }
-        
-        if (! isset($list[$name])) {
+
+        if (!isset($list[$name])) {
             $this->error('140066:参数不能正确！');
         }
         $list[$name]['name'] = $name;
-        
+
         $model = $dao->field('id,title,name')->find($model_id);
         // dump ( $model );
         $this->assign('model', $model);
@@ -97,16 +97,16 @@ class Attribute extends Admin
     {
         $dao = D('common/Models');
         $data = I('post.');
-        
+
         $model_id = $data['model_id'];
         $obj = $dao->getFileInfo($model_id);
         $list = $obj->fields;
-        
+
         $newList = [];
         foreach ($data['sort'] as $name) {
             $newList[$name] = $list[$name];
         }
-        
+
         // dump ( $data );
         $model = $dao->field(true)->find($model_id);
         // dump ( $newList );
@@ -125,26 +125,31 @@ class Attribute extends Admin
         $dao = D('common/Models');
         /* 获取数据对象 */
         $data = I('post.');
+
+        if (isset($data['name']) && $data['name'] == 'file') {
+            $this->error('字段名不能为file，请换别的名称再试');
+        }
+
         $model_id = $data['model_id'];
         $obj = $dao->getFileInfo($model_id);
-        
-        if (! is_writable($obj->datatable_path)) {
+
+        if (!is_writable($obj->datatable_path)) {
             $this->error('140071:' . $obj->datatable_path . '文件没有可写权限！');
         }
         $list = $obj->fields;
-        
+
         if ($data['is_must'] == 1 && strpos($data['field'], 'NOT NULL') === false) {
             $data['field'] = str_replace('NULL', 'NOT NULL', $data['field']);
         } elseif ($data['is_must'] == 0 && strpos($data['field'], 'NOT NULL') !== false) {
             $data['field'] = str_replace('NOT NULL', 'NULL', $data['field']);
         }
-        
+
         if (empty($data['id'])) { // 新增属性
             $res = $dao->addField($data);
-            if (! $res) {
+            if (!$res) {
                 $this->error('140067:新建字段出错！');
             }
-            
+
             $name = $data['name'];
             unset($data['id'], $data['name'], $data['model_id']);
             $list[$name] = $data;
@@ -158,17 +163,17 @@ class Attribute extends Admin
                     $old = $vo;
                     $old['name'] = $name;
                 }
-                
+
                 $vo['name'] = $name;
                 $listArr[$i] = $vo;
-                $i ++;
+                $i++;
             }
             // dump ( $listArr );
             $res = $dao->updateField($data, $old);
-            if (! $res) {
+            if (!$res) {
                 $this->error('140068:更新字段出错！');
             }
-            
+
             // 更新文件里的字段，并保持排序位置不变
             unset($list[$old['name']]);
             unset($data['id'], $data['model_id']);
@@ -182,15 +187,15 @@ class Attribute extends Admin
         // 删除字段缓存文件
         // dump ( $data );
         $model = $dao->field(true)->find($model_id);
-        $cache_name = config('database.DB_NAME') . '.' . preg_replace('/\W+|\_+/', '', $model['name']);
+        $cache_name = config('database.database') . '.' . preg_replace('/\W+|\_+/', '', $model['name']);
         S($cache_name, null, DATA_PATH . '_fields/');
         // dump ( $newList );
         // exit ();
         $dao->buildFile($model, $newList);
-        
+
         // 记录行为
         action_log('update_attribute', 'attribute', '', UID);
-        
+
         $this->success('保存成功', U('index', [
             'model_id' => $model_id
         ]));
@@ -208,19 +213,21 @@ class Attribute extends Admin
         $name = I('name');
         $obj = $dao->getFileInfo($model_id);
         $list = $obj->fields;
-        
+        $grid = $obj->list_grid;
+
         isset($list[$name]) || $this->error('140069:该字段不存在！');
-        
+
         $info = $list[$name];
         $info['name'] = $name;
-        
+
         // 更新数据模型文件
         unset($list[$name]);
-        $dao->buildFile($model_id, $list);
-        
+        if (isset($grid[$name])) unset($grid[$name]);
+        $dao->buildFile($model_id, $list, $grid);
+
         // 删除表字段
         $res = $dao->deleteField($info, $model_id);
-        if (! $res) {
+        if (!$res) {
             $this->error('140070:删除失败');
         } else {
             // 记录行为

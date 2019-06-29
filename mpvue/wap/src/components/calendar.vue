@@ -459,8 +459,9 @@ wh_content_item_tag {
 .wh_content_item > .wh_isMark {
   margin: auto;
   border-radius: 100px;
-  background: blue;
+  background: #ff02041a!important;
   z-index: 2;
+  color: #ff0204!important;
 }
 .wh_content_item .wh_other_dayhide,
 .wh_content_item .wh_want_dayhide {

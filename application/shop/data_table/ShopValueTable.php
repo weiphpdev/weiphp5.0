@@ -23,14 +23,14 @@ class ShopValueTable {
     public $fields = [
       'cate_id' => [
           'title' => '所属分类ID',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 4,
+          'is_show' => 4
       ],
       'value' => [
           'title' => '表单值',
           'field' => 'text NULL',
-          'type' => 'textarea',
+          'type' => 'textarea'
       ],
       'cTime' => [
           'title' => '增加时间',
@@ -38,7 +38,7 @@ class ShopValueTable {
           'type' => 'datetime',
           'auto_rule' => 'time',
           'auto_time' => 1,
-          'auto_type' => 'function',
+          'auto_type' => 'function'
       ],
       'openid' => [
           'title' => 'OpenId',
@@ -46,19 +46,17 @@ class ShopValueTable {
           'type' => 'string',
           'auto_rule' => 'get_openid',
           'auto_time' => 1,
-          'auto_type' => 'function',
+          'auto_type' => 'function'
       ],
       'uid' => [
           'title' => '用户ID',
           'field' => 'int(10) NULL',
-          'type' => 'num',
+          'type' => 'num'
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0,
           'auto_type' => 'function',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1

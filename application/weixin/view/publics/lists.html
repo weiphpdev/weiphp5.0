@@ -1,6 +1,7 @@
 {extend name="common@base/common" /}
 {block name="body"}
 <div class="wrap" style="clear:both; margin:30px auto;">
+{php}if(config('PUBLIC_TYPE')!=2) { {/php}
   <section class="tab-content" id="contents"> 
     <!-- 数据列表 -->
     <div style="overflow:hidden; zoom:1;">
@@ -45,7 +46,7 @@
       <div style="padding:100px; text-align:center;"><img style="vertical-align:middle;" src="__IMG__/weixin.png"/> 你还没有创建公众号</div>
       {/notempty} </div>
   </section>
-  
+  {php} } if(config('PUBLIC_TYPE')!=1) { {/php}
   <section class="tab-content" id="contents"> 
     <!-- 数据列表 -->
     <div style="overflow:hidden; zoom:1;">
@@ -91,6 +92,7 @@
       <div style="padding:100px; text-align:center;"><img style="vertical-align:middle;" src="__IMG__/weixin.png"/> 你还没有创建小程序</div>
       {/notempty} </div>
   </section>
+  {php} } {/php}
 </div>
 {/block}
 {block name="script"} 

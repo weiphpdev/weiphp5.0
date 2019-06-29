@@ -96,7 +96,7 @@ class Attribute extends Base{
 
 		$this->assign ( 'cate_id', $this->cate_id );
 		
-		return $this->fetch ();
+		return $this->fetch();
 	}
 	
 	// 通用插件的编辑模型
@@ -146,7 +146,7 @@ class Attribute extends Base{
 		} else {
 			$this->_deal_fields ();
 			$this->assign ( 'data', $data );
-			return $this->fetch ();
+			return $this->fetch();
 		}
 	}
 	
@@ -176,7 +176,7 @@ class Attribute extends Base{
 			}
 		} else {
 			$this->_deal_fields ();
-			return $this->fetch ();
+			return $this->fetch();
 		}
 	}
 	function _deal_fields() {
@@ -224,6 +224,6 @@ select:下拉选择|extra@show";
 	}
 	// 通用插件的删除模型
 	public function del() {
-		parent::common_del ( $this->model );
+		return parent::common_del ( $this->model );
 	}
 }

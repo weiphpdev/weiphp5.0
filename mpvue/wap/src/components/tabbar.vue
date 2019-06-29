@@ -59,7 +59,7 @@ export default {
   .weui-tabbar {
     position: fixed;
     bottom: 0;
-    max-width: 750PX;
+		left: 0;
   }
 }
 </style>

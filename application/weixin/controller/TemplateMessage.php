@@ -44,7 +44,7 @@ class TemplateMessage extends WebBase {
 	        $map['name'] = parse_name(MODULE_NAME, 0);
 	        $controller = parse_name(CONTROLLER_NAME, 0);
 	        $pkey = $map['name'] . '_' . $controller;
-	        $flag = D('Common/PublicConfig')->setConfig($pkey, $save);
+	        $flag = D('Common/PublicConfig')->setConfig($pkey, $save, $pbid);
 	        
 	        if ($flag !== false) {
 	        	$this->success('保存成功');

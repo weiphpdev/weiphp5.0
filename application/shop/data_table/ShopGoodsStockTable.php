@@ -24,38 +24,37 @@ class ShopGoodsStockTable {
       'stock' => [
           'title' => '物理库存',
           'type' => 'num',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) unsigned NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'stock_active' => [
           'title' => '销售库存',
           'type' => 'num',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) unsigned NULL',
           'remark' => '可用库存',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'lock_count' => [
           'title' => '锁定库存',
           'type' => 'num',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) unsigned NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'sale_count' => [
           'title' => '销售量',
           'type' => 'num',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) unsigned NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'goods_id' => [
           'title' => '商品ID',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'event_type' => [
           'title' => '商品来源',
@@ -66,14 +65,14 @@ class ShopGoodsStockTable {
 2:秒杀
 3:砍价',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'market_price' => [
           'title' => '原价',
           'type' => 'num',
           'field' => 'decimal(10,2) NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0.00
       ],
       'sale_price' => [
           'title' => '销售价',
@@ -81,22 +80,25 @@ class ShopGoodsStockTable {
           'field' => 'decimal(10,2) NULL',
           'remark' => '促销价，活动价',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0.00
       ],
       'shop_goods_id' => [
-          'title' => '商品来源',
+          'title' => '商城商品',
           'type' => 'goods',
           'field' => 'int(10) NULL',
-          'is_show' => 1,
-          'is_must' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'del_at' => [
           'title' => '删除时间',
           'type' => 'datetime',
           'field' => 'int(10) NULL',
           'is_show' => 1,
-          'is_must' => 0
+          'value' => 0
+      ],
+      'stock_id' => [
+          'title' => '主键，不使用id主要是方便与goods表联系查询不产生id覆盖报错',
+          'field' => 'int(10) unsigned NOT NULL',
+          'type' => 'string'
       ]
   ];
 }

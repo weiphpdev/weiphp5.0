@@ -29,7 +29,7 @@ class SystemNoticeTable {
       ],
       'content' => [
           'title' => '公告内容',
-          'field' => 'text  NULL',
+          'field' => 'text NULL',
           'type' => 'editor',
           'is_show' => 1
       ],

@@ -12,7 +12,7 @@ class WeixinAddon extends Weixin
     function reply($dataArr, $keywordArr = [])
     {
         // 其中wpid和openid这两个参数一定要传，否则程序不知道是哪个微信用户进入了系统
-        $param['wpid'] = get_wpid();
+        $param['pbid'] = get_pbid();
         $param['openid'] = get_openid();
         if (isset($keywordArr['extra_text']) && $keywordArr['extra_text'] == 'custom_reply_news') {
             // 单条图文回复

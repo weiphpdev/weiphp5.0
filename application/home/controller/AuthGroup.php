@@ -344,11 +344,13 @@ class AuthGroup extends Home
                 $groups[$g['wechat_group_id']] = $g;
             }
         }
-        $url = 'https://api.weixin.qq.com/cgi-bin/groups/get?access_token=' . get_access_token();
+//         $url = 'https://api.weixin.qq.com/cgi-bin/groups/get?access_token=' . get_access_token();
+        //换成标签接口
+        $url = 'https://api.weixin.qq.com/cgi-bin/tags/get?access_token='. get_access_token();
         $data = wp_file_get_contents($url);
         $data = json_decode($data, true);
         if (! isset($data['errcode']) && $data) {
-            foreach ($data['groups'] as $d) {
+            foreach ($data['tags'] as $d) {
                 $save['wechat_group_id'] = $map['wechat_group_id'] = $d['id'];
                 $save['wechat_group_name'] = $d['name'];
                 $save['wechat_group_count'] = $d['count'];
@@ -360,9 +362,15 @@ class AuthGroup extends Home
                         $old['wechat_group_name'] = $old['title'];
                         $save['wechat_group_name'] = $old['title'];
                         // 修改微信端的数据
-                        $updateUrl = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token=" . get_access_token();
+                        /* $updateUrl = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token=" . get_access_token();
                         $newGroup['group']['id'] = $d['id'];
-                        $newGroup['group']['name'] = $save['wechat_group_name'];
+                        $newGroup['group']['name'] = $save['wechat_group_name']; */
+                        
+                        //换成标签接口
+                        $updateUrl = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token" . get_access_token();
+                        $newGroup['tag']['id'] = $d['id'];
+                        $newGroup['tag']['name'] = $save['wechat_group_name'];
+                        
                         post_data($updateUrl, $newGroup);
                     }
                     if ($old['wechat_group_name'] != $d['name'] || $old['wechat_group_count'] != $d['count']) {
@@ -381,18 +389,27 @@ class AuthGroup extends Home
             foreach ($ournew as $v) {
                 $map2['id'] = $map3['group_id'] = $v['id'];
                 // 增加微信端的数据
-                $url = 'https://api.weixin.qq.com/cgi-bin/groups/create?access_token=' . get_access_token();
+//                 $url = 'https://api.weixin.qq.com/cgi-bin/groups/create?access_token=' . get_access_token();
                 if (strlen($v['title']) > 30) {
                     $v['title'] = substr($v['title'], 0, 30);
                     $save['title'] = $v['title'];
                 }
-                $param['group']['name'] = $v['title'];
+//                 $param['group']['name'] = $v['title'];
+                //换成标签接口
+                $url = 'https://api.weixin.qq.com/cgi-bin/tags/create?access_token=' . get_access_token();
+                $param['tag']['name'] = $v['title'];
                 
                 $res = post_data($url, $param);
-                if (! empty($res['group']['id'])) {
+                /* if (! empty($res['group']['id'])) {
                     $info['wechat_group_id'] = $save['wechat_group_id'] = $res['group']['id'];
                     $save['wechat_group_name'] = $res['group']['name'];
                     M('auth_group')->where(wp_where($map2))->update($save);
+                } */
+                //换成标签接口
+                if (! empty($res['tag']['id'])) {
+                	$info['wechat_group_id'] = $save['wechat_group_id'] = $res['tag']['id'];
+                	$save['wechat_group_name'] = $res['tag']['name'];
+                	M('auth_group')->where(wp_where($map2))->update($save);
                 }
             }
             foreach ($groups as $v) {
@@ -400,18 +417,27 @@ class AuthGroup extends Home
                 $wechat_group_id = intval($v['wechat_group_id']);
                 if ($wechat_group_id == - 1) {
                     // // 增加微信端的数据
-                    $url = 'https://api.weixin.qq.com/cgi-bin/groups/create?access_token=' . get_access_token();
+//                     $url = 'https://api.weixin.qq.com/cgi-bin/groups/create?access_token=' . get_access_token();
                     if (strlen($v['title']) > 30) {
                         $v['title'] = substr($v['title'], 0, 30);
                         $save['title'] = $v['title'];
                     }
-                    $param['group']['name'] = $v['title'];
+//                     $param['group']['name'] = $v['title'];
+                    //换成标签接口
+                    $url = 'https://api.weixin.qq.com/cgi-bin/tags/create?access_token=' . get_access_token();
+                    $param['tag']['name'] = $v['title'];
                     
                     $res = post_data($url, $param);
-                    if (! empty($res['group']['id'])) {
+                    /* if (! empty($res['group']['id'])) {
                         $info['wechat_group_id'] = $save['wechat_group_id'] = $res['group']['id'];
                         $save['wechat_group_name'] = $res['group']['name'];
                         M('auth_group')->where(wp_where($map2))->update($save);
+                    } */
+                    //换成标签接口
+                    if (! empty($res['tag']['id'])) {
+                    	$info['wechat_group_id'] = $save['wechat_group_id'] = $res['tag']['id'];
+                    	$save['wechat_group_name'] = $res['tag']['name'];
+                    	M('auth_group')->where(wp_where($map2))->update($save);
                     }
                 } else {
                     // 删除本地数据

@@ -1,5 +1,11 @@
 {
   "pages": [
+		{
+		  "path": "pages/shop/center/index",
+		  "config": {
+		    "navigationBarTitleText": "个人中心"
+		  }
+		},
     {
       "path": "pages/shop/index/index",
       "config": {
@@ -18,12 +24,7 @@
         "navigationBarTitleText": "购物车"
       }
     },
-    {
-      "path": "pages/shop/center/index",
-      "config": {
-        "navigationBarTitleText": "个人中心"
-      }
-    },
+    
     {
       "path": "pages/shop/add_address/index",
       "config": {
@@ -120,6 +121,7 @@
         "navigationBarTitleText": "查看外链"
       }
     }
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -154,6 +156,27 @@
         "iconPath": "./static/img/new_icon/icon_center.png",
         "selectedIconPath": "./static/img/new_icon/icon_center_red.png"
       }
+      
     ]
-  }
+  },
+  "usingComponents": {
+    "van-stepper": "static/vant/stepper/index",
+    "van-icon": "static/vant/icon/index",
+    "van-popup": "static/vant/popup/index",
+    "van-checkbox": "static/vant/checkbox/index",
+    "van-checkbox-group": "static/vant/checkbox-group/index",
+    "van-radio": "static/vant/radio/index",
+    "van-radio-group": "static/vant/radio-group/index",
+    "van-dialog": "static/vant/dialog/index",
+    "van-loading": "static/vant/loading/index",
+    "van-toast": "static/vant/toast/index",
+    "van-tab": "static/vant/tab/index",
+    "van-tabs": "static/vant/tabs/index",
+    "van-cell": "static/vant/cell/index",
+    "van-cell-group": "static/vant/cell-group/index",
+    "van-collapse": "static/vant/collapse/index",
+    "van-collapse-item": "static/vant/collapse-item/index",
+    "van-area": "static/vant/area/index",
+    "van-datetime-picker": "static/vant/datetime-picker/index"
+  } 
 }

@@ -3,7 +3,7 @@
     <navbar text="提交订单"></navbar>
     <scroller v-if="datas.goods_id || datas.id">
     <!-- 地址 -->
-    <div @click="jump" class="m-list order-line" v-if="address">
+    <div @click="jump" class="m-list order-line" v-if="address.truename">
       <div class="m-list__l">{{address.truename}}</div>
       <div class="m-list__c">
         <p class="">{{address.mobile}}</p>
@@ -20,7 +20,6 @@
       <i class="iconfont icon-fanhui right"></i>
     </div>
  
-
     <!-- 订单 -->
     <div class="switch-card" v-for="(item, index) in goodsList" :key="index">
       <div class="switch-card__hd">

@@ -37,7 +37,8 @@ class LzwgLogTable {
           'title' => '参与次数',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ]
   ];
 }

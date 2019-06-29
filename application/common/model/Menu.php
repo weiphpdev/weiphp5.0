@@ -93,6 +93,10 @@ class Menu extends Base
             empty($m['addon_name']) || $res['default_data'][$cate['addon_name']] = $param;
         }
 
+        if(!isset($res['core_side_menu']) || empty($res['core_side_menu'])){
+            $res['core_side_menu'] = [];
+        }
+
         return $res;
     }
 

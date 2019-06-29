@@ -110,7 +110,7 @@ abstract class InfoBase
     final protected function fetch($templateFile = CONTROLLER_NAME)
     {
         if (! is_file($templateFile)) {
-            $templateFile = $this->addon_path . $templateFile . config('TMPL_TEMPLATE_SUFFIX');
+            $templateFile = $this->addon_path . $templateFile . config('template.view_suffix');
             if (! is_file($templateFile)) {
                 throw new \Exception("模板不存在:$templateFile");
             }

@@ -479,6 +479,15 @@ function showTab() {
     }).filter("[data-tab=tab" + window.location.hash.substr(1) + "]").click();
 }
 
+function urlMerge(url) {
+    if (url.indexOf('?') > 0) {
+        url += '&';
+    } else {
+        url += '?';
+    }
+    return url;
+}
+
 $(function () {
     var $window = $(window), $subnav = $("#subnav"), url;
     $window.resize(function () {
@@ -613,6 +622,12 @@ function initUploadFile(callback) {
         var name = $(obj).find('input[type="hidden"]').attr('name');
         var uploadFileExts = $(obj).find('input[type="hidden"]').attr('data-fileexts');
         var maxSize = $(obj).find('input[type="hidden"]').attr('data-maxsize');
+        if (uploadFileExts != '') {
+            UPLOAD_FILE += '/allow_file_ext/' + uploadFileExts;
+        }
+        if (parseFloat(maxSize) > 0) {
+            UPLOAD_FILE += '/allow_file_maxsize/' + maxSize;
+        }
 
         var uploader = WebUploader.create({
 
@@ -856,12 +871,7 @@ function simpleColorPicker(_this, callback) {
 
     /* 选择图文素材 */
     function openSelectAppMsg(dataUrl, callback, title) {
-        /*var count=1;
-        if(count==1){
-            dataUrl = dataUrl+'&isAjax=ajax&isRadio=1';
-        }else{
-            dataUrl = dataUrl+'&isAjax=1';
-        }*/
+        dataUrl = urlMerge(dataUrl) + 'isAjax=1&isRadio=1'
         var $contentHtml = $('<div class="appmsg_dialog" style="padding:10px; max-height:560px;overflow-y:auto;overflow-x:hidden;">' +
             '<ul class="mt_10"><center><br/><br/><br/><img src="' + IMG_PATH + '/loading.gif"/></center></ul></div>');
         $.Dialog.open(title ? title : "选择图文素材", {width: 1000, height: 640}, $contentHtml);
@@ -885,13 +895,8 @@ function simpleColorPicker(_this, callback) {
     }
 
     /* 选择文本素材 */
-    function openSelectAppText(dataUrl, callback, title) {
-        var count = 1;
-        if (count == 1) {
-            dataUrl = dataUrl + '/isAjax/ajax/isRadio/1';
-        } else {
-            dataUrl = dataUrl + '/isAjax/1';
-        }
+    function openSelectAppText(dataUrl, callback, title, count = 1) {
+        dataUrl = urlMerge(dataUrl) + 'isAjax=1&isRadio=1'
         var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:hidden;overflow-x:hidden;"><div class="mt_10"><iframe id="usersIframe" name="usersIframe" style="height:530px;width:100%; border:none" border="0" src="' + dataUrl + '"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
         $.Dialog.open(title ? title : "选择文本素材", {width: 1000, height: 640}, $contentHtml);
 
@@ -921,12 +926,7 @@ function simpleColorPicker(_this, callback) {
     function initCopyBtn(id) {
         $('#' + id).click(function () {
             var url = COPY_PAGE_URL;
-            if( COPY_PAGE_URL.indexOf('?')>0 ){
-                url += '&';
-            }else{
-                url += '?';
-            }
-            url += 'text='+encodeURIComponent($('#' + id).attr('data-clipboard-text'));
+            url = urlMerge(url) + 'text=' + encodeURIComponent($('#' + id).attr('data-clipboard-text'));
 
             console.log(url);
 
@@ -957,7 +957,7 @@ function simpleColorPicker(_this, callback) {
 
     /* 选择商品 */
     function openSelectGoods(dataUrl, callback) {
-        var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:hidden;overflow-x:hidden;"><div class="mt_10"><iframe id="goodsIframe" name="goodsIframe" style="height:530px;width:100%; border:none" border="0" src="' + dataUrl + '&isAjax=ajax"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
+        var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:hidden;overflow-x:hidden;"><div class="mt_10"><iframe id="goodsIframe" name="goodsIframe" style="height:530px;width:100%; border:none" border="0" src="' + urlMerge(dataUrl) + 'isAjax=ajax"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
         $.Dialog.open("选择商品", {width: 1000, height: 640}, $contentHtml);
 
         $('.cancel_btn', $contentHtml).click(function () {
@@ -986,7 +986,7 @@ function simpleColorPicker(_this, callback) {
 
     /* 选择门店 */
     function openSelectShops(dataUrl, callback) {
-        var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:auto;overflow-x:hidden;"><div class="mt_10"><iframe id="shopsIframe" name="shopsIframe" style="height:530px;width:100%; border:none" border="0" src="' + dataUrl + '&isAjax=ajax"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
+        var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:auto;overflow-x:hidden;"><div class="mt_10"><iframe id="shopsIframe" name="shopsIframe" style="height:530px;width:100%; border:none" border="0" src="' + urlMerge(dataUrl) + 'isAjax=ajax"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
         $.Dialog.open("选择门店", {width: 640, height: 640}, $contentHtml);
 
         $('.cancel_btn', $contentHtml).click(function () {
@@ -1013,10 +1013,9 @@ function simpleColorPicker(_this, callback) {
      *
      */
     function openSelectLists(dataUrl, count, title, callback, isIds) {
+        dataUrl = urlMerge(dataUrl) + 'isAjax=1'
         if (count == 1) {
-            dataUrl = dataUrl + '&isAjax=ajax&isRadio=1';
-        } else {
-            dataUrl = dataUrl + '&isAjax=1';
+            dataUrl += '&isRadio=1';
         }
         var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:hidden;overflow-x:hidden;"><div class="mt_10"><iframe id="usersIframe" name="usersIframe" style="height:530px;width:100%; border:none" border="0" src="' + dataUrl + '"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
         $.Dialog.open(title, {width: 1000, height: 640}, $contentHtml);
@@ -1057,10 +1056,9 @@ function simpleColorPicker(_this, callback) {
     * count 0 表示无限制
     */
     function openSelectUsers(dataUrl, count, callback) {
+        dataUrl = urlMerge(dataUrl) + 'isAjax=ajax'
         if (count == 1) {
-            dataUrl = dataUrl + '?isAjax=ajax&isRadio=1';
-        } else {
-            dataUrl = dataUrl + '?isAjax=1';
+            dataUrl += '&isRadio=1';
         }
         var $contentHtml = $('<div><div class="goods_dialog" style="padding:10px; height:530px;overflow-y:hidden;overflow-x:hidden;"><div class="mt_10"><iframe id="usersIframe" name="usersIframe" style="height:530px;width:100%; border:none" border="0" src="' + dataUrl + '"></iframe></div></div><div class="btn_bar"><a href="javascript:;" class="btn confirm_btn">确定</a>&nbsp;&nbsp;<a href="javascript:;" class="border-btn cancel_btn">取消</a></div></div>');
 
@@ -1226,7 +1224,7 @@ function simpleColorPicker(_this, callback) {
 
     /* 框架形式打开提交对话框 */
     function openSubmitDialog(title, url, w, h) {
-        var $contentHtml = $('<div><div class="goods_dialog" style="padding:0 10px;height:' + h + 'px;overflow:hidden"><div class="mt_10"><iframe id="goodsIframe" name="goodsIframe" style="height:' + h + 'px;width:100%; border:none" border="0" src="' + url + '&isAjax=ajax"></iframe></div></div></div>');
+        var $contentHtml = $('<div><div class="goods_dialog" style="padding:0 10px;height:' + h + 'px;overflow:hidden"><div class="mt_10"><iframe id="goodsIframe" name="goodsIframe" style="height:' + h + 'px;width:100%; border:none" border="0" src="' + urlMerge(url) + 'isAjax=ajax"></iframe></div></div></div>');
         $.Dialog.open(title, {width: w, height: h + 40}, $contentHtml);
     }
 

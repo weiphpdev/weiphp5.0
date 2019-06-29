@@ -23,7 +23,7 @@
         
 
         <a href="#" class="user-info-head">
-            <img class="admin_head url" src="{:SITE_URL}/static/base/images/shenxun_logo.jpg"/>
+            <img class="admin_head url" src="{:SITE_URL}/static/base/images/admin.jpg"/>
         </a>
 
         <div class="user-info-name">{$myinfo.nickname|getShort=4}<i class="pl_5 fa fa-sort-down"></i>
@@ -40,7 +40,7 @@
       <div id="sidenav">
         <ul class="sidenav_sub">
           {volist name='top_menu.core_side_menu' id='vo'}
-            <li class="{$vo.class}" data-id="{$vo.id}"> <a href="{$vo.url}"> {$vo.title} </a><b class="active_arrow"></b></li>
+            <li class="{$vo.class}" data-id="{$vo.id}"> <a href="{$vo.url}"  target="{$vo.target}"> {$vo.title} </a><b class="active_arrow"></b></li>
           {/volist}
           <div class="bar"></div>
         </ul>

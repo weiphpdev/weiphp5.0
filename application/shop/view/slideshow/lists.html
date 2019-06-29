@@ -55,9 +55,9 @@
                 {/case}
                 {case value="datetime"}
                     <span>{$vo.title}：</span>
-             <input type="datetime" name="start_time" class="search-input date input-small" value="{$vo.start_time}" placeholder="请选择时间">
+             <input type="datetime" autocomplete="off" name="start_time" class="search-input date input-small" value="{$vo.start_time}" placeholder="请选择时间">
              <span>至</span>
-             <input type="datetime" name="end_time" class="search-input date input-small" value="{$vo.end_time}" placeholder="请选择时间">
+             <input type="datetime" autocomplete="off" name="end_time" class="search-input date input-small" value="{$vo.end_time}" placeholder="请选择时间">
                 {/case}
                 {case value="checkbox"}
                     <span>{$vo.title}：</span>

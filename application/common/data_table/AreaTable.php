@@ -25,22 +25,20 @@ class AreaTable {
           'title' => '地区名',
           'field' => 'varchar(50) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'pid' => [
           'title' => '上级编号',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'sort' => [
           'title' => '排序号',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ]
   ];
 }

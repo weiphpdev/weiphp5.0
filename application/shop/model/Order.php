@@ -174,6 +174,7 @@ class Order extends Base
     function updateId($id, $save)
     {
         $map['id'] = $id;
+        $save ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
         $this->where(wp_where($map))->update($save);
         $info = $this->getInfo($id, true);
         return $info;
@@ -531,6 +532,7 @@ class Order extends Base
         $data['pay_status'] = 0;
         $data['cTime'] = time();
         $data['goods_datas'] = json_encode($data['goods_datas']);
+        $data ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
         
         $res = M('shop_order')->insertGetId($data);
         
@@ -620,8 +622,11 @@ class Order extends Base
     function setAddress($param)
     {
         $map['id'] = $param['orderId'];
-        $res = $this->where(wp_where($map))->setField('address_id', $param['address_id']);
-        
+        $save ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
+        $save ['address_id'] = $param['address_id'];
+        $res = $this->where(wp_where($map))->update($save);
+        if ($res)
+        	$this->getInfo($map['id'], true);
         return $res;
     }
 
@@ -721,9 +726,11 @@ class Order extends Base
         $id = isset($event_order['order_id']) ? $event_order['order_id'] : $event_order['id'];
         $is_pay = isset($event_order['is_pay']) ? $event_order['is_pay'] : $event_order['pay_status'];
         
+        
         $this->where('id', $id)->update([
             'pay_status' => 3,
-            'is_lock' => 0
+            'is_lock' => 0,
+        	'update_at'=>time_format ( time (), 'Y-m-d H:i:s' )
         ]);
         $order = $this->getInfo($id, true);
         if (empty($order)) {
@@ -756,8 +763,10 @@ class Order extends Base
         }
         
         // 增加订单时通知ERP
-        $this->where('id', $order['id'])->setField('notice_erp', NOW_TIME);
-        
+        $save ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
+        $save ['notice_erp'] = NOW_TIME;
+        $this->where('id', $order['id'])->update($save);
+        $this->getInfo($order['id'],true);
         // 执行退款,退订单实际支付的钱
 //         $total_fee = ($order['total_price'] + $order['mail_money']) * 100;
         $total_fee = $order['pay_money'] * 100;
@@ -872,6 +881,9 @@ class Order extends Base
 
     function addOrder($save)
     {
+    	if (empty($save['update_at'])){
+    		$save ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
+    	}
         $id = $this->strict(false)->insertGetId($save);
         if ($id > 0) {
             $param = json_decode($save['goods_datas'], true);
@@ -889,6 +901,7 @@ class Order extends Base
 
     function updateOrder($id, $save)
     {
+    	$save ['update_at'] = time_format ( time (), 'Y-m-d H:i:s' );
         $res = $this->strict(false)
             ->where('id', $id)
             ->update($save);

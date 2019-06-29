@@ -25,26 +25,25 @@ class ShopStatisticsFollowTable {
           'title' => '粉丝id',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'duid' => [
           'title' => '分销用户id',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'ctime' => [
           'title' => '关注时间',
           'field' => 'int(10) NULL',
           'type' => 'datetime',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
           'field' => 'int(10) NULL',
           'is_show' => 1,
-          'is_must' => 0,
           'auto_type' => 'function',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3
@@ -53,7 +52,7 @@ class ShopStatisticsFollowTable {
           'title' => '粉丝openid',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
+          'is_show' => 1
       ]
   ];
 }

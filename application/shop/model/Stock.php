@@ -1,4 +1,5 @@
 <?php
+
 namespace app\shop\model;
 
 use app\common\model\Base;
@@ -20,7 +21,7 @@ class Stock extends Base
         $infoObj = $Obj->field(true)
             ->order('stock_id desc')
             ->find();
-        if (! empty($infoObj)) {
+        if (!empty($infoObj)) {
             $info = $infoObj->toArray();
             if (empty($info['sale_price']) || $info['sale_price'] == '0.00') {
                 $info['sale_price'] = $info['market_price'];
@@ -28,7 +29,7 @@ class Stock extends Base
         } else {
             $info = [];
         }
-        
+
         return $info;
     }
 
@@ -36,9 +37,9 @@ class Stock extends Base
     {
         $Obj = $this->whereIn('goods_id', $goods_ids)->where('event_type', $event_type);
         $list = $Obj->field(true)->select();
-        
+
         $res = [];
-        if (! empty($list)) {
+        if (!empty($list)) {
             foreach ($list as $info) {
                 if (empty($info['sale_price']) || $info['sale_price'] == '0.00') {
                     $info['sale_price'] = $info['market_price'];
@@ -52,23 +53,23 @@ class Stock extends Base
     // 保存库存数据
     function saveStock($goods_id, $post, $event_type = SHOP_EVENT_TYPE)
     {
-        if (! isset($post['stock']) || empty($post['stock']))
+        if (!isset($post['stock']) || empty($post['stock']))
             return false;
-        
+
         $info = $this->where('goods_id', $goods_id)
             ->where('event_type', $event_type)
             ->where('del_at', 0)
             ->find();
-        
+
         $data = [
             'stock' => $post['stock'],
             'market_price' => $post['market_price'],
             'sale_price' => $post['sale_price']
         ];
-        if (! empty($info)) {
+        if (!empty($info)) {
             if ($event_type == SHOP_EVENT_TYPE) {
-            	//直接保存不增加
-            	$data['stock'] =  $post['stock'];
+                //直接保存不增加
+                $data['stock'] = $post['stock'];
 //                 $data['stock'] = Db::raw('stock+' . $post['stock']);
             }
             $this->where('stock_id', $info['stock_id'])->update($data);
@@ -94,20 +95,20 @@ class Stock extends Base
         // dump($goods_id);dump($event_type);
         $goods = $this->getInfoByGoodsId($goods_id, $event_type);
         // dump($goods);
-        $goods['del_at'] = isset($goods['del_at'] )?$goods['del_at'] :0;
+        $goods['del_at'] = isset($goods['del_at']) ? $goods['del_at'] : 0;
         if (empty($goods) || $goods['del_at'] > 0) {
             exception('商品已经下架');
         }
-        
+
         $save['lock_count'] = Db::raw('lock_count+' . $need_stock); // 锁定库存增加
         $res = $this->where('goods_id', $goods_id)
             ->where('event_type', $event_type)
             ->where('stock_active', '>=', $need_stock)
             ->update($save);
-        if (! $res) {
+        if (!$res) {
             exception('抱歉，商品已被抢光');
         }
-        
+
         return $res;
     }
 
@@ -130,17 +131,17 @@ class Stock extends Base
             ->where('event_type', $event_type)
             ->where('stock', '>=', $need_stock)
             ->update($save);
-        if (! $res) {
+        if (!$res) {
             $sql = $this->getLastSql();
             file_log($sql, 'afterPayment'); // 记录失败的日志
         }
-        
+
         return $res;
     }
 
     function afterPaymentByOrder($order)
     {
-        if (! isset($order['goods'])) {
+        if (!isset($order['goods'])) {
             $order['goods'] = json_decode($order['goods_datas'], true);
         }
         foreach ($order['goods'] as $goods) {
@@ -160,9 +161,9 @@ class Stock extends Base
      */
     function canelUnPayOrder($need_stock, $goods_id, $event_type = SHOP_EVENT_TYPE)
     {
-    	
-        $res = $this->reBackEventStockByDel($need_stock, $goods_id, $event_type,1);
-        if (! $res) {
+
+        $res = $this->reBackEventStockByDel($need_stock, $goods_id, $event_type, 1);
+        if (!$res) {
             $save['lock_count'] = Db::raw('lock_count-' . $need_stock); // 物理库存增加
             $res = $this->where('goods_id', $goods_id)
                 ->where('event_type', $event_type)
@@ -172,45 +173,45 @@ class Stock extends Base
         return $res;
     }
 
-    private function reBackEventStockByDel($need_stock, $goods_id, $event_type,$isUnPay=0)
+    private function reBackEventStockByDel($need_stock, $goods_id, $event_type, $isUnPay = 0)
     {
         $del_at = 0;
         if ($event_type != SHOP_EVENT_TYPE) {
             $event_goods = $this->getInfoByGoodsId($goods_id, $event_type);
-            $del_at = isset($event_goods['del_at'])?$event_goods['del_at']:0;
+            $del_at = isset($event_goods['del_at']) ? $event_goods['del_at'] : 0;
         }
         //加$isUnPay 这个是为了定时任务释放超过30分钟内未支付的订单（活动商品还未被删除的情况）
-        if (($del_at > 0|| $isUnPay) && $event_type != SHOP_EVENT_TYPE) {
+        if (($del_at > 0 || $isUnPay) && $event_type != SHOP_EVENT_TYPE) {
             // 活动商品扣除
             $save['lock_count'] = Db::raw('lock_count-' . $need_stock); // 锁定库存扣除
             $res = $this->where('goods_id', $goods_id)
                 ->where('event_type', $event_type)
                 ->where('lock_count', '>=', $need_stock)
                 ->update($save);
-            if (! $res) {
-                exception('活动商品库存扣除失败'.M()->getLastSql());
+            if (!$res) {
+                exception('活动商品库存扣除失败' . M()->getLastSql());
             }
             //判断营销活动的商品是否被删除了（活动结束会自动删除），若删除的话将释放的库存退回商城            
-            if ($del_at>0){
-            	//将活动商品库存删除（不删除的话，在活动的商品管理那删除商品，库存又退回商城，这样商城的库存就多了）
-            	$this->where('goods_id', $goods_id)
-            	->where('event_type', $event_type)
-            	->where('stock','egt',$need_stock)
-            	->update([
-            			'stock' => Db::raw('stock-' . $need_stock)
-            	]);
-            	
-            	// 退回库存给商城
-            	$res = $this->where('goods_id', $event_goods['shop_goods_id'])
-            	->where('event_type', SHOP_EVENT_TYPE)
-            	->update([
-            			'stock' => Db::raw('stock+' . $need_stock)
-            	]);
-            	if (! $res) {
-            		exception('退回库存给商城失败');
-            	}
+            if ($del_at > 0) {
+                //将活动商品库存删除（不删除的话，在活动的商品管理那删除商品，库存又退回商城，这样商城的库存就多了）
+                $this->where('goods_id', $goods_id)
+                    ->where('event_type', $event_type)
+                    ->where('stock', 'egt', $need_stock)
+                    ->update([
+                        'stock' => Db::raw('stock-' . $need_stock)
+                    ]);
+
+                // 退回库存给商城
+                $res = $this->where('goods_id', $event_goods['shop_goods_id'])
+                    ->where('event_type', SHOP_EVENT_TYPE)
+                    ->update([
+                        'stock' => Db::raw('stock+' . $need_stock)
+                    ]);
+                if (!$res) {
+                    exception('退回库存给商城失败');
+                }
             }
-           
+
             return true;
         }
         return false;
@@ -229,14 +230,14 @@ class Stock extends Base
     function canelOrder($need_stock, $goods_id, $event_type = SHOP_EVENT_TYPE)
     {
         $res = $this->reBackEventStockByDel($need_stock, $goods_id, $event_type);
-        if (! $res) {
+        if (!$res) {
             $save['stock'] = Db::raw('stock+' . $need_stock); // 物理库存增加
             $save['sale_count'] = Db::raw('sale_count-' . $need_stock); // 销售量扣除
             $res = $this->where('goods_id', $goods_id)
                 ->where('event_type', $event_type)
                 ->where('sale_count', '>=', $need_stock)
                 ->update($save);
-            if (! $res) {
+            if (!$res) {
                 $sql = $this->getLastSql();
                 file_log($sql, 'canelOrder'); // 记录失败的日志
             }
@@ -259,7 +260,7 @@ class Stock extends Base
         $result['code'] = $has_change = 0;
         $need_stock = $data['stock'];
         $stock = $this->getInfoByGoodsId($goods_id, $event_type);
-        if (! empty($old_data)) { // 编辑的情况下重新计算库存锁定的值
+        if (!empty($old_data)) { // 编辑的情况下重新计算库存锁定的值
             if ($old_data['shop_goods_id'] != $data['shop_goods_id']) {
                 // 切换了商品的情况下, 划回到商城中库存
                 $old_save['stock'] = Db::raw('stock+' . $old_data['stock_active']); // 物理库存增加
@@ -270,17 +271,17 @@ class Stock extends Base
                 $this->where('goods_id', $old_data['goods_id'])
                     ->where('event_type', $event_type)
                     ->update([
-                    'stock' => Db::raw('stock-' . $old_data['stock_active']),
-                    'del_at' => NOW_TIME
-                ]);
-                
+                        'stock' => Db::raw('stock-' . $old_data['stock_active']),
+                        'del_at' => NOW_TIME
+                    ]);
+
                 $has_change = 1;
                 $stock = [];
             } else { // 不换商品情况,计算差额
                 $need_stock = $data['stock'] - $old_data['stock_active']; // 要释放的是可用库存，防止有锁定库存的情况下stock!=stock_active,导致减为负数而报错
             }
         }
-        
+
         $add = [
             'market_price' => $data['market_price'],
             'sale_price' => $data['sale_price'],
@@ -288,31 +289,32 @@ class Stock extends Base
         ];
         if ($need_stock > 0) {
             $save['stock'] = Db::raw('stock-' . $need_stock); // 商城物理库存扣除
-            if (! empty($stock)) {
+            if (!empty($stock)) {
                 $add['stock'] = $has_change ? $need_stock : Db::raw('stock+' . $need_stock); // 活动物理库存增加
             }
         } else {
             $need_stock = abs($need_stock);
             $save['stock'] = Db::raw('stock+' . $need_stock); // 商城物理库存划回
-            if (! empty($stock)) {
+            if (!empty($stock)) {
                 $add['stock'] = Db::raw('stock-' . $need_stock); // 活动物理库存扣除
             }
         }
-        
+
         $res = $this->where('goods_id', $data['shop_goods_id'])
             ->where('event_type', SHOP_EVENT_TYPE)
             ->update($save);
-        
+
         if (empty($stock)) { // 增加的情况下
             $add['stock'] = $need_stock;
-            
+
             $add['goods_id'] = $goods_id;
             $add['event_type'] = $event_type;
             $res = $this->insert($add);
         } else { // 编辑的情况
+            $add['del_at'] = 0;
             $res = $this->where('stock_id', $stock['stock_id'])->update($add);
         }
-        
+
         $result['code'] = 1;
         return $result;
     }
@@ -336,7 +338,7 @@ class Stock extends Base
             ->where('event_type', $event_type)
             ->where('sale_count', '>=', $need_stock)
             ->update($save);
-        
+
         return $res;
     }
 
@@ -357,22 +359,22 @@ class Stock extends Base
         $event_goods = $this->getInfoByGoodsId($event_goods_id, $event_type);
         if (empty($event_goods))
             return false;
-        
+
         // 可释放的可用库存 ，注：锁定库存是由订单释放，不在此释放，因此此表的数据不能删除
         $stock = $event_goods['stock_active'];
         if ($stock > $event_goods['stock']) {
             $stock = $event_goods['stock']; // 减少异常数据导致的SQL报错
         }
-        
+
         // 设置原活动商品删除时间
         $this->where('goods_id', $event_goods_id)
             ->where('event_type', $event_type)
-            ->where('stock','egt',$stock)
+            ->where('stock', 'egt', $stock)
             ->update([
-            'del_at' => NOW_TIME,
-            'stock' => Db::raw('stock-' . $stock)
-        ]);
-        
+                'del_at' => NOW_TIME,
+                'stock' => Db::raw('stock-' . $stock)
+            ]);
+
         $res = true;
         if ($stock > 0) {
             $old_save['stock'] = Db::raw('stock+' . $stock); // 物理库存增加
@@ -380,7 +382,7 @@ class Stock extends Base
                 ->where('event_type', SHOP_EVENT_TYPE)
                 ->update($old_save);
         }
-        
+
         return $res;
     }
 
@@ -401,9 +403,9 @@ class Stock extends Base
             ->where('event_type', $event_type)
             ->where('stock', '>=', $need_stock)
             ->update([
-            'stock' => Db::raw('stock-' . $need_stock)
-        ]);
-        
+                'stock' => Db::raw('stock-' . $need_stock)
+            ]);
+
         return $res;
     }
 
@@ -420,7 +422,7 @@ class Stock extends Base
         } else { // 编辑的情况下重新计算库存锁定的值
             if ($old_data['shop_goods_id'] == $data['shop_goods_id']) { // 同一个商品下情况下
                 $stock = $data['stock'] - $old_data['stock'];
-                
+
                 if ($stock > 0 && $stock > $shop_goods['stock_active']) {
                     $result['msg'] = '商品数量不能大于商城可用库存.';
                     return $result;
@@ -428,14 +430,14 @@ class Stock extends Base
             } else { // 切换了商品的情况下
                 $stock = $data['stock'];
                 $shop_goods = $this->getInfoByGoodsId($data['shop_goods_id'], SHOP_EVENT_TYPE);
-                
+
                 if ($stock > 0 && $stock > $shop_goods['stock_active']) {
                     $result['msg'] = '商品数量不能大于商城可用库存';
                     return $result;
                 }
             }
         }
-        
+
         $result['code'] = 1;
         return $result;
     }
@@ -452,7 +454,7 @@ class Stock extends Base
                 $goods_ids[] = $g['id'];
             }
         }
-        
+
         $count = $this->whereIn('goods_id', $goods_ids)
             ->where('event_type', $event_type)
             ->where('del_at', '>', 0)
@@ -468,8 +470,8 @@ class Stock extends Base
             $this->where('stock_id', $info['stock_id'])
                 ->where('stock', '>=', $info['stock_active'])
                 ->update([
-                'stock' => Db::raw('stock-' . $info['stock_active'])
-            ]);
+                    'stock' => Db::raw('stock-' . $info['stock_active'])
+                ]);
         }
         return $info['stock_active'];
     }
@@ -490,14 +492,14 @@ class Stock extends Base
                 NOW_TIME - SHOP_STOCK_TIME
             ];
         }
-        
+
         // 一次最多只处理5个订单
         $list = D('shop/Order')->where(wp_where($map))
             ->limit(5)
             ->field('id,event_type,goods_datas,cTime')
             ->order('id asc')
             ->select();
-        
+
         if (empty($list)) {
             return true; // 没有相关订单，不用处理
         }
@@ -509,12 +511,12 @@ class Stock extends Base
                 $ids[] = $order['id'];
                 if (empty($order['goods_datas']))
                     continue;
-                
+
                 $goods = json_decode($order['goods_datas'], true);
                 foreach ($goods as $g) {
                     $this->canelUnPayOrder($g['num'], $g['id'], $order['event_type']);
                 }
-                
+
                 $mod = '';
                 if ($order['event_type'] == COLLAGE_EVENT_TYPE) {
                     D('collage/Order')->where('order_id', $order['id'])->setField('is_pay', 3);
@@ -524,12 +526,13 @@ class Stock extends Base
                     D('seckill/Order')->where('order_id', $order['id'])->setField('is_pay', 3);
                 }
             }
-            if (! empty($ids)) {
+            if (!empty($ids)) {
                 $res = D('shop/Order')->whereIn('id', $ids)->update([
                     'is_lock' => 0,
-                    'pay_status' => 3
+                    'pay_status' => 3,
+                	'update_at'=> time_format ( time (), 'Y-m-d H:i:s' )
                 ]);
-                if (! $res) {
+                if (!$res) {
                     exception('设置订单过期失败');
                 }
             }

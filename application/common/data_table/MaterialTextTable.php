@@ -20,21 +20,14 @@ class MaterialTextTable {
     public $list_grid = [
       'id' => [
           'title' => '编号',
-          'come_from' => 0,
-          'width' => 10,
-          'is_sort' => 0
+          'width' => 10
       ],
       'content' => [
-          'title' => '文本内容',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '文本内容'
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
-          'width' => '',
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '编辑',
@@ -52,19 +45,19 @@ class MaterialTextTable {
     public $fields = [
       'content' => [
           'title' => '文本内容',
-          'field' => 'text NULL',
           'type' => 'textarea',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'field' => 'text NULL',
+          'remark' => '可使用动态替换字符， {@nickname}代表粉丝昵称，{@openid}代表粉丝在公众号下的唯一标识openid',
+          'is_show' => 1
       ],
       'pbid' => [
           'title' => 'pbid',
-          'field' => 'varchar(50) NULL',
+          'field' => 'int(10) NOT NULL',
           'type' => 'string',
           'auto_rule' => 'get_pbid',
           'auto_time' => 1,
           'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'uid' => [
           'title' => 'uid',
@@ -72,14 +65,12 @@ class MaterialTextTable {
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 1,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'admin_uid' => [
-          'title' => 'uid',
-          'field' => 'int(10) NULL',
-          'type' => 'user',
-          'placeholder' => '请输入内容'
+          'title' => '操作员UID',
+          'field' => 'int(11) NULL',
+          'type' => 'user'
       ],
       'is_use' => [
           'title' => '可否使用',
@@ -87,19 +78,22 @@ class MaterialTextTable {
           'type' => 'num',
           'extra' => '0:不可用
 1:可用',
-          'placeholder' => '请输入内容'
+          'value' => 1
       ],
       'aim_id' => [
           'title' => '添加来源标识id',
           'field' => 'int(10) NULL',
-          'type' => 'num',
-          'placeholder' => '请输入内容'
+          'type' => 'num'
       ],
       'aim_table' => [
           'title' => '来源表名',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
+      ],
+      'pub_id' => [
+          'title' => '共享素材ID，用于去重',
+          'field' => 'int(11) NULL',
+          'type' => 'string'
       ]
   ];
 }

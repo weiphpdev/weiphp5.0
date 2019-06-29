@@ -37,7 +37,8 @@ class ShopSpecOptionTable {
           'field' => 'int(10) NULL',
           'type' => 'num',
           'remark' => '排序号越大排列越靠前',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 0
       ]
   ];
 }

@@ -21,6 +21,12 @@
           <div class="tools"> <a href="javascript:void(0);" class="btn setting_group">设置用户组</a> &nbsp; <a href="{:U ( 'home/AuthGroup/export?type='.$type.'&id='.$group_id )}" class="btn">导出用户</a> &nbsp;
           {if condition="$syc_wechat"}<a href="{:U('syc_auth_group')}" class="btn tongbu">一键同步微信公众号粉丝</a> &nbsp;
              {/if}
+             
+           {if condition="in_array('in_blacklist',$db_fields)"}
+           		<a href="javascript:void(0);" class="btn" id="batchblacklist">加入黑名单</a>
+           {/if}
+             
+             
           </div>
         </div>
         <!-- 高级搜索 -->
@@ -47,9 +53,9 @@
                           <label class="mr-1 ml-1" style="align-items: start;">
                                 筛选时间：
                           </label>
-                          <input style="width:175px" type="datetime" name="s_time" class="text time mr-1 ml-1" value="{:input('s_time')}" placeholder="请选择时间" />
+                          <input style="width:175px" type="datetime" autocomplete="off" name="s_time" class="text time mr-1 ml-1" value="{:input('s_time')}" placeholder="请选择时间" />
                           ：
-                          <input style="width:175px"  type="datetime" name="e_time" class="text time mr-1 ml-1" value="{:input('e_time')}" placeholder="请选择时间" />
+                          <input style="width:175px"  type="datetime" autocomplete="off" name="e_time" class="text time mr-1 ml-1" value="{:input('e_time')}" placeholder="请选择时间" />
                     <pre>  </pre>
                     
                     <label class="mr-1 ml-1" style="align-items: start;">
@@ -107,6 +113,9 @@
                   <td>{$vo.score}</td>
                   <td>
                   <a href="{:U ( 'weixin/UserCenter/detail',array('uid'=>$vo['uid']))}" target="_self">详细资料</a>
+                  {notempty name="vo.in_blacklist"}
+                  	<a onclick="if(confirm('确定移出黑名单么？'))window.location.href = '{:U ( 'weixin/UserCenter/outbacklist',array('bopenid'=>$vo['openid'],'uid'=>$vo['uid']))}'" target="_self">移出黑名单</a>
+                  {/notempty}
                   <!--<a href="{:U ( 'weixin/UserCenter/edit',array('uid'=>$vo['uid']))}" target="_self">编辑</a>-->
                   <!--a href="{:U('home/CreditData/lists',array('uid'=>$vo['uid']))}" target="_self">积分记录</a-->
                   </td>
@@ -309,6 +318,23 @@ $(function(){
 				$('.thinkbox-modal-blackout-default,.thinkbox-default').hide();
             });
 		})
+	})
+	
+	$('#batchblacklist').click(function(){
+		query = $('.ids').serialize();
+		if(query==""){
+			alert('请选择用户');
+			return;
+		}
+		if(confirm('确定将用户加入黑名单么？')){
+			that = this;
+			$(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+			target = '{:U("addblacklist")}';
+			 $.post(target,query).success(function(data){
+				location.reload();
+				$('.thinkbox-modal-blackout-default,.thinkbox-default').hide();
+		     });
+		}
 	})
 
 })

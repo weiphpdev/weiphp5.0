@@ -8,7 +8,9 @@ export default new vuex.Store({
         cartShopNum:0,
         allOrder: [],
         waitPayNum: 0,
-        activeOrderParams: ''   // 活动订单参数
+        activeOrderParams: '',   // 活动订单参数
+		isVerification: 0,	// 是否要验证码（默认不需要）
+		isPageShow: true //控制请求接口完成后页面才显示
     },
     mutations: {
         getCartShopNum (state, opt) {
@@ -23,7 +25,11 @@ export default new vuex.Store({
             let value = opt.value
             state[key] = value
             // console.log(`键是：${opt.key},值是${state.activeOrderParams}-----${value}`)
-        }
+        },
+		// 控制页面的显示
+		togglePageStatus(state, status) {
+			state.isPageShow = status
+		},
 
     },
     getters: {

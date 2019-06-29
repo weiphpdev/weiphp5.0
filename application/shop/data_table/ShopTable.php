@@ -19,24 +19,12 @@ class ShopTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '商店名称',
-          'name' => 'title',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '商店名称'
       ],
       'logo' => [
           'title' => '商店LOGO',
           'function' => 'get_img_html',
-          'raw' => 1,
-          'name' => 'logo',
-          'width' => '',
-          'is_sort' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'raw' => 1
       ],
       'urls' => [
           'title' => '操作',
@@ -44,7 +32,7 @@ class ShopTable {
           'href' => [
               '0' => [
                   'title' => '编辑',
-                  'url' => '[EDIT]&id=[id]'
+                  'url' => '[EDIT]'
               ],
               '1' => [
                   'title' => '商品分类',
@@ -78,12 +66,7 @@ class ShopTable {
                   'title' => '预览',
                   'url' => 'Wap/index&target=_blank&wpid=[id]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -94,47 +77,95 @@ class ShopTable {
           'field' => 'varchar(255) NOT NULL',
           'type' => 'string',
           'is_show' => 1,
-          'is_must' => 1,
-          'placeholder' => '请输入内容'
+          'is_must' => 1
       ],
       'logo' => [
           'title' => '商店LOGO',
           'type' => 'picture',
           'field' => 'int(10) NULL',
-          'remark' => '建议上传100X100的正方形图片',
-          'placeholder' => '请输入内容'
+          'remark' => '建议上传100X100的正方形图片'
       ],
       'api_key' => [
           'title' => '快递接口的APPKEY',
           'field' => 'varchar(100) NULL',
           'type' => 'string',
           'remark' => '申请地址：http://www.juhe.cn/docs/api/id/43',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'order_payok_messageid' => [
           'title' => '交易完成通知的模板ID',
           'type' => 'string',
           'field' => 'varchar(100) NULL',
-          'remark' => '为空时不发模板消息; 请先在公众号先添加模板再把模板id配置到这边（搜索模板标题：交易完成通知，模板编号：OPENTM207287582，行业：IT科技 - 互联网|电子商务）',
-          'is_show' => 0,
-          'is_must' => 0
+          'remark' => '为空时不发模板消息; 请先在公众号先添加模板再把模板id配置到这边（搜索模板标题：交易完成通知，模板编号：OPENTM207287582，行业：IT科技 - 互联网|电子商务）'
       ],
       'wpid' => [
           'title' => 'wpid',
-          'field' => 'varchar(100) NULL',
+          'field' => 'int(11) NULL',
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'tcp' => [
           'title' => '客户协议',
           'type' => 'editor',
-          'field' => 'text  NULL',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'field' => 'text NULL',
+          'is_show' => 1
+      ],
+      'intro' => [
+          'title' => '店铺简介',
+          'field' => 'text NULL',
+          'type' => 'string'
+      ],
+      'mobile' => [
+          'title' => '联系电话',
+          'field' => 'varchar(30) NULL',
+          'type' => 'string'
+      ],
+      'qq' => [
+          'title' => 'QQ',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'wechat' => [
+          'title' => '微信',
+          'field' => 'varchar(50) NULL',
+          'type' => 'string'
+      ],
+      'template' => [
+          'title' => '模板',
+          'field' => 'varchar(30) NULL',
+          'type' => 'string'
+      ],
+      'content' => [
+          'title' => '店铺介绍',
+          'field' => 'text NULL',
+          'type' => 'string'
+      ],
+      'manager_id' => [
+          'title' => '管理员ID',
+          'field' => 'int(10) NULL',
+          'type' => 'string'
+      ],
+      'parent_shop' => [
+          'title' => '分销上级商店',
+          'field' => 'varchar(255) NULL',
+          'type' => 'string'
+      ],
+      'address' => [
+          'title' => '详细地址',
+          'field' => 'varchar(255) NULL',
+          'type' => 'string'
+      ],
+      'gps' => [
+          'title' => 'GPS经纬度',
+          'field' => 'varchar(55) NULL',
+          'type' => 'string'
+      ],
+      'custom_tip' => [
+          'title' => '联系客服提示内容',
+          'field' => 'text NULL',
+          'type' => 'string'
       ]
   ];
 }

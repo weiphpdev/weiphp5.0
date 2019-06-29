@@ -24,31 +24,32 @@ class GoodsCategoryLinkTable {
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
-          'field' => 'int(10) NULL',
+          'field' => 'int(10) NULL'
       ],
       'goods_id' => [
           'title' => '商品编号',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'sort' => [
           'title' => '排序',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1,
+          'value' => 0
       ],
       'category_first' => [
           'title' => '一级分类',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'category_second' => [
           'title' => '二级分类',
           'field' => 'int(10) NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ]
   ];
 }

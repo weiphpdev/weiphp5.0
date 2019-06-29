@@ -118,15 +118,24 @@ DELETE FROM `wp_model` WHERE `name`='shop' ORDER BY id DESC LIMIT 1;
 DROP TABLE IF EXISTS `wp_shop`;
 
 
+DELETE FROM `wp_model` WHERE `name`='shop_reward_condition' ORDER BY id DESC LIMIT 1;
+DROP TABLE IF EXISTS `wp_shop_reward_condition`;
+
+
 DELETE FROM `wp_model` WHERE `name`='shop_cashout_account' ORDER BY id DESC LIMIT 1;
 DROP TABLE IF EXISTS `wp_shop_cashout_account`;
+
+
+DELETE FROM `wp_model` WHERE `name`='shop_reward' ORDER BY id DESC LIMIT 1;
+DROP TABLE IF EXISTS `wp_shop_reward`;
 
 
 DELETE FROM `wp_model` WHERE `name`='shop_membership' ORDER BY id DESC LIMIT 1;
 DROP TABLE IF EXISTS `wp_shop_membership`;
 
 
-
+DELETE FROM `wp_model` WHERE `name`='shop_goods_downshelf_user' ORDER BY id DESC LIMIT 1;
+DROP TABLE IF EXISTS `wp_shop_goods_downshelf_user`;
 
 
 DELETE FROM `wp_model` WHERE `name`='stores_user' ORDER BY id DESC LIMIT 1;
@@ -143,10 +152,6 @@ DROP TABLE IF EXISTS `wp_goods_param_temp`;
 
 DELETE FROM `wp_model` WHERE `name`='shop_goods_stock' ORDER BY id DESC LIMIT 1;
 DROP TABLE IF EXISTS `wp_shop_goods_stock`;
-
-
-DELETE FROM `wp_model` WHERE `name`='test' ORDER BY id DESC LIMIT 1;
-DROP TABLE IF EXISTS `wp_test`;
 
 
 DELETE FROM `wp_model` WHERE `name`='shop_goods_content' ORDER BY id DESC LIMIT 1;

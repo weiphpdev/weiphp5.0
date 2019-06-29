@@ -19,24 +19,10 @@ class ShopSpecTable {
     // 列表定义
     public $list_grid = [
       'title' => [
-          'title' => '规格名称',
-          'name' => 'title',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '规格名称'
       ],
       'remark' => [
-          'title' => '规格属性',
-          'name' => 'remark',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '规格属性'
       ],
       'urls' => [
           'title' => '操作',
@@ -50,12 +36,7 @@ class ShopSpecTable {
                   'title' => '删除',
                   'url' => '[DELETE]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -65,14 +46,13 @@ class ShopSpecTable {
           'title' => '规格名称',
           'field' => 'varchar(30) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'is_must' => 1,
+          'is_show' => 1
       ],
       'remark' => [
           'title' => '备注',
           'field' => 'varchar(100) NULL',
           'type' => 'string',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'spec_sort' => [
           'title' => '排序',
@@ -80,6 +60,7 @@ class ShopSpecTable {
           'type' => 'num',
           'remark' => '排序号越大排列越靠前',
           'is_show' => 1,
+          'value' => 0
       ],
       'uid' => [
           'title' => '用户ID',
@@ -87,14 +68,12 @@ class ShopSpecTable {
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 1,
-          'auto_type' => 'function',
+          'auto_type' => 'function'
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0,
           'auto_type' => 'function',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3

@@ -61,6 +61,7 @@
 		 </tr>
 	</thead>
 	 <tbody>
+     {notempty name="prize_detail"}
 {volist name="prize_detail.title" id="vo"}
     <tr class="shop_tr">
     	<td><input type="hidden" data-name="repeat_id" value="{$prize_detail['type'][$key]}:{$prize_detail['id'][$key]}" />{$prize_detail['id'][$key]}</td>
@@ -90,11 +91,12 @@
         {/if}
     </tr>
  {/volist}
+     {/notempty}
  	<tr class="add_tr"><td colspan="7">
     	<a class="realPrize"  href="javascript:;">+添加实物奖品</a>
     	<a class="redBag" href="javascript:;" >+添加红包奖品</a>
     	<a class="cardVouchers" href="javascript:;">+添加卡卷奖品</a>
-    	<a class="coupon" href="javascript:;">+添加优惠卷奖品</a>>
+    	<a class="coupon" href="javascript:;">+添加优惠卷奖品</a>
     	<a class="points" href="javascript:;">+添加积分奖品</a>
     </td></tr>
 	</tbody>

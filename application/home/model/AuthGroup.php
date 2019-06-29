@@ -29,10 +29,9 @@ class AuthGroup extends Base
             'in',
             $id
         );
-        // $data ['group_id'] = $group_id; //TODO 前端微信用户只能有一个微信组
+        $data ['group_id'] = $group_id; //TODO 前端微信用户只能有一个微信组
         $res = M('auth_group_access')->where(wp_where($data))->delete();
         
-        $data['group_id'] = $group_id;
         foreach ($id as $uid) {
             $data['uid'] = $uid;
             M('auth_group_access')->insert($data);
@@ -44,22 +43,34 @@ class AuthGroup extends Base
         // 同步到微信端
         if (config('USER_GROUP') && ! is_null($group['wechat_group_id']) && $group['wechat_group_id'] != - 1) {
             file_log('555','group');
-            $url = 'https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=' . get_access_token();
-            
+//             $url = 'https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=' . get_access_token();
+            //换成标签接口
+            $url = 'https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=' . get_access_token();
+            $openids=[];
             $map['pbid'] = get_pbid();
             $follow = M('public_follow')->where(wp_where($map))
                 ->field('openid, uid')
                 ->select();
+            
             foreach ($follow as $v) {
                 if (empty($v['openid']))
                     continue;
                 
-                $param['openid'] = $v['openid'];
+               /*  $param['openid'] = $v['openid'];
                 $param['to_groupid'] = $group['wechat_group_id'];
                 $param = json_url($param);
                 $res = post_data($url, $param);
                 file_log($res,'group');
-                unset($param);
+                unset($param); */
+                //换成标签接口
+                $openids[]=$v['openid'];
+            }
+            //换成标签接口
+            if (!empty($openids)){
+            	$param['openid_list']=$openids;
+            	$param['tagid']=$group['wechat_group_id'];
+            	$res = post_data($url, $param);
+            	file_log($res,'group');
             }
         }
         

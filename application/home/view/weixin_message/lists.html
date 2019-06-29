@@ -29,7 +29,7 @@
                     	{notempty name="vo['user']['headimgurl']"}
                             <p class="name">{$vo.user.nickname}</p>
                         {else/}
-                            <p class="name">{$vo.openid}</p>
+                            <p class="name">{$vo.openid|default=''}</p>
                         {/notempty}
                     	
                         <p class="msg">
@@ -77,7 +77,7 @@
 			                {elseif condition="$vo['Content']['msg_type'] eq 'link'"  /}  
 			                	<a  target='_blank' href="{$vo.Content.url}"><h3>"{$vo.Content.title}"</h3><br>{$vo.Content.description}</a>  
 	                        {else/}
-                        	{$vo.Content.content|raw}
+                        	{$vo.Content.Content|raw}
                         	{/if}
 						</p>
                     </div>

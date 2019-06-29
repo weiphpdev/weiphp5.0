@@ -20,14 +20,14 @@ class News extends base {
 			'has_adminlist' => 0
 	);
 	public function install() {
-		$install_sql = env('app_path').'/News/install.sql';
+		$install_sql = env('app_path').'/news/install.sql';
 		if (file_exists ( $install_sql )) {
 			execute_sql_file ( $install_sql );
 		}
 		return true;
 	}
 	public function uninstall() {
-		$uninstall_sql = env('app_path').'/News/uninstall.sql';
+		$uninstall_sql = env('app_path').'/news/uninstall.sql';
 		if (file_exists ( $uninstall_sql )) {
 			execute_sql_file ( $uninstall_sql );
 		}
@@ -45,7 +45,7 @@ class News extends base {
 			$field = 'id,title,cover_id,intro,group_id';
 			$list = M( 'material_news' )->where ( wp_where( $map ) )->field ( $field )->order ( 'id asc' )->select ();
 			$count = count ( $list );
-			$main = $list [0];
+			$main = isset($list[0]) ? $list [0] : '';
 			if ($count > 1) {
 				unset ( $list [0] );
 			}

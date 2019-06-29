@@ -2,12 +2,13 @@
 	"description": "项目配置文件。",
 	"setting": {
 		"urlCheck": true,
-    "es6": true,
+		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": true
 	},
-	"miniprogramRoot": "./dist/",
+	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
 	"appid": "touristappid",
 	"projectname": "weiapp",
@@ -20,13 +21,47 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 4,
+			"list": [
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/shop/order_detail/index",
+					"query": "order_id=2859"
+				},
+				{
+					"id": -1,
+					"name": "member-center",
+					"pathName": "pages/members/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "member-exchange",
+					"pathName": "pages/members/score_exchange/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "member-write_info",
+					"pathName": "pages/members/write_info/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "member-get_card",
+					"pathName": "pages/members/get_card/index"
+				}
+			]
 		}
 	}
 }

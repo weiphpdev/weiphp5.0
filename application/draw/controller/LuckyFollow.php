@@ -141,6 +141,7 @@ class LuckyFollow extends WebBase
             }
             $user = get_userinfo($v['follow_id']);
             $v['follow_id'] = isset($user['nickname']) ? $user['nickname'] : '';
+            $user['uid'] = empty($user['uid'])?0:$user['uid'];
             $v['openid'] = D('common/Follow')->getOpenidByUid($user['uid']);
             $v['truename'] = isset($user['truename']) ? $user['truename'] : '';
             $v['mobile'] = isset($user['mobile']) ? $user['mobile'] : '';
@@ -1299,7 +1300,7 @@ class LuckyFollow extends WebBase
         $this->assign($list_data);
         // dump($list_data);
         
-        return $this->fetch('getListByAwardId');
+        return $this->fetch('getlist_by_award_id');
     }
 
     public function lzwgChangeState()

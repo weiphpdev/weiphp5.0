@@ -19,16 +19,16 @@ class LotteryPrizeListTable {
     // 列表定义
     public $list_grid = [
       'sports_id' => [
-          'title' => '比赛场次',
+          'title' => '比赛场次'
       ],
       'award_id' => [
-          'title' => '奖品名称',
+          'title' => '奖品名称'
       ],
       'award_num' => [
-          'title' => '奖品数量',
+          'title' => '奖品数量'
       ],
       'id' => [
-          'title' => '编辑:[EDIT]|编辑,[DELETE]|删除,add?sports_id=[sports_id]|添加',
+          'title' => '编辑:[EDIT]|编辑,[DELETE]|删除,add?sports_id=[sports_id]|添加'
       ]
   ];
 

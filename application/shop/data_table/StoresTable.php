@@ -19,40 +19,23 @@ class StoresTable {
     // 列表定义
     public $list_grid = [
       'name' => [
-          'title' => '店名',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '店名'
       ],
       'img_url' => [
-          'title' => '门店图片',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '门店图片'
       ],
       'shop_code' => [
-          'title' => '门店编码',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '门店编码'
       ],
       'phone' => [
-          'title' => '联系电话',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '联系电话'
       ],
       'address' => [
-          'title' => '详细地址',
-          'come_from' => 0,
-          'width' => '',
-          'is_sort' => 0
+          'title' => '详细地址'
       ],
       'urls' => [
           'title' => '操作',
           'come_from' => 1,
-          'width' => '',
-          'is_sort' => 0,
           'href' => [
               '0' => [
                   'title' => '编辑',
@@ -71,74 +54,62 @@ class StoresTable {
       'name' => [
           'title' => '店名',
           'field' => 'varchar(100) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'address' => [
           'title' => '详细地址',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'phone' => [
           'title' => '联系电话',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'gps' => [
           'title' => 'GPS经纬度',
           'field' => 'varchar(50) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'coupon_id' => [
           'title' => '所属优惠券编号',
           'field' => 'int(10) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'wpid' => [
           'title' => 'token',
           'field' => 'int(10) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'open_time' => [
           'title' => '营业时间',
           'field' => 'varchar(50) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'img' => [
           'title' => '门店展示图',
           'field' => 'int(10) unsigned NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'auth_group' => [
           'title' => '门店用户组',
           'field' => 'int(10) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'shop_code' => [
           'title' => '地点编码',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'password' => [
           'title' => '确认收款密码',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'img_url' => [
           'title' => 'erp门店图片链接',
           'type' => 'string',
-          'field' => 'varchar(255) NULL',
-          'placeholder' => '请输入内容'
+          'field' => 'varchar(255) NULL'
       ]
   ];
 }

@@ -29,7 +29,7 @@ class CommonCategory extends Base{
         } else { //通过标识查询
             $map['name'] = $id;
         }
-        return $this->field($field)->where( wp_where($map) )->find();
+        return $this->field($field)->where(wp_where($map))->find();
     }
 
     /**
@@ -69,7 +69,7 @@ class CommonCategory extends Base{
     public function getSameLevel($id, $field = true){
         $info = $this->info($id, 'pid');
         $map = array('pid' => $info['pid'], 'status' => 1);
-        return $this->field($field)->where( wp_where($map) )->order('sort')->select();
+        return $this->field($field)->where(wp_where($map))->order('sort')->select();
     }
 
     /**
@@ -84,9 +84,10 @@ class CommonCategory extends Base{
 
         /* 添加或更新数据 */
         if(empty($data['id'])){
-            $res = $this->save($data);
+			unset($data['id']);
+            $res = $this->insert($data);
         }else{
-            $res = $this->isUpdate(true)->save($data);
+            $res = $this->where('id', $data['id'])->update($data);
         }
 
         //更新分类缓存

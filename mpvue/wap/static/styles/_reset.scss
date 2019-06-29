@@ -44,6 +44,24 @@ body,page {
   /deep/ .van-tabs--line {
     padding-top: 0;
   }
+	
+	.van-stepper__minus,
+	.van-stepper__plus,
+	.van-stepper__input {
+		background-color: transparent;
+	}
+	
+	.van-stepper{
+		border: 1px solid #eee;
+    border-radius: 30px;
+	}
+	
+	.van-radio__icon--checked .van-icon {
+		border-color: $red;
+    background-color: $red;
+	}
+		
+		
 }
 
 // 轮播

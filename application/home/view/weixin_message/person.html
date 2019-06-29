@@ -28,10 +28,9 @@
     	{include file="common@base/_nav" /} 
       <div class="tab-content">
        <div style = "text-align:right;">
-      <input type ='button' value ='返回' onclick ='window.history.go(-1)'/>
+      <input type ='button' class="btn" value ='返回' onclick ='window.history.go(-1)'/>
       </div>
       	<h3>与 {$toUser.nickname} 的聊天</h3>
-      	
       </div>
       <!-- 数据列表 -->
       <div class="data-table">
@@ -110,7 +109,7 @@
                     	{notempty name="vo['user']['headimgurl']"}
                             <p class="name">{$vo.user.nickname}</p>
                         {else/}
-                            <p class="name">{$vo.openid}</p>
+                            <p class="name">{$vo.openid|default=''}</p>
                         {/notempty}
                     	
                         <p class="msg">
@@ -158,7 +157,7 @@
 			                {elseif condition="$vo['Content']['msg_type'] eq 'link'"  /}  
 			                	<a  target='_blank' href="{$vo.Content.url}"><h3>"{$vo.Content.title}"</h3><br>{$vo.Content.description}</a>  
 	                        {else/}
-                        	{$vo.Content.content|raw}
+                        	{$vo.Content.Content|raw}
                         	{/if}
                         </p>
                     </div>
@@ -279,7 +278,7 @@ $('.msg_tab .image').click(function(){
 	$('input[name="image_material"]').val(0);
 })
 $('.msg_tab .voice').click(function(){
-	//图片消息
+	//语音消息
 	$(this).addClass('current').siblings().removeClass('current');
 	$('input[name="msg_type"]').val('voice');
 	$('#voice_area').show().siblings().hide();
@@ -291,7 +290,7 @@ $('.msg_tab .voice').click(function(){
 	$('#image_material').hide();
 })
 $('.msg_tab .video').click(function(){
-	//图片消息
+	//视频消息
 	$(this).addClass('current').siblings().removeClass('current');
 	$('input[name="msg_type"]').val('video');
 	$('#video_area').show().siblings().hide();
@@ -348,7 +347,7 @@ function selectImageCallback(_this){
 	$.Dialog.close();
 }
 function selectVoiceCallback(_this){
-	$(_this).find('.icon_sound').attr('src',STATIC_PATH + '/base/images/icon_sound.png');
+	//$(_this).find('.icon_sound').attr('src',STATIC_PATH + '/base/images/icon_sound.png');
 	$('.voice_wrap').html($(_this).html()).show();
 	$('#voice_area .select_appmsg').hide();
 	$('#voice_area .delete').show();

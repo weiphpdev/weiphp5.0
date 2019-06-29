@@ -19,17 +19,17 @@ class SignInLogTable {
     // 列表定义
     public $list_grid = [
       'uid' => [
-          'title' => '用户ID',
+          'title' => '用户ID'
       ],
       'nickname' => [
-          'title' => '呢称',
+          'title' => '呢称'
       ],
       'sTime' => [
           'title' => '签到时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'score' => [
-          'title' => '积分',
+          'title' => '积分'
       ]
   ];
 
@@ -39,19 +39,21 @@ class SignInLogTable {
           'title' => '积分',
           'field' => 'int(10) NOT NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'wpid' => [
           'title' => 'wpid',
-          'field' => 'varchar(255) NOT NULL',
+          'field' => 'int(10) NOT NULL',
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ],
       'sTime' => [
           'title' => '签到时间',
-          'field' => 'int(10) UNSIGNED NOT NULL',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'datetime',
           'auto_rule' => 'time',
           'auto_time' => 1,
@@ -61,7 +63,8 @@ class SignInLogTable {
           'title' => '用户ID',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'textarea',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ]
   ];
 }

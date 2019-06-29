@@ -9,6 +9,7 @@ class WeiSite extends Base
     public function config()
     {
         $public_info = get_pbid_appinfo();
+        $public_info['id'] = empty($public_info['id'])?0:$public_info['id'];
         $normal_tips = '想查看效果,可以点击：<a href="' . U('wei_site/Wap/index', array(
             'pbid' => $public_info['id']
         )) . '">预览</a>， <a id="copyLink" data-clipboard-text="' . U('wei_site/Wap/index', array(
@@ -57,6 +58,7 @@ class WeiSite extends Base
 
     public function _deal_cate($vo, $key = 1)
     {
+    	$url='';
         return array(
             'id' => $vo['id'],
             'fid' => $vo['pid'],

@@ -19,44 +19,16 @@ class PublicsTable {
     // 列表定义
     public $list_grid = [
       'id' => [
-          'title' => '公众号ID',
-          'name' => 'id',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '公众号ID'
       ],
       'public_name' => [
-          'title' => '公众号名称',
-          'name' => 'public_name',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '公众号名称'
       ],
       'wpid' => [
-          'title' => 'wpid',
-          'name' => 'wpid',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => 'wpid'
       ],
       'count' => [
-          'title' => '管理员数',
-          'name' => 'count',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'title' => '管理员数'
       ],
       'urls' => [
           'title' => '操作',
@@ -74,12 +46,7 @@ class PublicsTable {
                   'title' => '进入管理',
                   'url' => 'main&public_id=[id]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'width' => '',
-          'is_sort' => 0,
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -87,32 +54,22 @@ class PublicsTable {
     public $fields = [
       'public_name' => [
           'title' => '公众号名称',
-          'field' => 'varchar(50) NOT NULL',
+          'field' => 'varchar(50) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'public_id' => [
           'title' => '公众号原始id',
-          'field' => 'varchar(100) NOT NULL',
+          'field' => 'varchar(100) NULL',
           'type' => 'string',
           'remark' => '请正确填写，保存后不能再修改，且无法接收到微信的信息',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
-      ],
-      'wechat' => [
-          'title' => '微信号',
-          'field' => 'varchar(100) NOT NULL',
-          'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'headface_url' => [
           'title' => '公众号头像',
           'field' => 'varchar(255) NULL',
           'type' => 'picture',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'type' => [
           'title' => '公众号类型',
@@ -122,59 +79,34 @@ class PublicsTable {
           'extra' => '0:普通订阅号
 1:认证订阅号/普通服务号
 2:认证服务号',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'appid' => [
           'title' => 'AppID',
-          'field' => 'varchar(255) NULL',
+          'field' => 'char(32) NULL',
           'type' => 'string',
           'remark' => '应用ID',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'secret' => [
           'title' => 'AppSecret',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
           'remark' => '应用密钥',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'encodingaeskey' => [
           'title' => 'EncodingAESKey',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
           'remark' => '安全模式下必填',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'tips_url' => [
           'title' => '提示关注公众号的文章地址',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
-      ],
-      'GammaAppId' => [
-          'title' => 'GammaAppId',
-          'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
-      ],
-      'GammaSecret' => [
-          'title' => 'GammaSecret',
-          'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
-      ],
-      'public_copy_right' => [
-          'title' => '版权信息',
-          'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'is_use' => [
           'title' => '是否为当前公众号',
@@ -182,34 +114,30 @@ class PublicsTable {
           'type' => 'bool',
           'extra' => '0:否
 1:是',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'wpid' => [
           'title' => 'wpid',
-          'field' => 'varchar(100) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'field' => 'int(11) NULL',
+          'type' => 'string'
       ],
       'uid' => [
           'title' => '用户ID',
-          'field' => 'int(10) NULL ',
+          'field' => 'int(10) NULL',
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 1,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'interface_url' => [
           'title' => '接口地址',
           'field' => 'varchar(255) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'area' => [
           'title' => '地区',
           'field' => 'varchar(50) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'addon_status' => [
           'title' => '插件状态',
@@ -258,30 +186,12 @@ class PublicsTable {
 253:帮拆礼包
 254:微社区
 255:抢答
-',
-          'placeholder' => '请输入内容'
-      ],
-      'is_audit' => [
-          'title' => '是否审核',
-          'field' => 'tinyint(2) NULL',
-          'type' => 'bool',
-          'extra' => '0:否
-1:是',
-          'placeholder' => '请输入内容'
-      ],
-      'is_init' => [
-          'title' => '是否初始化',
-          'field' => 'tinyint(2) NULL',
-          'type' => 'bool',
-          'extra' => '0:否
-1:是',
-          'placeholder' => '请输入内容'
+'
       ],
       'domain' => [
           'title' => '自定义域名',
           'field' => 'varchar(30) NULL',
-          'type' => 'string',
-          'placeholder' => '请输入内容'
+          'type' => 'string'
       ],
       'is_bind' => [
           'title' => '是否为微信开放平台绑定账号',
@@ -289,32 +199,55 @@ class PublicsTable {
           'type' => 'bool',
           'extra' => '0:否
 1:是',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'app_type' => [
-          'title' => '类型',
+          'title' => '公众号类型',
           'type' => 'bool',
           'field' => 'tinyint(2) NULL',
           'extra' => '0:公众号
 1:小程序
 2:APP',
           'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'check_file' => [
           'title' => '微信验证文件',
           'type' => 'file',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'is_show' => 1,
-          'placeholder' => '请输入内容',
           'validate_file_size' => 10485760
       ],
       'order_payok_messageid' => [
           'title' => '交易完成通知的模板ID',
           'type' => 'string',
           'field' => 'varchar(255) NULL',
-          'is_show' => 1,
-          'is_must' => 0
+          'is_show' => 1
+      ],
+      'mch_id' => [
+          'title' => '商户号',
+          'field' => 'char(32) NULL',
+          'type' => 'string'
+      ],
+      'partner_key' => [
+          'title' => '支付密钥',
+          'field' => 'char(100) NULL',
+          'type' => 'string'
+      ],
+      'cert_pem' => [
+          'title' => '证书cert',
+          'field' => 'int(11) NULL',
+          'type' => 'string'
+      ],
+      'key_pem' => [
+          'title' => '证书key',
+          'field' => 'int(11) NULL',
+          'type' => 'string'
+      ],
+      'authorizer_refresh_token' => [
+          'title' => 'authorizer_refresh_token',
+          'field' => 'varchar(255) NULL',
+          'type' => 'string'
       ]
   ];
 }

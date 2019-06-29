@@ -38,10 +38,10 @@
                           </label>
                         {/case}
                         {case value="datetime"}
-                    <input type="datetime" name="{$field.name}" class="text input-large time" value="{:I($field['name'], $field['value'])}" placeholder="请选择时间" />
+                    <input type="datetime" autocomplete="off" name="{$field.name}" class="text input-large time" value="{:I($field['name'], $field['value'])}" placeholder="请选择时间" />
                   {/case}
                   {case value="date"}
-                    <input type="datetime" name="{$field.name}" class="text input-large date" value="{:I($field['name'], $field['value'])}" placeholder="请选择日期" />
+                    <input type="datetime" autocomplete="off" name="{$field.name}" class="text input-large date" value="{:I($field['name'], $field['value'])}" placeholder="请选择日期" />
                   {/case}
                      {case value="bool"}
                        <select name="{$field.name}">

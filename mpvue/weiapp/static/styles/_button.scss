@@ -39,6 +39,7 @@
         @extend .u-button--primary;
         &,&:active {opacity: .3;}
     }
+	&.disable {opacity: .3;}
 
 
     // 大按钮
@@ -69,10 +70,6 @@
         height: 45PX;
         background: #fff;
         max-width: 750px;
-        .u-button {
-            height: 45PX;
-            line-height: 45PX;
-        }
     }
 }
 

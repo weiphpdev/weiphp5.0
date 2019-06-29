@@ -133,6 +133,6 @@ class Slideshow extends Base
     // 详情
     public function detail()
     {
-        return $this->fetch ();
+        return $this->fetch();
     }
 }

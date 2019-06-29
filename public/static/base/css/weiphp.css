@@ -2324,7 +2324,6 @@ body {
 
 .appmsg_item .main_img h6 {
     position: absolute;
-    background: RGBA(0, 0, 0, .5);
     color: #fff;
     padding: 3px 5px;
     bottom: 0;

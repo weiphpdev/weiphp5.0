@@ -20,27 +20,27 @@ class RealPrizeTable {
     public $list_grid = [
       'prize_name' => [
           'title' => '奖品名称',
-		  'width' => '20%'
+          'width' => '20%'
       ],
       'prize_conditions' => [
           'title' => '活动说明',
-		  'width' => '20%'
+          'width' => '20%'
       ],
       'prize_count' => [
           'title' => '奖品个数',
-		  'width' => '10%'
+          'width' => '10%'
       ],
       'prize_type' => [
           'title' => '奖品类型',
-		  'width' => '10%'
+          'width' => '10%'
       ],
       'use_content' => [
           'title' => '使用说明',
-		  'width' => '20%'
+          'width' => '20%'
       ],
       'urls' => [
           'title' => '操作',
-		  'width' => '20%',
+          'width' => '20%',
           'come_from' => 1,
           'href' => [
               '0' => [
@@ -98,7 +98,8 @@ class RealPrizeTable {
           'title' => '奖品图片',
           'field' => 'varchar(255) NULL',
           'type' => 'picture',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => '上传奖品图片'
       ],
       'prize_type' => [
           'title' => '奖品类型',
@@ -107,7 +108,8 @@ class RealPrizeTable {
           'remark' => '选择奖品类型',
           'is_show' => 1,
           'extra' => '1:实物
-0:虚拟'
+0:虚拟',
+          'value' => 1
       ],
       'use_content' => [
           'title' => '使用说明',
@@ -127,7 +129,8 @@ class RealPrizeTable {
           'title' => '素材模板',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'value' => 'default'
       ],
       'wpid' => [
           'title' => 'wpid',
@@ -135,7 +138,8 @@ class RealPrizeTable {
           'type' => 'string',
           'auto_rule' => 'get_wpid',
           'auto_time' => 1,
-          'auto_type' => 'function'
+          'auto_type' => 'function',
+          'value' => 0
       ]
   ];
 }

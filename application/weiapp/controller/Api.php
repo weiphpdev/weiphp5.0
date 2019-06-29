@@ -308,6 +308,88 @@ class Api extends ApiBase
         return $this->returncode($result, $array);
     }
 
+
+
+    function post_data($url, $param = [], $type = 'json', $return_array = true, $useCert = [])
+    {
+        $has_json = false;
+        if ($type == 'json' && is_array($param)) {
+            $has_json = true;
+            $param = json_encode($param, JSON_UNESCAPED_UNICODE);
+        } elseif ($type == 'xml' && is_array($param)) {
+            $param = ToXml($param);
+        }
+        add_debug_log($url, 'post_data');
+
+        // 初始化curl
+        $ch = curl_init();
+        if ($type != 'file') {
+            add_debug_log($param, 'post_data');
+            // 设置超时
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        } else {
+            // 设置超时
+            curl_setopt($ch, CURLOPT_TIMEOUT, 180);
+        }
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+        // 设置header
+        if ($type == 'file') {
+            $header[] = "content-type: multipart/form-data; charset=UTF-8";
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        } elseif ($type == 'xml') {
+            curl_setopt($ch, CURLOPT_HEADER, false);
+        } elseif ($has_json) {
+            $header[] = "content-type: application/json; charset=UTF-8";
+            //curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        }
+
+        // curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+        // dump($param);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+        // 要求结果为字符串且输出到屏幕上
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // 使用证书：cert 与 key 分别属于两个.pem文件
+        if (isset($useCert['certPath']) && isset($useCert['keyPath'])) {
+            curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
+            curl_setopt($ch, CURLOPT_SSLCERT, $useCert['certPath']);
+            curl_setopt($ch, CURLOPT_SSLKEYTYPE, 'PEM');
+            curl_setopt($ch, CURLOPT_SSLKEY, $useCert['keyPath']);
+        }
+
+        $res = curl_exec($ch);
+        dump($res);
+        if ($type != 'file') {
+            add_debug_log($res, 'post_data');
+        }
+        // echo $res;die;
+        $flat = curl_errno($ch);
+
+        $msg = '';
+        if ($flat) {
+            $msg = curl_error($ch);
+        }
+        // add_request_log($url, $param, $res, $flat, $msg);
+        if ($flat) {
+            return [
+                'curl_erron' => $flat,
+                'curl_error' => $msg
+            ];
+        } else {
+            if ($return_array && !empty($res)) {
+                $res = $type == 'json' ? json_decode($res, true) : FromXml($res);
+            }
+
+            return $res;
+        }
+    }
+
     function payment()
     {
         $info = get_pbid_appinfo();
@@ -428,6 +510,7 @@ class Api extends ApiBase
 
         // 验证码判断
         $check = D('sms/Sms')->checkSms($mobile, $code);
+
         if ($check ['result'] == 0) {
             echo api_error($check ['msg']);
             exit();
@@ -508,27 +591,30 @@ class Api extends ApiBase
 
         echo api_success($param);
     }
+
 // api_ticket 是用于调用微信卡券JS API的临时票据，有效期为7200 秒，通过access_token 来获取
-    function api_ticket($access_token = '', $update = false) {
-        $pbid = get_pbid ();
-        if (empty ( $access_token )) {
-            $access_token = get_access_token ( $pbid );
+    function api_ticket($access_token = '', $update = false)
+    {
+        $pbid = get_pbid();
+        if (empty ($access_token)) {
+            $access_token = get_access_token($pbid);
         }
 
         $key = 'api_ticket_token_' . $pbid;
-        $res = S ( $key );
-        if ($res !== false && ! $update)
+        $res = S($key);
+        if ($res !== false && !$update)
             return $res;
 
         $url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' . $access_token . '&type=wx_card';
-        $tempArr = json_decode ( get_data ( $url ), true );
-        if (@array_key_exists ( 'ticket', $tempArr )) {
-            S ( $key, $tempArr ['ticket'], $tempArr ['expires_in'] );
+        $tempArr = json_decode(get_data($url), true);
+        if (@array_key_exists('ticket', $tempArr)) {
+            S($key, $tempArr ['ticket'], $tempArr ['expires_in']);
             return $tempArr ['ticket'];
         } else {
             return 0;
         }
     }
+
     function decrypt()
     {
         $code = I('code');
@@ -540,12 +626,6 @@ class Api extends ApiBase
 
         $res = post_data($url, $param);
         echo json_encode($res);
-    }
-
-    function test()
-    {
-        $res = D('sms/Sms')->sendSms('18123611365');
-        dump($res);
     }
 }
 

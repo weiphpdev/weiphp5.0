@@ -332,7 +332,7 @@ export default {
 .closing-bar {
   @extend %f-align-center;
   position: fixed;
-  bottom: 50px;
+  bottom: 55PX;
   font-size: 12px;
   width: 100%;
   padding: 5px 10px;

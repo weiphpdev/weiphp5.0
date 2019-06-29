@@ -24,21 +24,24 @@ class ShopGoodsSkuConfigTable {
       'goods_id' => [
           'title' => '商品ID',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'spec_id' => [
           'title' => '规格ID',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'option_id' => [
           'title' => '属性ID',
           'field' => 'int(10) NULL',
-          'type' => 'num'
+          'type' => 'num',
+          'value' => 0
       ],
       'img' => [
           'title' => '属性加图',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture'
       ]
   ];

@@ -25,8 +25,7 @@ class ShopAddressTable {
           'title' => '收货人姓名',
           'field' => 'varchar(100) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'uid' => [
           'title' => '用户ID',
@@ -34,37 +33,32 @@ class ShopAddressTable {
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 3,
-          'auto_type' => 'function',
-          'placeholder' => '请输入内容'
+          'auto_type' => 'function'
       ],
       'mobile' => [
           'title' => '手机号码',
           'field' => 'varchar(50) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'city' => [
           'title' => '城市',
           'field' => 'varchar(255) NULL',
           'type' => 'cascade',
           'is_show' => 1,
-          'extra' => 'module=city',
-          'placeholder' => '请输入内容'
+          'extra' => 'module=city'
       ],
       'address' => [
-          'title' => '选择的地址',
+          'title' => '具体地址',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'address_detail' => [
           'title' => '详细地址',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
-          'placeholder' => '请输入内容'
+          'is_show' => 1
       ],
       'is_use' => [
           'title' => '是否设置为默认',
@@ -73,7 +67,7 @@ class ShopAddressTable {
           'is_show' => 1,
           'extra' => '0:否
 1:是',
-          'placeholder' => '请输入内容'
+          'value' => 0
       ],
       'is_del' => [
           'title' => '是否删除',
@@ -81,9 +75,7 @@ class ShopAddressTable {
           'field' => 'tinyint(2) NULL',
           'extra' => '0:未删除
 1:已删除',
-          'value' => 0,
-          'is_show' => 0,
-          'is_must' => 0
+          'value' => 0
       ]
   ];
 }

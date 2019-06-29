@@ -21,32 +21,15 @@ class ShopMembershipTable {
       'img' => [
           'title' => '20%会员图标',
           'function' => 'get_img_html',
-          'raw' => 1,
-          'name' => 'img',
-          'width' => '',
-          'is_sort' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'raw' => 1
       ],
       'membership' => [
           'title' => '会员名',
-          'width' => '25%',
-          'name' => 'membership',
-          'function' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'width' => '25%'
       ],
       'condition' => [
           'title' => '条件（经历值）',
-          'width' => '20%',
-          'name' => 'condition',
-          'function' => '',
-          'is_sort' => 0,
-          'raw' => 0,
-          'come_from' => 0,
-          'href' => [ ]
+          'width' => '20%'
       ],
       'urls' => [
           'title' => '操作',
@@ -61,11 +44,7 @@ class ShopMembershipTable {
                   'title' => '删除',
                   'url' => '[DELETE]'
               ]
-          ],
-          'name' => 'urls',
-          'function' => '',
-          'is_sort' => 0,
-          'raw' => 0
+          ]
       ]
   ];
 
@@ -75,13 +54,13 @@ class ShopMembershipTable {
           'title' => '会员名',
           'field' => 'varchar(255) NULL',
           'type' => 'string',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'img' => [
           'title' => '图标',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'picture',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'condition' => [
           'title' => '升级会员条件',
@@ -89,6 +68,7 @@ class ShopMembershipTable {
           'type' => 'num',
           'remark' => '以用户经历值做为升级条件',
           'is_show' => 1,
+          'value' => 0
       ],
       'uid' => [
           'title' => '企业用户id',
@@ -96,14 +76,12 @@ class ShopMembershipTable {
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 3,
-          'auto_type' => 'function',
+          'auto_type' => 'function'
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
           'field' => 'int(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0,
           'auto_type' => 'function',
           'auto_rule' => 'get_wpid',
           'auto_time' => 3

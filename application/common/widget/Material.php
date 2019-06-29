@@ -55,6 +55,6 @@ class Material extends base
         // dump($data); // exit;
         $this->assign($data);
         $html = $this->fetch('common@widget/material');
-        echo $html;
+        return $html;
     }
 }

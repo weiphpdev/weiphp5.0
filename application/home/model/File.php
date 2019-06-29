@@ -51,7 +51,7 @@ class File extends Base
      *            上传驱动配置
      * @return array 文件上传成功后的信息
      */
-    public function upload($setting = [], $driver = 'Local', $config = null)
+    public function upload($setting = [], $driver = 'Local', $config = null, $isTest = false)
     {
         /* 上传文件 */
         $setting['callback'] = array(
@@ -59,7 +59,7 @@ class File extends Base
             'isFile'
         );
         
-        $info = upload_files($setting, $driver, $config, 'download');
+        $info = upload_files($setting, $driver, $config, 'download', $isTest);
         
         /* 设置文件保存位置 */
         $this->_auto[] = array(

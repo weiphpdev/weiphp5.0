@@ -15,6 +15,7 @@ class Service extends ServiceBase
 
     public function payok($res_data, $order)
     {
+
         // 记录下日志
         // array (
         // 'appid' => 'wxe669eed18e05f95b',
@@ -40,7 +41,7 @@ class Service extends ServiceBase
         // dump ( $res_data );
 
         // 发送模板消息给用户
-        $url = 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' . get_access_token($order ['token']);
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' . get_access_token($order ['pbid']);
         $param ['touser'] = $res_data ['openid'];
         $param ['template_id'] = '-ekG5kJ-8x7OkTxd1shG-5-y90q8El5vj0DKVGwTZ9o';
         $param ['form_id'] = $order ['prepay_id'];

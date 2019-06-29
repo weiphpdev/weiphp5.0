@@ -13,6 +13,8 @@ class PublicBind extends Base {
 	public $component_appid = '';
 	public $component_appsecret = '';
 	function initialize() {
+		parent::initialize();
+		
 		$this->component_appid = config( 'COMPONENT_APPID' );
 		$this->component_appsecret = config( 'COMPONENT_APPSECRET' );
 	}

@@ -1,5 +1,5 @@
 /*
- Navicat MySQL Data Transfer
+ MySQL Data Transfer
 
  Source Server         : localhost
  Source Server Type    : MySQL
@@ -11,7 +11,7 @@
  Target Server Version : 100132
  File Encoding         : 65001
 
- Date: 13/12/2018 18:46:19
+ Date: 11/04/2019 15:10:36
 */
 
 SET NAMES utf8mb4;
@@ -62,14 +62,14 @@ CREATE TABLE `wp_action_log`  (
   `action_ip` bigint(20) NOT NULL COMMENT '执行行为者ip',
   `model` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '触发行为的表',
   `record_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '触发行为的数据id',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '日志备注',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '日志备注',
   `status` tinyint(2) NOT NULL DEFAULT 1 COMMENT '状态',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '执行行为的时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `action_ip_ix`(`action_ip`) USING BTREE,
   INDEX `action_id_ix`(`action_id`) USING BTREE,
   INDEX `user_id_ix`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 770 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '行为日志表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '行为日志表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_admin_log
@@ -740,7 +740,7 @@ INSERT INTO `wp_auth_extend` VALUES (1, 37, 1);
 DROP TABLE IF EXISTS `wp_auth_group`;
 CREATE TABLE `wp_auth_group`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分组名称',
+  `title` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '分组名称',
   `icon` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '图标',
   `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '描述信息',
   `status` tinyint(2) NULL DEFAULT 1 COMMENT '状态',
@@ -755,7 +755,7 @@ CREATE TABLE `wp_auth_group`  (
   `is_del` tinyint(1) NULL DEFAULT 0 COMMENT '是否已删除',
   `pbid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 369 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of wp_auth_group
@@ -791,6 +791,142 @@ CREATE TABLE `wp_auth_rule`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 422 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of wp_auth_rule
+-- ----------------------------
+INSERT INTO `wp_auth_rule` VALUES (280, '可见', 'view', 'common', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (281, '新增', 'add', 'common', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (282, '编辑', 'edit', 'common', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (283, '删除', 'del', 'common', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (284, '搜索', 'search', 'common', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (285, '可见', 'view', 'weixin', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (286, '新增', 'add', 'weixin', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (287, '编辑', 'edit', 'weixin', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (288, '删除', 'del', 'weixin', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (289, '搜索', 'search', 'weixin', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (290, '可见', 'view', 'coupon', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (291, '新增', 'add', 'coupon', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (292, '编辑', 'edit', 'coupon', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (293, '删除', 'del', 'coupon', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (294, '搜索', 'search', 'coupon', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (295, '可见', 'view', 'game', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (296, '新增', 'add', 'game', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (297, '编辑', 'edit', 'game', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (298, '删除', 'del', 'game', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (299, '搜索', 'search', 'game', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (300, '可见', 'view', 'store', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (301, '新增', 'add', 'store', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (302, '编辑', 'edit', 'store', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (303, '删除', 'del', 'store', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (304, '搜索', 'search', 'store', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (305, '可见', 'view', 'shop', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (306, '新增', 'add', 'shop', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (307, '编辑', 'edit', 'shop', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (308, '删除', 'del', 'shop', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (309, '搜索', 'search', 'shop', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (310, '可见', 'view', 'apps', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (311, '新增', 'add', 'apps', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (312, '编辑', 'edit', 'apps', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (313, '删除', 'del', 'apps', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (314, '搜索', 'search', 'apps', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (315, '可见', 'view', 'websocket', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (316, '新增', 'add', 'websocket', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (317, '编辑', 'edit', 'websocket', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (318, '删除', 'del', 'websocket', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (319, '搜索', 'search', 'websocket', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (320, '可见', 'view', 'docs', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (321, '新增', 'add', 'docs', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (322, '编辑', 'edit', 'docs', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (323, '删除', 'del', 'docs', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (324, '搜索', 'search', 'docs', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (325, '可见', 'view', 'topmenu', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (326, '新增', 'add', 'topmenu', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (327, '编辑', 'edit', 'topmenu', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (328, '删除', 'del', 'topmenu', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (329, '搜索', 'search', 'topmenu', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (330, '可见', 'view', 'feedback', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (331, '新增', 'add', 'feedback', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (332, '编辑', 'edit', 'feedback', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (333, '删除', 'del', 'feedback', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (334, '搜索', 'search', 'feedback', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (335, '可见', 'view', 'cms', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (336, '新增', 'add', 'cms', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (337, '编辑', 'edit', 'cms', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (338, '删除', 'del', 'cms', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (339, '搜索', 'search', 'cms', 'common_app');
+INSERT INTO `wp_auth_rule` VALUES (340, '活动预览', 'preview', 'weixin', 'custom_app');
+INSERT INTO `wp_auth_rule` VALUES (341, '参与抽奖', 'join', 'weixin', 'custom_app');
+INSERT INTO `wp_auth_rule` VALUES (344, '预览文件1', 'cat1', 'weixin', 'custom_app');
+INSERT INTO `wp_auth_rule` VALUES (345, '预览文件2', 'cat2', 'weixin', 'custom_app');
+INSERT INTO `wp_auth_rule` VALUES (346, '基础支持-获取access_token', 'get_access_token', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (347, '微信JS-SDK-基础接口', 'jsskd_base', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (348, '微信JS-SDK-地理位置', 'jsskd_location', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (349, '微信JS-SDK-微信扫一扫', 'jsskd_scan', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (350, '用户管理-用户分组管理', 'user_group', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (351, '用户管理-网页授权获取用户openid/用户基本信息', 'user_oauth', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (352, '微信设备功能接口', 'device', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (353, '微信JS-SDK-音频接口', 'jsskd_audio', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (354, '微信JS-SDK-设备信息', 'jsskd_device', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (355, '微信JS-SDK-微信支付', 'jsskd_payment', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (356, '微信JS-SDK-智能接口（网页语音识别）', 'jsskd_semantic', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (357, '微信JS-SDK-微信小店', 'jsskd_shop', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (358, '微信支付接口', 'payment', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (359, '推广支持-生成带参数二维码', 'qrcode', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (360, '智能接口-语义理解接口', 'semantic', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (361, '发送消息-客服接口', 'send_custom_msg', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (362, '发送消息-群发接口', 'send_group_msg', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (363, '微信小店接口', 'shop', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (364, '用户管理-获取用户列表', 'user_list', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (365, '基础支持-获取微信服务器IP地址', 'get_wechat_ip', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (366, '微信JS-SDK-图像接口', 'jsskd_img', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (367, '微信JS-SDK-界面操作', 'jsskd_menu', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (368, '微信JS-SDK-分享接口', 'jsskd_share', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (369, '素材管理-素材管理接口', 'material', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (370, '界面丰富-自定义菜单', 'menu', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (371, '发送消息-模板消息接口（发送业务通知）', 'send_notice', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (372, '发送消息-被动回复消息', 'send_reply_msg', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (373, '用户管理-获取用户地理位置', 'user_location', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (374, '接收消息-验证消息真实性、接收普通消息、接收事件推送、接收语音识别结果', 'get_msg', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (375, '微信JS-SDK-微信卡券', 'jsskd_card', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (376, '推广支持-长链接转短链接口', 'long_url', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (377, '用户管理-获取用户基本信息', 'user_base_info', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (378, '多客服-获取多客服消息记录、客服管理', 'custom_service', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (379, '微信卡券接口', 'card', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (380, '用户管理-设置用户备注名	', 'user_remark', 'weixin_public', 'public_interface');
+INSERT INTO `wp_auth_rule` VALUES (381, '是否已登录', 'is_login', 'common', 'wap');
+INSERT INTO `wp_auth_rule` VALUES (382, '是否已注册', 'is_reg', 'common', 'wap');
+INSERT INTO `wp_auth_rule` VALUES (383, '是否已关注公众号（仅认证服务号可用）', 'is_subscribe', 'common', 'wap');
+INSERT INTO `wp_auth_rule` VALUES (384, '是否已初始化（仅开启初始化可用）', 'is_init', 'common', 'wap');
+INSERT INTO `wp_auth_rule` VALUES (385, '是否已审核（仅开启审核可用）', 'is_audit', 'common', 'wap');
+INSERT INTO `wp_auth_rule` VALUES (386, '绑定公众号', 'bind_public', 'weixin', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (387, '自定义菜单查看', 'view', 'custom_menu', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (388, '自定义菜单新增', 'add', 'custom_menu', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (389, '自定义菜单编辑', 'edit', 'custom_menu', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (390, '自定义菜单删除', 'del', 'custom_menu', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (391, '自定义菜单发布', 'send', 'custom_menu', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (392, '欢迎语查看', 'view', 'wecome', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (393, '欢迎语编辑', 'edit', 'wecome', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (394, '未识别回复查看', 'view', 'no_answer', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (395, '未识别回复编辑', 'edit', 'no_answer', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (396, '自动回复查看', 'view', 'auto_reply', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (397, '自动回复新增', 'add', 'auto_reply', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (398, '自动回复编辑', 'edit', 'auto_reply', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (399, '自动回复删除', 'del', 'auto_reply', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (400, '群发信息查看', 'view', 'mass_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (401, '群发信息新增', 'add', 'mass_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (402, '群发信息编辑', 'edit', 'mass_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (403, '群发信息删除', 'del', 'mass_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (404, '群发信息发布', 'send', 'mass_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (405, '客服群发查看', 'view', 'customer_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (406, '客服群发新增', 'add', 'customer_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (407, '客服群发编辑', 'edit', 'customer_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (408, '客服群发删除', 'del', 'customer_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (409, '客服群发发布', 'send', 'customer_info', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (410, '微信咨询查看', 'view', 'message', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (411, '微信咨询回复', 'edit', 'message', 'public_mod');
+INSERT INTO `wp_auth_rule` VALUES (420, '活动预览', 'preview', 'ask', 'custom_app');
+INSERT INTO `wp_auth_rule` VALUES (421, '参与抽奖', 'join', 'ask', 'custom_app');
+
+-- ----------------------------
 -- Table structure for wp_auto_reply
 -- ----------------------------
 DROP TABLE IF EXISTS `wp_auto_reply`;
@@ -807,7 +943,7 @@ CREATE TABLE `wp_auto_reply`  (
   `text_id` int(10) NULL DEFAULT NULL COMMENT '文本素材id',
   `pbid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_award
@@ -830,7 +966,7 @@ CREATE TABLE `wp_award`  (
   `cTime` int(10) NULL DEFAULT 0 COMMENT '创建时间',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_buy_log
@@ -925,10 +1061,10 @@ CREATE TABLE `wp_chat`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
   `create_at` int(10) NULL DEFAULT NULL COMMENT '时间',
   `is_read` tinyint(2) NULL DEFAULT 0 COMMENT '已读',
-  `come_from` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `referer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `come_from` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'come_from',
+  `referer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'referer',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 634 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_collage
@@ -951,9 +1087,9 @@ CREATE TABLE `wp_collage`  (
   `is_open` tinyint(2) NULL DEFAULT 1 COMMENT '拼团设置',
   `robot_open` tinyint(2) NULL DEFAULT 0 COMMENT '模拟成团',
   `intro` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '玩法说明',
-  `group_limit_day` tinyint(1) NULL DEFAULT 1,
+  `group_limit_day` tinyint(1) NULL DEFAULT 1 COMMENT '开团限制',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_collage_goods
@@ -961,18 +1097,18 @@ CREATE TABLE `wp_collage`  (
 DROP TABLE IF EXISTS `wp_collage_goods`;
 CREATE TABLE `wp_collage_goods`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `shop_goods_id` int(10) NULL DEFAULT NULL COMMENT '商品来源',
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品名称',
-  `cover` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '商品封面图',
+  `shop_goods_id` int(10) NOT NULL COMMENT '商品来源',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
+  `cover` int(10) UNSIGNED NOT NULL COMMENT '商品封面图',
   `express` decimal(10, 2) NULL DEFAULT NULL COMMENT '邮费',
   `collage_id` int(10) NULL DEFAULT NULL COMMENT '活动Id',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   `send_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '收货方式',
   `stores_ids` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自提门店',
   `is_all_store` tinyint(2) NULL DEFAULT 0 COMMENT '店门类型',
-  `visit_count` int(11) NULL DEFAULT 0,
+  `visit_count` int(11) NULL DEFAULT 0 COMMENT '浏览数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_collage_group
@@ -988,7 +1124,7 @@ CREATE TABLE `wp_collage_group`  (
   `collage_id` int(10) NULL DEFAULT NULL COMMENT '活动ID',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_collage_order
@@ -1005,10 +1141,11 @@ CREATE TABLE `wp_collage_order`  (
   `goods_id` int(10) NULL DEFAULT NULL COMMENT '商品ID',
   `shop_goods_id` int(10) NULL DEFAULT NULL COMMENT '库存ID',
   `is_pay` tinyint(2) NULL DEFAULT 0 COMMENT '状态',
-  `collage_group_id` int(10) NULL DEFAULT NULL,
+  `collage_group_id` int(10) NULL DEFAULT NULL COMMENT '拼团ID',
   `is_robot` tinyint(2) NULL DEFAULT 0 COMMENT '凑团订单',
+  `pbid` int(11) NULL DEFAULT NULL COMMENT 'pbid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 126 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_collage_robot
@@ -1022,7 +1159,7 @@ CREATE TABLE `wp_collage_robot`  (
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   `delete_time` int(10) NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_comment
@@ -1058,7 +1195,7 @@ CREATE TABLE `wp_common_category`  (
   `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类扩展编号',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3419 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_common_category_group
@@ -1098,7 +1235,7 @@ CREATE TABLE `wp_config`  (
   `sort` smallint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of wp_config
@@ -1143,6 +1280,7 @@ INSERT INTO `wp_config` VALUES (73, 'DEFAULT_PUBLICS', 4, '扫码登录绑定的
 INSERT INTO `wp_config` VALUES (74, 'REQUEST_LOG', 4, '接口日志是否开启', 0, '0:否\r\n1:是', '', 0, 0, 1, '1', 0);
 INSERT INTO `wp_config` VALUES (75, 'SCAN_LOGIN', 4, '是否开启扫码登录', 10, '0:关闭\r\n1:开启', '', 0, 0, 0, '0', 0);
 INSERT INTO `wp_config` VALUES (76, 'ENCODING_AES_KEY', 1, '公众号消息加解密Key', 5, '', '', 0, 0, 1, 'DfEqNBRvzbg8MJdRQCSGyaMp6iLcGOldKFT0r8I6Tnp', 0);
+INSERT INTO `wp_config` VALUES (77, 'PUBLIC_TYPE', 4, '账号开放', 1, '0:同时显示公众号和小程序\r\n1:只显示公众号\r\n2:只显示小程序', '', 0, 0, 1, '0', 100);
 
 -- ----------------------------
 -- Table structure for wp_coupon
@@ -1180,12 +1318,12 @@ CREATE TABLE `wp_coupon`  (
   `member` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '选择人群',
   `is_del` int(10) NULL DEFAULT 0 COMMENT '是否删除',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
-  `money` decimal(10, 2) NULL DEFAULT NULL,
-  `goods_category` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `only_goods` tinyint(1) NULL DEFAULT 0,
-  `order_money` decimal(10, 2) NULL DEFAULT 0.00,
+  `money` decimal(10, 2) NULL DEFAULT NULL COMMENT '金额',
+  `goods_category` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '商品分类',
+  `only_goods` tinyint(1) NULL DEFAULT 0 COMMENT '仅商品可用',
+  `order_money` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '订单金额限制',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_credit_cash
@@ -1204,7 +1342,7 @@ CREATE TABLE `wp_credit_cash`  (
   `status` char(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '状态',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_credit_config
@@ -1262,7 +1400,7 @@ CREATE TABLE `wp_credit_data`  (
   `admin_uid` int(10) NULL DEFAULT 0 COMMENT '操作者UID，0表示系统自动增加',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1581 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_credit_grade
@@ -1290,15 +1428,15 @@ CREATE TABLE `wp_custom_menu`  (
   `type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'click' COMMENT '内容类型：\r\ntext:素材文本\r\nimg:素材图片\r\nnews:素材图文\r\nvideo:素材视频\r\nvoice：素材语音\r\nurl:URL地址\r\nclick：点击推事件\r\nscancode_push：扫码推事件 \r\nscancode_waitmsg：扫码带提示\r\npic_sysphoto：弹出系统拍照发图  \r\npic_photo_or_album： 弹出拍照或者相册发图  \r\npic_weixin：弹出微信相册发图器  \r\nlocation_select：弹出地理位置选择器',
   `sort` tinyint(4) NULL DEFAULT 0 COMMENT '排序号',
   `rule_id` int(11) NULL DEFAULT 0 COMMENT '个性化菜单ID，0表示默认菜单',
-  `material` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `appid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `pagepath` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `appurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `material` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'material',
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'URL',
+  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关键词',
+  `appid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'appid',
+  `pagepath` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'pagepath',
+  `appurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'appurl',
   `pbid` int(10) NULL DEFAULT NULL COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_custom_menu_rule
@@ -1316,7 +1454,7 @@ CREATE TABLE `wp_custom_menu_rule`  (
   `menuid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信返回的ID,用于后续删除菜单接口',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_custom_reply_mult
@@ -1337,7 +1475,7 @@ CREATE TABLE `wp_custom_reply_mult`  (
 DROP TABLE IF EXISTS `wp_custom_reply_news`;
 CREATE TABLE `wp_custom_reply_news`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '关键词',
+  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关键词',
   `keyword_type` tinyint(2) NULL DEFAULT NULL COMMENT '关键词类型',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标题',
   `intro` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '简介',
@@ -1353,7 +1491,7 @@ CREATE TABLE `wp_custom_reply_news`  (
   `is_show` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '图片是否显示在内容页',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_custom_reply_text
@@ -1397,7 +1535,7 @@ CREATE TABLE `wp_custom_sendall`  (
   `group_id` int(10) NULL DEFAULT NULL COMMENT '分组id',
   `diff` int(10) NULL DEFAULT 0 COMMENT '区分消息标识',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_debug_log
@@ -1405,12 +1543,12 @@ CREATE TABLE `wp_custom_sendall`  (
 DROP TABLE IF EXISTS `wp_debug_log`;
 CREATE TABLE `wp_debug_log`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `data_post` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `cTime_format` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `cTime` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 45532 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wp_draw_follow_log
@@ -1426,7 +1564,7 @@ CREATE TABLE `wp_draw_follow_log`  (
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sports_id`(`sports_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1229 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_draw_pv_log
@@ -1440,7 +1578,7 @@ CREATE TABLE `wp_draw_pv_log`  (
   `openid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'openid',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2617 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_duty_everyday
@@ -1451,13 +1589,7 @@ CREATE TABLE `wp_duty_everyday`  (
   `duty` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '每日任务设置',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of wp_duty_everyday
--- ----------------------------
-INSERT INTO `wp_duty_everyday` VALUES (2, '<p>66666<br/></p>', 73);
-INSERT INTO `wp_duty_everyday` VALUES (3, '<p>13sdhrkoljergmhw</p><p>和围观和起哄</p>', 73);
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_event_prizes
@@ -1472,7 +1604,7 @@ CREATE TABLE `wp_event_prizes`  (
   `end_num` int(10) NULL DEFAULT 0 COMMENT '最后数字',
   `sort` int(10) NULL DEFAULT 1 COMMENT '顺序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 172 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_exchange
@@ -1509,7 +1641,7 @@ CREATE TABLE `wp_file`  (
   `create_time` int(10) UNSIGNED NOT NULL COMMENT '上传时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_md5`(`md5`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文件表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文件表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_goods_category_link
@@ -1523,7 +1655,7 @@ CREATE TABLE `wp_goods_category_link`  (
   `category_first` int(10) NULL DEFAULT NULL COMMENT '一级分类',
   `category_second` int(10) NULL DEFAULT NULL COMMENT '二级分类',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 435 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_goods_count
@@ -1548,9 +1680,9 @@ CREATE TABLE `wp_goods_param_link`  (
   `goods_id` int(10) NULL DEFAULT NULL COMMENT '商品编号',
   `param_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数值',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
-  `param_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `param_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_goods_param_temp
@@ -1574,10 +1706,10 @@ CREATE TABLE `wp_goods_store_link`  (
   `store_id` int(10) NULL DEFAULT NULL COMMENT '门店编号',
   `store_num` int(10) NULL DEFAULT 0 COMMENT '门店库存,备用',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
-  `event_type` tinyint(1) NULL DEFAULT 0,
+  `event_type` tinyint(1) NULL DEFAULT 0 COMMENT '活动类型',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `goods`(`goods_id`, `event_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_haggle
@@ -1591,7 +1723,7 @@ CREATE TABLE `wp_haggle`  (
   `end_time` int(10) NOT NULL COMMENT '活动结束时间',
   `is_subscribe` tinyint(2) NULL DEFAULT 0 COMMENT '是否需要关注公众号才能参加',
   `is_member` tinyint(2) NULL DEFAULT 0 COMMENT '是否需要成为会员才能参加',
-  `shop_goods_id` int(10) NULL DEFAULT NULL COMMENT '商品来源',
+  `shop_goods_id` int(10) NOT NULL COMMENT '商品来源',
   `express` decimal(10, 2) NULL DEFAULT NULL COMMENT '邮费',
   `random_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '砍价后文字描述',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '活动描述',
@@ -1599,11 +1731,11 @@ CREATE TABLE `wp_haggle`  (
   `min_price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '砍一次的最小价格',
   `max_price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '砍一次的最大价格',
   `send_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '收货方式',
-  `status` tinyint(1) NULL DEFAULT 0,
-  `is_all_store` tinyint(1) NULL DEFAULT 0,
-  `visit_count` int(11) NULL DEFAULT 0,
+  `status` tinyint(1) NULL DEFAULT 0 COMMENT '活动状态',
+  `is_all_store` tinyint(1) NULL DEFAULT 0 COMMENT '是否适用所有门店',
+  `visit_count` int(11) NULL DEFAULT 0 COMMENT '浏览数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_haggle_order
@@ -1621,7 +1753,7 @@ CREATE TABLE `wp_haggle_order`  (
   `order_id` int(10) NULL DEFAULT NULL COMMENT '订单Id',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_haggle_user
@@ -1637,7 +1769,7 @@ CREATE TABLE `wp_haggle_user`  (
   `temp_index` tinyint(2) NULL DEFAULT 0 COMMENT '随机模板',
   `order_id` int(10) NULL DEFAULT 0 COMMENT '订单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_hooks
@@ -1707,12 +1839,12 @@ DROP TABLE IF EXISTS `wp_keyword`;
 CREATE TABLE `wp_keyword`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `keyword` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '关键词',
-  `addon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '关键词所属插件',
+  `addon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '关键词所属插件',
   `aim_id` int(10) UNSIGNED NOT NULL COMMENT '插件表里的ID值',
   `cTime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `keyword_length` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '关键词长度',
   `keyword_type` tinyint(2) NULL DEFAULT 0 COMMENT '匹配类型',
-  `extra_text` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '文本扩展',
+  `extra_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '文本扩展',
   `extra_int` int(10) NULL DEFAULT NULL COMMENT '数字扩展',
   `request_count` int(10) NULL DEFAULT 0 COMMENT '请求数',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
@@ -1757,7 +1889,7 @@ CREATE TABLE `wp_lucky_follow`  (
   `error_remark` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '发放失败备注',
   `send_aim_id` int(10) NULL DEFAULT 0 COMMENT '发送奖品对应id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 511 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_lzwg_activities
@@ -1938,10 +2070,10 @@ CREATE TABLE `wp_material_file`  (
   `aim_id` int(10) NULL DEFAULT NULL COMMENT '添加来源标识id',
   `aim_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '来源表名',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'pbid',
-  `admin_uid` int(11) NULL DEFAULT NULL,
+  `admin_uid` int(11) NULL DEFAULT NULL COMMENT '操作员UID',
   `pub_id` int(11) NULL DEFAULT NULL COMMENT '共享素材ID，用于去重',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_material_image
@@ -1959,10 +2091,10 @@ CREATE TABLE `wp_material_image`  (
   `aim_id` int(10) NULL DEFAULT NULL COMMENT '添加来源标识id',
   `aim_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '来源表名',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'pbid',
-  `admin_uid` int(11) NULL DEFAULT NULL,
+  `admin_uid` int(11) NULL DEFAULT NULL COMMENT '操作员UID',
   `pub_id` int(11) NULL DEFAULT NULL COMMENT '共享素材ID，用于去重',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1301 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_material_news
@@ -1987,10 +2119,10 @@ CREATE TABLE `wp_material_news`  (
   `aim_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '来源表名',
   `update_time` int(10) NULL DEFAULT 0 COMMENT 'update_time',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'pbid',
-  `admin_uid` int(11) NULL DEFAULT NULL,
+  `admin_uid` int(11) NULL DEFAULT NULL COMMENT '操作员UID',
   `pub_id` int(11) NULL DEFAULT NULL COMMENT '共享素材ID，用于去重',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 190 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_material_text
@@ -2004,10 +2136,10 @@ CREATE TABLE `wp_material_text`  (
   `aim_id` int(10) NULL DEFAULT NULL COMMENT '添加来源标识id',
   `aim_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '来源表名',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'pbid',
-  `admin_uid` int(11) NULL DEFAULT NULL,
+  `admin_uid` int(11) NULL DEFAULT NULL COMMENT '操作员UID',
   `pub_id` int(11) NULL DEFAULT NULL COMMENT '共享素材ID，用于去重',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_member_erp_buying
@@ -2131,9 +2263,9 @@ CREATE TABLE `wp_message`  (
   `video_id` int(10) NULL DEFAULT NULL COMMENT '视频id',
   `cTime` int(10) NULL DEFAULT NULL COMMENT '群发时间',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'pbid',
-  `image_id` int(10) NULL DEFAULT NULL,
+  `image_id` int(10) NULL DEFAULT NULL COMMENT '图片ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_model
@@ -2163,118 +2295,116 @@ CREATE TABLE `wp_model`  (
   `addon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属插件',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1478 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统模型表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1492 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统模型表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_model
 -- ----------------------------
 INSERT INTO `wp_model` VALUES (1, 'user', '用户信息表', 0, '', 0, '[\"come_from\",\"nickname\",\"password\",\"truename\",\"mobile\",\"email\",\"sex\",\"headimgurl\",\"city\",\"province\",\"country\",\"language\",\"score\",\"unionid\",\"login_count\",\"reg_ip\",\"reg_time\",\"last_login_ip\",\"last_login_time\",\"status\",\"is_init\",\"is_audit\"]', '1:基础', '', '', '', '', 'headimgurl|url_img_html:头像\r\nlogin_name:登录账号\r\nlogin_password:登录密码\r\nnickname|deal_emoji:用户昵称\r\nsex|get_name_by_status:性别\r\ngroup:分组\r\nscore:金币值\r\nids:操作:set_login?uid=[uid]|设置登录账号,detail?uid=[uid]|详细资料,[EDIT]|编辑', 20, '', '', 1436929111, 1441187405, 1, 'MyISAM', 'core');
-INSERT INTO `wp_model` VALUES (2, 'manager', '公众号管理员配置', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1436932532, 1436942362, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (3, 'menu', '公众号管理员菜单', 0, '', 1, '[\"menu_type\",\"pid\",\"title\",\"url_type\",\"addon_name\",\"url\",\"target\",\"is_hide\",\"sort\"]', '1:基础', '', '', '', '', 'title:菜单名\r\nmenu_type|get_name_by_status:菜单类型\r\naddon_name:插件名\r\nurl:外链\r\ntarget|get_name_by_status:打开方式\r\nis_hide|get_name_by_status:隐藏\r\nsort:排序号\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, '', '', 1435215960, 1437623073, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (4, 'keyword', '关键词表', 0, '', 1, '[\"keyword\",\"keyword_type\",\"addon\",\"aim_id\",\"keyword_length\",\"cTime\",\"extra_text\",\"extra_int\"]', '1:基础', '', '', '', '', 'id:编号\r\nkeyword:关键词\r\naddon:所属插件\r\naim_id:插件数据ID\r\ncTime|time_format:增加时间\r\nrequest_count|intval:请求数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'keyword', '', 1388815871, 1407251192, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (5, 'qr_code', '二维码表', 0, '', 1, '[\"qr_code\",\"addon\",\"aim_id\",\"cTime\",\"extra_text\",\"extra_int\",\"scene_id\",\"action_name\"]', '1:基础', '', '', '', '', 'scene_id:事件KEY值\r\nqr_code|get_code_img:二维码\r\naction_name|get_name_by_status: 	二维码类型\r\naddon:所属插件\r\naim_id:插件数据ID\r\ncTime|time_format:增加时间\r\nrequest_count|intval:请求数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'qr_code', '', 1388815871, 1406130247, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (6, 'publics', '公众号管理', 0, '', 1, '[\"public_name\",\"public_id\",\"wechat\",\"headface_url\",\"type\",\"appid\",\"secret\",\"encodingaeskey\",\"tips_url\",\"GammaAppId\",\"GammaSecret\",\"public_copy_right\"]', '1:基础', '', '', '', '', 'id:公众号ID\r\npublic_name:公众号名称\r\ntoken:Token\r\ncount:管理员数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,main&public_id=[id]|进入管理', 20, 'public_name', '', 1391575109, 1447231672, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (9, 'import', '导入数据', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1407554076, 1407554076, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (12, 'common_category', '通用分类', 0, '', 1, '[\"pid\",\"title\",\"icon\",\"intro\",\"sort\",\"is_show\"]', '1:基础', '', '', '', '', 'code:编号\r\ntitle:标题\r\nicon|get_img_html:图标\r\nsort:排序号\r\nis_show|get_name_by_status:显示\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1397529095, 1404182789, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (13, 'common_category_group', '通用分类分组', 0, '', 1, '[\"name\",\"title\"]', '1:基础', '', '', '', '', 'name:分组标识\r\ntitle:分组标题\r\nids:操作:cascade?target=_blank&module=[name]|数据管理,[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1403664378, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (14, 'credit_config', '积分配置', 0, '', 1, '[\"name\",\"title\",\"score\"]', '1:基础', '', '', '', '', 'title:积分描述\r\nname:积分标识\r\nscore:金币值\r\nids:操作:[EDIT]|配置', 20, 'title', '', 1396061373, 1438591151, 1, 'MyISAM', 'Core');
+INSERT INTO `wp_model` VALUES (2, 'manager', '公众号管理员配置', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1436932532, 1436942362, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (3, 'menu', '公众号管理员菜单', 0, '', 1, '[\"menu_type\",\"pid\",\"title\",\"url_type\",\"addon_name\",\"url\",\"target\",\"is_hide\",\"sort\"]', '1:基础', '', '', '', '', 'title:菜单名\r\nmenu_type|get_name_by_status:菜单类型\r\naddon_name:插件名\r\nurl:外链\r\ntarget|get_name_by_status:打开方式\r\nis_hide|get_name_by_status:隐藏\r\nsort:排序号\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, '', '', 1435215960, 1437623073, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (4, 'keyword', '关键词表', 0, '', 1, '[\"keyword\",\"keyword_type\",\"addon\",\"aim_id\",\"keyword_length\",\"cTime\",\"extra_text\",\"extra_int\"]', '1:基础', '', '', '', '', 'id:编号\r\nkeyword:关键词\r\naddon:所属插件\r\naim_id:插件数据ID\r\ncTime|time_format:增加时间\r\nrequest_count|intval:请求数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'keyword', '', 1388815871, 1407251192, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (5, 'qr_code', '二维码表', 0, '', 1, '[\"qr_code\",\"addon\",\"aim_id\",\"cTime\",\"extra_text\",\"extra_int\",\"scene_id\",\"action_name\"]', '1:基础', '', '', '', '', 'scene_id:事件KEY值\r\nqr_code|get_code_img:二维码\r\naction_name|get_name_by_status: 	二维码类型\r\naddon:所属插件\r\naim_id:插件数据ID\r\ncTime|time_format:增加时间\r\nrequest_count|intval:请求数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'qr_code', '', 1388815871, 1406130247, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (6, 'publics', '公众号管理', 0, '', 1, '[\"public_name\",\"public_id\",\"wechat\",\"headface_url\",\"type\",\"appid\",\"secret\",\"encodingaeskey\",\"tips_url\",\"GammaAppId\",\"GammaSecret\",\"public_copy_right\"]', '1:基础', '', '', '', '', 'id:公众号ID\r\npublic_name:公众号名称\r\ntoken:Token\r\ncount:管理员数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,main&public_id=[id]|进入管理', 20, 'public_name', '', 1391575109, 1447231672, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (7, 'public_group', '公众号等级', 0, '', 1, '[\"title\",\"addon_status\"]', '1:基础', '', '', '', '', 'id:等级ID\r\ntitle:等级名\r\naddon_status:授权的插件\r\npublic_count:公众号数\r\nids:操作:editPublicGroup&id=[id]|编辑,delPublicGroup&id=[id]|删除', 20, 'title', '', 1393724788, 1393730663, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (9, 'import', '导入数据', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1407554076, 1407554076, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (10, 'app_category', '插件分类', 0, '', 1, '[\"icon\",\"title\",\"sort\"]', '1:基础', '', '', '', '', 'icon|get_img_html:分类图标\r\ntitle:分类名\r\nsort:排序号\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1400047655, 1437451028, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (12, 'common_category', '通用分类', 0, '', 1, '[\"pid\",\"title\",\"icon\",\"intro\",\"sort\",\"is_show\"]', '1:基础', '', '', '', '', 'code:编号\r\ntitle:标题\r\nicon|get_img_html:图标\r\nsort:排序号\r\nis_show|get_name_by_status:显示\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1397529095, 1404182789, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (13, 'common_category_group', '通用分类分组', 0, '', 1, '[\"name\",\"title\"]', '1:基础', '', '', '', '', 'name:分组标识\r\ntitle:分组标题\r\nids:操作:cascade?target=_blank&module=[name]|数据管理,[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1403664378, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (14, 'credit_config', '积分配置', 0, '', 1, '[\"name\",\"title\",\"score\"]', '1:基础', '', '', '', '', 'title:积分描述\r\nname:积分标识\r\nscore:金币值\r\nids:操作:[EDIT]|配置', 20, 'title', '', 1396061373, 1438591151, 1, 'MyISAM', 'core');
 INSERT INTO `wp_model` VALUES (15, 'credit_data', '用户积分记录', 0, '', 1, '[\"uid\",\"score\",\"credit_name\"]', '1:基础', '', '', '', '', 'uid:用户名\r\ncredit_title:积分来源\r\nscore:积分\r\ncTime|time_format:时间\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'uid', '', 1398564291, 1447250833, 1, 'MyISAM', 'core');
-INSERT INTO `wp_model` VALUES (16, 'material_image', '图片素材', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1438684613, 1438684613, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (17, 'material_news', '图文素材', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1438670890, 1438670890, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (18, 'message', '群发消息', 0, '', 1, '[\"type\",\"bind_keyword\",\"media_id\",\"openid\",\"send_type\",\"group_id\",\"send_openids\"]', '1:基础', '', '', '', '', '', 20, '', '', 1437984111, 1438049406, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (19, 'visit_log', '网站访问日志', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1439448351, 1439448351, 1, 'MyISAM', 'Core');
+INSERT INTO `wp_model` VALUES (16, 'material_image', '图片素材', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1438684613, 1438684613, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (17, 'material_news', '图文素材', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1438670890, 1438670890, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (18, 'message', '群发消息', 0, '', 1, '[\"type\",\"bind_keyword\",\"media_id\",\"openid\",\"send_type\",\"group_id\",\"send_openids\"]', '1:基础', '', '', '', '', '', 20, '', '', 1437984111, 1438049406, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (19, 'visit_log', '网站访问日志', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1439448351, 1439448351, 1, 'MyISAM', 'core');
 INSERT INTO `wp_model` VALUES (20, 'auth_group', '用户组', 0, '', 1, '[\"title\",\"description\"]', '1:基础', '', '', '', '', 'title:分组名称\r\ndescription:描述\r\nqr_code:二维码\r\nids:操作:export?id=[id]|导出用户,[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1437633503, 1447660681, 1, 'MyISAM', 'core');
-INSERT INTO `wp_model` VALUES (21, 'analysis', '统计分析', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1432806941, 1432806941, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (81, 'sn_code', 'SN码', 0, '', 1, '[\"prize_title\"]', '1:基础', '', '', '', '', 'sn:SN码\r\nuid|get_nickname|deal_emoji:昵称\r\nprize_title:奖项\r\ncTime|time_format:创建时间\r\nis_use|get_name_by_status:是否已使用\r\nuse_time|time_format:使用时间\r\nids:操作:[DELETE]|删除,set_use?id=[id]|改变使用状态', 20, 'sn', '', 1399272054, 1401013099, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (93, 'system_notice', '系统公告表', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1431141043, 1431141043, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (94, 'update_version', '系统版本升级', 0, '', 1, '[\"version\",\"title\",\"description\",\"create_date\",\"package\"]', '1:基础', '', '', '', '', 'version:版本号\r\ntitle:升级包名\r\ndescription:描述\r\ncreate_date|time_format:创建时间\r\ndownload_count:下载统计数\r\nids:操作:[EDIT]&id=[id]|编辑,[DELETE]&id=[id]|删除', 20, '', '', 1393770420, 1393771807, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (103, 'weixin_message', '微信消息管理', 0, '', 1, '', '1:基础', '', '', '', '', 'FromUserName:用户\r\ncontent:内容\r\nCreateTime:时间', 20, '', '', 1438142999, 1438151555, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (148, 'material_text', '文本素材', 0, '', 1, '[\"content\"]', '1:基础', '', '', '', '', 'id:编号\r\ncontent:文本内容\r\nids:操作:text_edit?id=[id]|编辑,text_del?id=[id]|删除', 10, 'content:请输入文本内容搜索', '', 1442976119, 1442977453, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (149, 'material_file', '文件素材', 0, '', 1, '[\"title\",\"file_id\"]', '1:基础', '', '', '', '', '', 10, '', '', 1438684613, 1442982212, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (176, 'update_score_log', '修改积分记录', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1444302325, 1444302325, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (201, 'custom_sendall', '客服群发消息', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1447241925, 1447241925, 1, 'MyISAM', 'Core');
-INSERT INTO `wp_model` VALUES (1150, 'user_tag', '用户标签', 0, '', 1, '[\"title\"]', '1:基础', NULL, '', '', '', 'id:标签编号\r\ntitle:标签名称\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 10, 'title:请输入标签名称搜索', '', 1463990100, 1463993574, 1, 'MyISAM', 'UserCenter');
-INSERT INTO `wp_model` VALUES (1151, 'user_tag_link', '用户标签关系表', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1463992911, 1463992911, 1, 'MyISAM', 'UserCenter');
-INSERT INTO `wp_model` VALUES (1159, 'apps', '小程序导航', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1478318763, 1478318763, 1, 'MyISAM', 'Apps');
-INSERT INTO `wp_model` VALUES (1160, 'weisite_category', '微官网分类', 0, '', 1, '[\"title\",\"icon\",\"url\",\"is_show\",\"sort\",\"pid\"]', '1:基础', '', '', '', '', 'title:15%分类标题\r\nicon|get_img_html:分类图片\r\nurl:30%外链\r\nsort:10%排序号\r\npid:10%一级目录\r\nis_show|get_name_by_status:10%显示\r\nid:10%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1395987942, 1439522869, 1, 'MyISAM', 'WeiSite');
-INSERT INTO `wp_model` VALUES (1161, 'weisite_footer', '底部导航', 0, '', 1, '[\"pid\",\"title\",\"url\",\"sort\",\"icon\"]', '1:基础', '', '', '', '', 'title:15%菜单名\r\nicon:10%图标\r\nurl:50%关联URL\r\nsort:8%排序号\r\nids:20%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1394518309, 1464705675, 1, 'MyISAM', 'WeiSite');
+INSERT INTO `wp_model` VALUES (21, 'analysis', '统计分析', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1432806941, 1432806941, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (81, 'sn_code', 'SN码', 0, '', 1, '[\"prize_title\"]', '1:基础', '', '', '', '', 'sn:SN码\r\nuid|get_nickname|deal_emoji:昵称\r\nprize_title:奖项\r\ncTime|time_format:创建时间\r\nis_use|get_name_by_status:是否已使用\r\nuse_time|time_format:使用时间\r\nids:操作:[DELETE]|删除,set_use?id=[id]|改变使用状态', 20, 'sn', '', 1399272054, 1401013099, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (93, 'system_notice', '系统公告表', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1431141043, 1431141043, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (94, 'update_version', '系统版本升级', 0, '', 1, '[\"version\",\"title\",\"description\",\"create_date\",\"package\"]', '1:基础', '', '', '', '', 'version:版本号\r\ntitle:升级包名\r\ndescription:描述\r\ncreate_date|time_format:创建时间\r\ndownload_count:下载统计数\r\nids:操作:[EDIT]&id=[id]|编辑,[DELETE]&id=[id]|删除', 20, '', '', 1393770420, 1393771807, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (103, 'weixin_message', '微信消息管理', 0, '', 1, '', '1:基础', '', '', '', '', 'FromUserName:用户\r\ncontent:内容\r\nCreateTime:时间', 20, '', '', 1438142999, 1438151555, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (148, 'material_text', '文本素材', 0, '', 1, '[\"content\"]', '1:基础', '', '', '', '', 'id:编号\r\ncontent:文本内容\r\nids:操作:text_edit?id=[id]|编辑,text_del?id=[id]|删除', 10, 'content:请输入文本内容搜索', '', 1442976119, 1442977453, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (149, 'material_file', '文件素材', 0, '', 1, '[\"title\",\"file_id\"]', '1:基础', '', '', '', '', '', 10, '', '', 1438684613, 1442982212, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (176, 'update_score_log', '修改积分记录', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1444302325, 1444302325, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (201, 'custom_sendall', '客服群发消息', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1447241925, 1447241925, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (1150, 'user_tag', '用户标签', 0, '', 1, '[\"title\"]', '1:基础', NULL, '', '', '', 'id:标签编号\r\ntitle:标签名称\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 10, 'title:请输入标签名称搜索', '', 1463990100, 1463993574, 1, 'MyISAM', 'weixin');
+INSERT INTO `wp_model` VALUES (1151, 'user_tag_link', '用户标签关系表', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1463992911, 1463992911, 1, 'MyISAM', 'weixin');
+INSERT INTO `wp_model` VALUES (1160, 'weisite_category', '微官网分类', 0, '', 1, '[\"title\",\"icon\",\"url\",\"is_show\",\"sort\",\"pid\"]', '1:基础', '', '', '', '', 'title:15%分类标题\r\nicon|get_img_html:分类图片\r\nurl:30%外链\r\nsort:10%排序号\r\npid:10%一级目录\r\nis_show|get_name_by_status:10%显示\r\nid:10%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1395987942, 1439522869, 1, 'MyISAM', 'wei_site');
+INSERT INTO `wp_model` VALUES (1161, 'weisite_footer', '底部导航', 0, '', 1, '[\"pid\",\"title\",\"url\",\"sort\",\"icon\"]', '1:基础', '', '', '', '', 'title:15%菜单名\r\nicon:10%图标\r\nurl:50%关联URL\r\nsort:8%排序号\r\nids:20%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1394518309, 1464705675, 1, 'MyISAM', 'wei_site');
 INSERT INTO `wp_model` VALUES (1162, 'stores', '门店', 0, '', 1, '[\"name\",\"address\",\"gps\",\"phone\"]', '1:基础', '', '', '', '', 'name:店名\r\nphone:联系电话\r\naddress:详细地址\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'name:店名搜索', '', 1427164604, 1439465222, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1163, 'coupon', '优惠券', 0, '', 1, '[\"title\",\"use_tips\",\"start_time\",\"end_time\",\"num\",\"max_num\",\"over_time\",\"background\",\"use_start_time\",\"member\"]', '1:基础', '', '', '', '', 'id:优惠券编号\r\ntitle:标题\r\nnum:计划发送数\r\ncollect_count:已领取数\r\nuse_count:已使用数\r\nstart_time|time_format:开始时间\r\nend_time|time_format:结束时间\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,Sn/lists?target_id=[id]&target=_blank|成员管理,preview?id=[id]&target=_blank|预览', 20, 'title', '', 1396061373, 1445567658, 1, 'MyISAM', 'Coupon');
-INSERT INTO `wp_model` VALUES (1165, 'real_prize', '实物奖励', 0, '', 1, '[\"prize_title\",\"prize_name\",\"prize_conditions\",\"prize_count\",\"prize_image\",\"prize_type\",\"use_content\",\"fail_content\",\"template\"]', '1:基础', '', '', '', '', 'prize_name:20%奖品名称\r\nprize_conditions:20%活动说明\r\nprize_count:10%奖品个数\r\nprize_type|get_name_by_status:10%奖品类型\r\nuse_content:20%使用说明\r\nid:20%操作:[EDIT]|编辑,[DELETE]|删除,address_lists?target_id=[id]|查看数据,preview?id=[id]&target=_blank|预览', 20, '', '', 1429515376, 1437452269, 1, 'MyISAM', 'RealPrize');
-INSERT INTO `wp_model` VALUES (1168, 'visit_log', '网站访问日志', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1439448351, 1439448351, 1, 'MyISAM', 'Core');
+INSERT INTO `wp_model` VALUES (1163, 'coupon', '优惠券', 0, '', 1, '[\"title\",\"use_tips\",\"start_time\",\"end_time\",\"num\",\"max_num\",\"over_time\",\"background\",\"use_start_time\",\"member\"]', '1:基础', '', '', '', '', 'id:优惠券编号\r\ntitle:标题\r\nnum:计划发送数\r\ncollect_count:已领取数\r\nuse_count:已使用数\r\nstart_time|time_format:开始时间\r\nend_time|time_format:结束时间\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,Sn/lists?target_id=[id]&target=_blank|成员管理,preview?id=[id]&target=_blank|预览', 20, 'title', '', 1396061373, 1445567658, 1, 'MyISAM', 'coupon');
+INSERT INTO `wp_model` VALUES (1165, 'real_prize', '实物奖励', 0, '', 1, '[\"prize_title\",\"prize_name\",\"prize_conditions\",\"prize_count\",\"prize_image\",\"prize_type\",\"use_content\",\"fail_content\",\"template\"]', '1:基础', '', '', '', '', 'prize_name:20%奖品名称\r\nprize_conditions:20%活动说明\r\nprize_count:10%奖品个数\r\nprize_type|get_name_by_status:10%奖品类型\r\nuse_content:20%使用说明\r\nid:20%操作:[EDIT]|编辑,[DELETE]|删除,address_lists?target_id=[id]|查看数据,preview?id=[id]&target=_blank|预览', 20, '', '', 1429515376, 1437452269, 1, 'MyISAM', 'real_prize');
 INSERT INTO `wp_model` VALUES (1172, 'shop_user_level_link', '分销用户级别关系', 0, '', 1, '[\"uid\",\"upper_user\",\"level\"]', '1:基础', '', '', '', '', '', 10, '', '', 1459826468, 1459838196, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1197, 'stores_link', '门店关联', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1427356350, 1427356350, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1211, 'custom_menu', '自定义菜单', 0, '', 1, '[\"pid\",\"title\",\"from_type\",\"type\",\"jump_type\",\"addon\",\"sucai_type\",\"keyword\",\"url\",\"sort\"]', '1:基础', '', '', '', '', 'title:10%菜单名\r\nkeyword:10%关联关键词\r\nurl:50%关联URL\r\nsort:5%排序号\r\nid:10%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1394518309, 1446533816, 1, 'MyISAM', 'weixin');
-INSERT INTO `wp_model` VALUES (1213, 'prize_address', '奖品收货地址', 0, '', 1, '[\"address\",\"mobile\",\"turename\",\"remark\"]', '1:基础', '', '', '', '', 'prizeid:奖品名称\r\nturename:收货人\r\nmobile:联系方式\r\naddress:收货地址\r\nremark:备注\r\nids:操作:address_edit&id=[id]&_controller=RealPrize&_addons=RealPrize|编辑,[DELETE]|删除', 20, '', '', 1429521514, 1447831599, 1, 'MyISAM', 'RealPrize');
-INSERT INTO `wp_model` VALUES (1225, 'public_config', '公共配置信息', 0, '', 1, NULL, '1:基础', NULL, '', '', '', NULL, 10, '', '', 0, 0, 0, 'MyISAM', '');
-INSERT INTO `wp_model` VALUES (1229, 'area', '地区数据', 0, '', 1, NULL, '1:基础', NULL, '', '', '', NULL, 10, '', '', 0, 0, 0, 'MyISAM', '');
-INSERT INTO `wp_model` VALUES (1231, 'user_tag', '用户标签', 0, '', 1, '[\"title\"]', '1:基础', '', '', '', '', 'id:标签编号\r\ntitle:标签名称\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 10, 'title:请输入标签名称搜索', '', 1463990100, 1463993574, 1, 'MyISAM', 'UserCenter');
-INSERT INTO `wp_model` VALUES (1232, 'user_tag_link', '用户标签关系表', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1463992911, 1463992911, 1, 'MyISAM', 'UserCenter');
-INSERT INTO `wp_model` VALUES (1235, 'auto_reply', '自动回复', 0, '', 1, '[\"img_id\",\"group_id\",\"content\",\"keyword\"]', '1:基础', NULL, '', '', '', 'keyword:关键词\r\ntext_id:文本\r\ngroup_id:图文\r\nimg_id:图片\r\nvoice_id:语音\r\nvideo_id:视频\r\nids:操作:[EDIT]&type=[msg_type]|编辑,[DELETE]|删除', 10, '', '', 0, 0, 0, 'MyISAM', '');
+INSERT INTO `wp_model` VALUES (1213, 'prize_address', '奖品收货地址', 0, '', 1, '[\"address\",\"mobile\",\"turename\",\"remark\"]', '1:基础', '', '', '', '', 'prizeid:奖品名称\r\nturename:收货人\r\nmobile:联系方式\r\naddress:收货地址\r\nremark:备注\r\nids:操作:address_edit&id=[id]&_controller=RealPrize&_addons=RealPrize|编辑,[DELETE]|删除', 20, '', '', 1429521514, 1447831599, 1, 'MyISAM', 'real_prize');
+INSERT INTO `wp_model` VALUES (1225, 'public_config', '公共配置信息', 0, '', 1, NULL, '1:基础', NULL, '', '', '', NULL, 10, '', '', 0, 0, 0, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (1229, 'area', '地区数据', 0, '', 1, NULL, '1:基础', NULL, '', '', '', NULL, 10, '', '', 0, 0, 0, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (1235, 'auto_reply', '自动回复', 0, '', 1, '[\"img_id\",\"group_id\",\"content\",\"keyword\"]', '1:基础', NULL, '', '', '', 'keyword:关键词\r\ntext_id:文本\r\ngroup_id:图文\r\nimg_id:图片\r\nvoice_id:语音\r\nvideo_id:视频\r\nids:操作:[EDIT]&type=[msg_type]|编辑,[DELETE]|删除', 10, '', '', 0, 0, 0, 'MyISAM', 'weixin');
 INSERT INTO `wp_model` VALUES (1280, 'draw_follow_log', '粉丝抽奖记录', 0, '', 1, '[\"follow_id\",\"sports_id\",\"count\",\"cTime\"]', '1:基础', '', '', '', '', 'follow_id:微信名称\r\nopenid:openID\r\narea:地区\r\nsex:性别\r\nhas_prize:是否中奖\r\ncTime:参与时间\r\ntruename:真实姓名\r\nmobile:电话', 20, '', '', 1432619171, 1491386963, 1, 'MyISAM', 'draw');
 INSERT INTO `wp_model` VALUES (1282, 'lucky_follow', '中奖者信息', 0, '', 1, '[\"draw_id\",\"sport_id\",\"award_id\",\"follow_id\",\"address\",\"num\",\"state\",\"zjtime\",\"djtime\",\"remark\",\"scan_code\"]', '1:基础', '', '', '', '', 'draw_id:活动名称\r\ndraw_time:活动时间\r\nfollow_id|deal_emoji:8%微信昵称\r\nopenid:中奖人OPENID\r\nzjtime|time_format:中奖时间\r\ntruename:姓名\r\nmobile:手机号\r\naward_id:奖项\r\naward_name:奖品名称\r\nstate|get_name_by_status:发奖状态\r\nids:8%操作:do_fafang?id=[id]|发放奖品', 20, 'award_name:输入奖品名称', '', 1432618091, 1491373747, 1, 'MyISAM', 'draw');
 INSERT INTO `wp_model` VALUES (1285, 'award', '奖品库奖品', 0, '', 1, '[\"award_type\",\"name\",\"img\",\"virtual_type\",\"score\",\"money\",\"explain\"]', '1:基础', '', '', '', '', 'id:6%编号\r\nname:23%奖项名称\r\nimg|get_img_html:10%商品图片\r\naward_type|get_name_by_status:10%奖品类型\r\nexplain:30%奖品说明\r\nids:20%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'name:请输入奖品名称', '', 1432607100, 1462358042, 1, 'MyISAM', 'draw');
-INSERT INTO `wp_model` VALUES (1292, 'qr_admin', '扫码管理', 0, '', 1, '[\"action_name\",\"group_id\",\"tag_ids\"]', '1:基础', '', '', '', '', 'qr_code:二维码\r\naction_name:类型\r\ngroup_id:用户组\r\ntag_ids:标签\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 10, '', '', 1463999052, 1464002422, 1, 'MyISAM', 'QrAdmin');
-INSERT INTO `wp_model` VALUES (1293, 'servicer', '授权用户', 0, '', 1, '[\"uid\",\"truename\",\"mobile\",\"role\",\"enable\"]', '1:基础', '', '', '', '', 'truename:姓名\r\nrole:权限列表\r\nnickname:微信名称\r\nenable|get_name_by_status:是否启用\r\nids:操作:set_enable?id=[id]&enable=[enable]|改变启用状态,[EDIT]|编辑,[DELETE]|删除', 10, 'truename', '', 1443066649, 1490713267, 1, 'MyISAM', 'Servicer');
-INSERT INTO `wp_model` VALUES (1297, 'credit_cash', '兑换商品', 0, '', 1, '[\"name\",\"describe\",\"num\",\"img\",\"fail\",\"score\"]', '1:基础', '', '', '', '', 'id:商品ID\r\nname:商品名\r\nscore:兑换积分\r\nnum:总数\r\nsurplus:剩余数量\r\nstatus:兑换记录\r\nids:操作:[EDIT]|编辑,[DEL]|删除', 10, '', '', 1479455694, 1491038710, 1, 'MyISAM', '');
-INSERT INTO `wp_model` VALUES (1300, 'duty_everyday', '每日任务', 0, '', 1, '', '1:基础', NULL, '', '', '', '', 10, '', '', 1490860235, 1490860235, 0, 'MyISAM', '');
-INSERT INTO `wp_model` VALUES (1302, 'exchange', '积分兑换', 0, '', 1, '[\"goods_id\",\"uid\",\"cTime\",\"address\",\"mobile\"]', '1:基础', '', '', '', '', 'goods_id:商品id\r\nuid:兑换用户\r\ncTime:兑换时间\r\nmobile:联系方式\r\naddress:联系地址\r\nstatus:操作', 20, '', '', 1480478185, 1480585316, 1, 'MyISAM', '');
+INSERT INTO `wp_model` VALUES (1292, 'qr_admin', '扫码管理', 0, '', 1, '[\"action_name\",\"group_id\",\"tag_ids\"]', '1:基础', '', '', '', '', 'qr_code:二维码\r\naction_name:类型\r\ngroup_id:用户组\r\ntag_ids:标签\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 10, '', '', 1463999052, 1464002422, 1, 'MyISAM', 'qr_admin');
+INSERT INTO `wp_model` VALUES (1293, 'servicer', '授权用户', 0, '', 1, '[\"uid\",\"truename\",\"mobile\",\"role\",\"enable\"]', '1:基础', '', '', '', '', 'truename:姓名\r\nrole:权限列表\r\nnickname:微信名称\r\nenable|get_name_by_status:是否启用\r\nids:操作:set_enable?id=[id]&enable=[enable]|改变启用状态,[EDIT]|编辑,[DELETE]|删除', 10, 'truename:请输入姓名搜索', '', 1443066649, 1490713267, 1, 'MyISAM', 'servicer');
+INSERT INTO `wp_model` VALUES (1297, 'credit_cash', '兑换商品', 0, '', 1, '[\"name\",\"describe\",\"num\",\"img\",\"fail\",\"score\"]', '1:基础', '', '', '', '', 'id:商品ID\r\nname:商品名\r\nscore:兑换积分\r\nnum:总数\r\nsurplus:剩余数量\r\nstatus:兑换记录\r\nids:操作:[EDIT]|编辑,[DEL]|删除', 10, '', '', 1479455694, 1491038710, 1, 'MyISAM', 'card');
+INSERT INTO `wp_model` VALUES (1300, 'duty_everyday', '每日任务', 0, '', 1, '', '1:基础', NULL, '', '', '', '', 10, '', '', 1490860235, 1490860235, 0, 'MyISAM', 'card');
+INSERT INTO `wp_model` VALUES (1302, 'exchange', '积分兑换', 0, '', 1, '[\"goods_id\",\"uid\",\"cTime\",\"address\",\"mobile\"]', '1:基础', '', '', '', '', 'goods_id:商品id\r\nuid:兑换用户\r\ncTime:兑换时间\r\nmobile:联系方式\r\naddress:联系地址\r\nstatus:操作', 20, '', '', 1480478185, 1480585316, 1, 'MyISAM', 'card');
 INSERT INTO `wp_model` VALUES (1305, 'draw_pv_log', '抽奖游戏浏览记录', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1491379489, 0, 0, 'MyISAM', 'draw');
-INSERT INTO `wp_model` VALUES (1309, 'comment', '评论互动', 0, '', 1, '[\"is_audit\"]', '1:基础', '', '', '', '', 'headimgurl|url_img_html:用户头像\r\nnickname|deal_emoji:用户姓名\r\ncontent:评论内容\r\ncTime|time_format:评论时间\r\nis_audit|get_name_by_status:审核状态\r\nids:操作:[DELETE]|删除', 20, 'content:请输入评论内容', '', 1432602310, 1435310857, 1, 'MyISAM', 'Comment');
-INSERT INTO `wp_model` VALUES (1310, 'custom_reply_mult', '多图文配置', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1396602475, 1396602475, 1, 'MyISAM', 'CustomReply');
-INSERT INTO `wp_model` VALUES (1311, 'custom_reply_news', '图文回复', 0, '', 1, '[\"keyword\",\"keyword_type\",\"title\",\"intro\",\"cate_id\",\"cover\",\"content\",\"sort\",\"jump_url\",\"author\"]', '1:基础', '', '', '', '', 'id:5%ID\r\nkeyword:10%关键词\r\nkeyword_type|get_name_by_status:20%关键词类型\r\ntitle:30%标题\r\ncate_id:10%所属分类\r\nsort:7%排序号\r\nview_count:8%浏览数\r\nids:10%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1466505161, 1, 'MyISAM', 'CustomReply');
-INSERT INTO `wp_model` VALUES (1312, 'custom_reply_text', '文本回复', 0, '', 1, '[\"keyword\",\"keyword_type\",\"content\",\"sort\"]', '1:基础', '', '', '', '', 'id:ID\r\nkeyword:关键词\r\nkeyword_type|get_name_by_status:关键词类型\r\nsort:排序号\r\nview_count:浏览数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'keyword', '', 1396578172, 1401017369, 1, 'MyISAM', 'CustomReply');
-INSERT INTO `wp_model` VALUES (1313, 'payment_order', '订单支付记录', 0, '', 1, '[\"from\",\"orderName\",\"single_orderid\",\"price\",\"token\",\"wecha_id\",\"paytype\",\"showwxpaytitle\",\"status\"]', '1:基础', '', '', '', '', '', 20, '', '', 1420596259, 1423534012, 1, 'MyISAM', 'Payment');
-INSERT INTO `wp_model` VALUES (1314, 'payment_set', '支付配置', 0, '', 1, '[\"wxappid\",\"wxappsecret\",\"wxpaysignkey\",\"zfbname\",\"pid\",\"key\",\"partnerid\",\"partnerkey\",\"wappartnerid\",\"wappartnerkey\",\"quick_security_key\",\"quick_merid\",\"quick_merabbr\",\"wxmchid\"]', '1:基础', '', '', '', '', '', 10, '', '', 1406958084, 1439364636, 1, 'MyISAM', 'Payment');
-INSERT INTO `wp_model` VALUES (1315, 'weisite_cms', '文章管理', 0, '', 1, '[\"keyword\",\"keyword_type\",\"title\",\"intro\",\"cate_id\",\"cover\",\"content\",\"sort\"]', '1:基础', '', '', '', '', 'keyword:关键词\r\nkeyword_type|get_name_by_status:关键词类型\r\ntitle:标题\r\ncate_id:所属分类\r\nsort:排序号\r\nview_count:浏览数\r\nids:操作:[EDIT]&module_id=[pid]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1408326292, 1, 'MyISAM', 'WeiSite');
-INSERT INTO `wp_model` VALUES (1316, 'weisite_slideshow', '幻灯片', 0, '', 1, '[\"title\",\"img\",\"url\",\"is_show\",\"sort\"]', '1:基础', '', '', '', '', 'title:标题\r\nimg:图片\r\nurl:链接地址\r\nis_show|get_name_by_status:显示\r\nsort:排序\r\nids:操作:[EDIT]&module_id=[pid]|编辑,[DELETE]|删除', 20, 'title', '', 1396098264, 1408323347, 1, 'MyISAM', 'WeiSite');
+INSERT INTO `wp_model` VALUES (1309, 'comment', '评论互动', 0, '', 1, '[\"is_audit\"]', '1:基础', '', '', '', '', 'headimgurl|url_img_html:用户头像\r\nnickname|deal_emoji:用户姓名\r\ncontent:评论内容\r\ncTime|time_format:评论时间\r\nis_audit|get_name_by_status:审核状态\r\nids:操作:[DELETE]|删除', 20, 'content:请输入评论内容', '', 1432602310, 1435310857, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (1310, 'custom_reply_mult', '多图文配置', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1396602475, 1396602475, 1, 'MyISAM', 'weixin');
+INSERT INTO `wp_model` VALUES (1311, 'custom_reply_news', '图文回复', 0, '', 1, '[\"keyword\",\"keyword_type\",\"title\",\"intro\",\"cate_id\",\"cover\",\"content\",\"sort\",\"jump_url\",\"author\"]', '1:基础', '', '', '', '', 'id:5%ID\r\nkeyword:10%关键词\r\nkeyword_type|get_name_by_status:20%关键词类型\r\ntitle:30%标题\r\ncate_id:10%所属分类\r\nsort:7%排序号\r\nview_count:8%浏览数\r\nids:10%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1466505161, 1, 'MyISAM', 'weixin');
+INSERT INTO `wp_model` VALUES (1312, 'custom_reply_text', '文本回复', 0, '', 1, '[\"keyword\",\"keyword_type\",\"content\",\"sort\"]', '1:基础', '', '', '', '', 'id:ID\r\nkeyword:关键词\r\nkeyword_type|get_name_by_status:关键词类型\r\nsort:排序号\r\nview_count:浏览数\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'keyword', '', 1396578172, 1401017369, 1, 'MyISAM', 'weixin');
+INSERT INTO `wp_model` VALUES (1313, 'payment_order', '订单支付记录', 0, '', 1, '[\"from\",\"orderName\",\"single_orderid\",\"price\",\"token\",\"wecha_id\",\"paytype\",\"showwxpaytitle\",\"status\"]', '1:基础', '', '', '', '', '', 20, '', '', 1420596259, 1423534012, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (1314, 'payment_set', '支付配置', 0, '', 1, '[\"wxappid\",\"wxappsecret\",\"wxpaysignkey\",\"zfbname\",\"pid\",\"key\",\"partnerid\",\"partnerkey\",\"wappartnerid\",\"wappartnerkey\",\"quick_security_key\",\"quick_merid\",\"quick_merabbr\",\"wxmchid\"]', '1:基础', '', '', '', '', '', 10, '', '', 1406958084, 1439364636, 1, 'MyISAM', 'core');
+INSERT INTO `wp_model` VALUES (1315, 'weisite_cms', '文章管理', 0, '', 1, '[\"keyword\",\"keyword_type\",\"title\",\"intro\",\"cate_id\",\"cover\",\"content\",\"sort\"]', '1:基础', '', '', '', '', 'keyword:关键词\r\nkeyword_type|get_name_by_status:关键词类型\r\ntitle:标题\r\ncate_id:所属分类\r\nsort:排序号\r\nview_count:浏览数\r\nids:操作:[EDIT]&module_id=[pid]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1408326292, 1, 'MyISAM', 'wei_site');
+INSERT INTO `wp_model` VALUES (1316, 'weisite_slideshow', '幻灯片', 0, '', 1, '[\"title\",\"img\",\"url\",\"is_show\",\"sort\"]', '1:基础', '', '', '', '', 'title:标题\r\nimg:图片\r\nurl:链接地址\r\nis_show|get_name_by_status:显示\r\nsort:排序\r\nids:操作:[EDIT]&module_id=[pid]|编辑,[DELETE]|删除', 20, 'title', '', 1396098264, 1408323347, 1, 'MyISAM', 'wei_site');
 INSERT INTO `wp_model` VALUES (1317, 'sms', '短信记录', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1446107661, 1446107661, 1, 'MyISAM', 'sms');
-INSERT INTO `wp_model` VALUES (1323, 'buy_log', '会员消费记录', 0, '', 1, '[\"pay\",\"pay_type\",\"branch_id\",\"cTime\",\"token\",\"manager_id\",\"sn_id\"]', '1:基础', NULL, '', '', '', 'member_id:会员名称\r\nphone:电话\r\ncTime|time_format:消费时间\r\nbranch_id:消费门店\r\npay:消费金额\r\nsn_id:优惠金额\r\npay_type|get_name_by_status:消费方式', 10, 'member:请输入会员名称或手机号', '', 1444289843, 1444392724, 1, 'MyISAM', 'Card');
-INSERT INTO `wp_model` VALUES (1324, 'recharge_log', '会员充值记录', 0, '', 1, '[\"recharge\",\"branch_id\",\"operator\",\"cTime\",\"token\",\"manager_id\"]', '1:基础', NULL, '', '', '', 'member_id:会员卡号\r\ntruename:姓名\r\nphone:手机号\r\nrecharge:充值金额\r\ncTime|time_format:充值时间\r\nbranch_id:充值门店\r\noperator:操作员', 10, 'operator:请输入姓名或手机号或操作员', '', 1444275985, 1444387901, 1, 'MyISAM', 'Card');
+INSERT INTO `wp_model` VALUES (1323, 'buy_log', '会员消费记录', 0, '', 1, '[\"pay\",\"pay_type\",\"branch_id\",\"cTime\",\"token\",\"manager_id\",\"sn_id\"]', '1:基础', NULL, '', '', '', 'member_id:会员名称\r\nphone:电话\r\ncTime|time_format:消费时间\r\nbranch_id:消费门店\r\npay:消费金额\r\nsn_id:优惠金额\r\npay_type|get_name_by_status:消费方式', 10, 'member:请输入会员名称或手机号', '', 1444289843, 1444392724, 1, 'MyISAM', 'card');
+INSERT INTO `wp_model` VALUES (1324, 'recharge_log', '会员充值记录', 0, '', 1, '[\"recharge\",\"branch_id\",\"operator\",\"cTime\",\"token\",\"manager_id\"]', '1:基础', NULL, '', '', '', 'member_id:会员卡号\r\ntruename:姓名\r\nphone:手机号\r\nrecharge:充值金额\r\ncTime|time_format:充值时间\r\nbranch_id:充值门店\r\noperator:操作员', 10, 'operator:请输入姓名或手机号或操作员', '', 1444275985, 1444387901, 1, 'MyISAM', 'card');
 INSERT INTO `wp_model` VALUES (1334, 'score_exchange_log', '兑换记录', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1444731340, 1444731340, 1, 'MyISAM', 'card');
-INSERT INTO `wp_model` VALUES (1335, 'share_log', '分享记录', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1444789662, 1444789662, 1, 'MyISAM', 'Card');
+INSERT INTO `wp_model` VALUES (1335, 'share_log', '分享记录', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1444789662, 1444789662, 1, 'MyISAM', 'card');
 INSERT INTO `wp_model` VALUES (1341, 'shop_address', '收货地址', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1423477477, 1423477477, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1347, 'goods_category_link', '商品所属分类', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1457933153, 1457933153, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1348, 'goods_param_link', '商品参数表', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1457941322, 1457941322, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1348, 'goods_param_link', '商品参数表', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1457941322, 1457941322, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1349, 'goods_store_link', '商品所属门店', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1458551555, 1458551555, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1350, 'shop_goods_comment', '商品评论信息', 0, '', 1, '[\"goods_id\",\"score\",\"content\",\"order_id\",\"uid\",\"cTime\",\"shop_id\",\"is_show\"]', '1:基础', NULL, '', '', '', 'id:10%编号\r\nuid|get_username:15%用户昵称\r\ncTime|time_format:15%评论时间\r\nscore:15%星星数\r\ncontent:25%评论内容\r\nis_show|get_name_by_status:10%是否显示\r\nids:编辑:changeShow?id=[id]&is_show=[is_show]&goods_id=[goods_id]|设置显示状态', 10, '', '', 1457430858, 1458901414, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1373, 'shop_statistics_follow', '分销粉丝统计表', 0, '', 1, '[\"uid\",\"duid\",\"ctime\",\"token\"]', '1:基础', NULL, '', '', '', '', 10, '', '', 1443001407, 1443002218, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1374, 'shop_distribution_user', '分销用户', 0, '', 1, '[\"uid\",\"qr_code\",\"wechat\",\"inviter\",\"level\",\"is_audit\"]', '1:基础', NULL, '', '', '', 'id:序号\r\ntruename:姓名\r\nmobile:手机号\r\nuid:微信昵称\r\nwechat:微信号\r\ninviter:邀请人\r\nctime|time_format:创建时间\r\nlevel:分销级别\r\nis_audit:审核\r\nids:操作:[EDIT]|编辑', 10, 'truename:请输入姓名', '', 1442922612, 1460357351, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1375, 'shop_goods_sku_config', '商品规格配置', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1442309511, 1442309511, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1375, 'shop_goods_sku_config', '商品规格配置', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1442309511, 1442309511, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1376, 'shop_cashout_log', '提现记录表', 0, '', 1, '[\"cashout_amount\",\"remark\",\"cashout_status\",\"ctime\",\"token\",\"cashout_account\"]', '1:基础', NULL, '', '', '', 'ctime|time_format:申请日期\r\ncashout_amount:申请金额（￥）\r\ntype:提现方式\r\ncashout_account:提现账号\r\nname:账号名称\r\ncashout_status|get_name_by_status:审核状态\r\nremark:详细', 10, '', '', 1442315168, 1442478119, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1377, 'shop_goods_sku_data', '商品规格表', 0, '', 1, '[\"cost_price\"]', '1:基础', NULL, '', '', '', '', 10, '', '', 1442221199, 1442309479, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1377, 'shop_goods_sku_data', '商品规格表', 0, '', 1, '[\"cost_price\"]', '1:基础', NULL, '', '', '', '', 10, '', '', 1442221199, 1442309479, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1378, 'shop_value', '分类扩展属性数据表', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1396687959, 1396687959, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1379, 'shop_page', '自定义页面', 0, '', 1, '[\"title\",\"ctime\",\"config\",\"desc\",\"shop_id\",\"token\",\"manager_id\",\"use\"]', '1:基础', NULL, '', '', '', 'title:页面标题\r\nctime|time_format:创建时间\r\nids:操作:preview?id=[id]&target=_blank|预览,[EDIT]|编辑,[DELETE]|删除\r\ncopy:复制链接', 10, '', '', 1442202619, 1442821956, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1380, 'shop_distribution_profit', '分销用户返利表', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1441957173, 1441957173, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1380, 'shop_distribution_profit', '分销用户返利表', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1441957173, 1441957173, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1381, 'shop_attribute', '分类属性', 0, '', 1, '[\"title\",\"attr_type\",\"extra\",\"value\",\"sort\"]', '1:基础', '', '', '', '', 'title:字段标题\r\ntype|get_name_by_status:字段类型\r\nextra:参数\r\nsort:排序\r\nids:操作:[EDIT]&cate_id=[cate_id]|编辑,[DELETE]|删除', 20, 'title', '', 1396061373, 1442368516, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1382, 'shop_spec_option', '商品规格选项', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1441942503, 1441942503, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1382, 'shop_spec_option', '商品规格选项', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1441942503, 1441942503, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1383, 'shop_spec', '商品规格', 0, '', 1, '[\"title\",\"remark\",\"sort\"]', '1:基础', NULL, '', '', '', 'title:规格名称\r\nremark:规格属性\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', 10, 'title:请输入规格名称', '', 1441942151, 1441943264, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1387, 'shop_virtual', '虚拟物品信息', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1441006502, 1441006502, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1406, 'sport_award', '抽奖奖品', 0, '', 1, '[\"award_type\",\"name\",\"count\",\"img\",\"price\",\"score\",\"explain\",\"coupon_id\",\"money\"]', '1:基础', '', '', '', '', 'id:6%编号\r\nname:23%奖项名称\r\nimg|get_img_html:8%商品图片\r\nprice:8%商品价格\r\nexplain:24%奖品说明\r\ncount:8%奖品数量\r\nids:20%操作:[EDIT]|编辑,[DELETE]|删除,getlistByAwardId?awardId=[id]&_controller=LuckyFollow|中奖者列表', 20, 'name:请输入抽奖名称', '', 1432607100, 1444901269, 1, 'MyISAM', 'Draw');
+INSERT INTO `wp_model` VALUES (1406, 'sport_award', '抽奖奖品', 0, '', 1, '[\"award_type\",\"name\",\"count\",\"img\",\"price\",\"score\",\"explain\",\"coupon_id\",\"money\"]', '1:基础', '', '', '', '', 'id:6%编号\r\nname:23%奖项名称\r\nimg|get_img_html:8%商品图片\r\nprice:8%商品价格\r\nexplain:24%奖品说明\r\ncount:8%奖品数量\r\nids:20%操作:[EDIT]|编辑,[DELETE]|删除,getlistByAwardId?awardId=[id]&_controller=LuckyFollow|中奖者列表', 20, 'name:请输入抽奖名称', '', 1432607100, 1444901269, 1, 'MyISAM', 'draw');
 INSERT INTO `wp_model` VALUES (1407, 'shop_slideshow', '幻灯片', 0, '', 1, '[\"title\",\"img\",\"url\",\"is_show\",\"sort\"]', '1:基础', '', '', '', '', 'title:标题\r\nimg:图片\r\nurl:链接地址\r\nis_show|get_name_by_status:显示\r\nsort:排序\r\nids:操作:[EDIT]&module_id=[pid]|编辑,[DELETE]|删除', 20, 'title', '', 1396098264, 1408323347, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1408, 'shop_order', '订单记录', 0, '', 1, '[\"uid\",\"goods_datas\",\"remark\",\"order_number\",\"cTime\",\"total_price\",\"address_id\",\"is_send\",\"send_code\",\"send_number\",\"send_type\",\"shop_id\"]', '1:基础', '', '', '', '', 'order_number:15%订单编号\r\ngoods:20%下单商品\r\nuid:10%客户\r\ntotal_price:7%总价\r\ncTime|time_format:17%下单时间\r\ncommon|get_name_by_status:10%支付类型\r\nstatus_code|get_name_by_status:10%订单跟踪\r\naction:11%操作', 20, 'key:请输入订单编号 或 客户昵称', '', 1420269240, 1440147136, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1409, 'shop_order_log', '订单跟踪', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1439525562, 1439525562, 1, 'MyISAM', 'Shop');
-INSERT INTO `wp_model` VALUES (1410, 'shop_goods_score', '商品评分记录', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1422930901, 1422930901, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1408, 'shop_order', '订单记录', 0, '', 1, '[\"uid\",\"goods_datas\",\"remark\",\"order_number\",\"cTime\",\"total_price\",\"address_id\",\"is_send\",\"send_code\",\"send_number\",\"send_type\",\"shop_id\"]', '1:基础', '', '', '', '', 'order_number:15%订单编号\r\ngoods:20%下单商品\r\nuid:10%客户\r\ntotal_price:7%总价\r\ncTime|time_format:17%下单时间\r\ncommon|get_name_by_status:10%支付类型\r\nstatus_code|get_name_by_status:10%订单跟踪\r\naction:11%操作', 20, 'key:请输入订单编号或客户昵称', '', 1420269240, 1440147136, 1, 'MyISAM', 'shop');
+INSERT INTO `wp_model` VALUES (1409, 'shop_order_log', '订单跟踪', 0, '', 1, '', '1:基础', '', '', '', '', '', 10, '', '', 1439525562, 1439525562, 1, 'MyISAM', 'shop');
+INSERT INTO `wp_model` VALUES (1410, 'shop_goods_score', '商品评分记录', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1422930901, 1422930901, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1411, 'shop_goods_category', '商品分类', 0, '', 1, '[\"pid\",\"title\",\"icon\",\"sort\",\"is_recommend\",\"is_show\"]', '1:基础', '', '', '', '', 'title:30%分组\r\nicon|get_img_html:20%图标\r\nsort:10%排序号\r\nis_show|get_name_by_status:20%显示\r\nids:20%操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1397529095, 1467365556, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1412, 'shop_collect', '商品收藏', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1423471275, 1423471275, 1, 'MyISAM', 'Shop');
+INSERT INTO `wp_model` VALUES (1412, 'shop_collect', '商品收藏', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1423471275, 1423471275, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1413, 'shop_goods', '商品列表', 0, '', 1, '[\"title\",\"category_id\",\"imgs\",\"content\",\"cover\",\"type\",\"is_recommend\",\"auto_send\",\"virtual_textarea\",\"is_show\",\"market_price\",\"stock_num\",\"cost_price\",\"sale_price\",\"weight\",\"sn_code\",\"is_delete\",\"is_new\",\"can_deposit\"]', '1:基础', '', '', '', '', 'cover|get_img_html:封面图\r\ntitle:商品名称\r\nmarket_price:价格\r\nstock_num:库存量\r\nsale_count:销售量\r\nis_show|get_name_by_status:是否上架\r\nids:操作:set_show?id=[id]&is_show=[is_show]|改变上架状态,[EDIT]|编辑,[DELETE]|删除,goodsCommentLists?goods_id=[id]&target=_blank|评论列表', 20, 'title:请输入商品名称', '', 1422672084, 1458898390, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1414, 'shop_cart', '购物车', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1419577864, 1419577864, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1415, 'shop', '微商城', 0, '', 1, '[\"title\",\"logo\",\"intro\",\"mobile\",\"qq\",\"wechat\",\"api_key\",\"custom_tip\",\"content\",\"address\",\"gps\"]', '1:基础', '', '', '', '', 'title:商店名称\r\nlogo|get_img_html:商店LOGO\r\nmobile:联系电话\r\nqq:QQ号\r\nwechat:微信号\r\nids:操作:[EDIT]&id=[id]|编辑,lists&_controller=Category&target=_blank&shop_id=[id]|商品分类,lists&_controller=Slideshow&target=_blank&shop_id=[id]|幻灯片,lists&_controller=Goods&target=_blank&shop_id=[id]|商品管理,lists&_controller=Order&target=_blank&shop_id=[id]|订单管理,lists&_addons=Payment&_controller=Payment&target=_blank&shop_id=[id]|支付配置,lists&_controller=Template&target=_blank&shop_id=[id]|模板选择,[DELETE]|删除,index&_controller=Wap&target=_blank&shop_id=[id]|预览', 20, 'title:请输入商店名称', '', 1422670956, 1458268970, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1416, 'scratch', '刮刮卡', 0, '', 1, '[\"keyword\",\"title\",\"intro\",\"cover\",\"use_tips\",\"start_time\",\"end_time\",\"end_tips\",\"end_img\",\"predict_num\",\"max_num\",\"follower_condtion\",\"credit_conditon\",\"credit_bug\",\"addon_condition\",\"collect_count\",\"view_count\",\"template\"]', '1:基础', '', '', '', '', 'id:刮刮卡ID\r\nkeyword:关键词\r\ntitle:标题\r\ncollect_count:获取人数\r\ncTime|time_format:发布时间\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,lists?target_id=[id]&target=_blank&_controller=Sn|中奖管理,lists?target_id=[id]&target=_blank&_controller=Prize|奖品管理,preview?id=[id]&target=_blank|预览', 20, 'title', '', 1396061373, 1437035669, 1, 'MyISAM', 'Scratch');
+INSERT INTO `wp_model` VALUES (1416, 'scratch', '刮刮卡', 0, '', 1, '[\"keyword\",\"title\",\"intro\",\"cover\",\"use_tips\",\"start_time\",\"end_time\",\"end_tips\",\"end_img\",\"predict_num\",\"max_num\",\"follower_condtion\",\"credit_conditon\",\"credit_bug\",\"addon_condition\",\"collect_count\",\"view_count\",\"template\"]', '1:基础', '', '', '', '', 'id:刮刮卡ID\r\nkeyword:关键词\r\ntitle:标题\r\ncollect_count:获取人数\r\ncTime|time_format:发布时间\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,lists?target_id=[id]&target=_blank&_controller=Sn|中奖管理,lists?target_id=[id]&target=_blank&_controller=Prize|奖品管理,preview?id=[id]&target=_blank|预览', 20, 'title', '', 1396061373, 1437035669, 1, 'MyISAM', 'scratch');
 INSERT INTO `wp_model` VALUES (1419, 'lzwg_vote_log', '投票记录', 0, '', 1, '[\"vote_id\",\"user_id\",\"options\"]', '1:基础', '', '', '', '', 'vote_id:25%投票标题\r\nuser_id:25%用户\r\noptions:25%投票选项\r\ncTime|time_format:25%创建时间\r\n\r\n\r\n\r\n', 20, '', '', 1388934136, 1430101786, 1, 'MyISAM', NULL);
 INSERT INTO `wp_model` VALUES (1420, 'lzwg_vote_option', '投票选项', 0, '', 1, '[\"name\",\"opt_count\",\"order\"]', '1:基础', '', '', '', '', 'name:选项标题\r\nopt_count:投票数', 20, '', '', 1388933346, 1429861449, 1, 'MyISAM', NULL);
-INSERT INTO `wp_model` VALUES (1421, 'prize', '奖项设置', 0, '', 1, '[\"title\",\"name\",\"num\",\"img\",\"sort\"]', '1:基础', '', '', '', '', 'title:奖项标题\r\nname:奖项\r\nnum:名额数量\r\nimg|get_img_html:奖品图片\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1399348610, 1399702991, 1, 'MyISAM', 'Scratch');
+INSERT INTO `wp_model` VALUES (1421, 'prize', '奖项设置', 0, '', 1, '[\"title\",\"name\",\"num\",\"img\",\"sort\"]', '1:基础', '', '', '', '', 'title:奖项标题\r\nname:奖项\r\nnum:名额数量\r\nimg|get_img_html:奖品图片\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, 'title', '', 1399348610, 1399702991, 1, 'MyISAM', 'scratch');
 INSERT INTO `wp_model` VALUES (1422, 'lzwg_coupon_sn', '优惠卷序列号', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1435896982, 1435896982, 1, 'MyISAM', NULL);
 INSERT INTO `wp_model` VALUES (1423, 'lzwg_log', '活动参与记录', 0, '', 1, '', '1:基础', '', '', '', '', '', 20, '', '', 1435892409, 1435892409, 1, 'MyISAM', NULL);
 INSERT INTO `wp_model` VALUES (1424, 'lzwg_vote', '投票', 0, '', 1, '[\"title\",\"description\",\"picurl\",\"start_date\",\"end_date\",\"template\",\"vote_type\"]', '1:基础', '', '', '', '', 'id:题目编号\r\ntitle:题目名称\r\nvote_option:题目选项\r\ntype|get_name_by_status:类型\r\nvote_count:投票数\r\nids:操作:[EDIT]&id=[id]|编辑,showLog&id=[id]|投票记录,showCount&id=[id]|选项票数,[DELETE]|删除', 20, 'title', 'description', 1388930292, 1435732110, 1, 'MyISAM', NULL);
 INSERT INTO `wp_model` VALUES (1425, 'lzwg_coupon_receive', '优惠券领取', 0, '', 1, '[\"sn_id\"]', '1:基础', '', '', '', '', 'follow_id|get_nickname|deal_emoji:领取人\r\ncTime|time_format:领取时间\r\ncoupon_title:优惠券名称\r\nsn:序列号\r\nis_use:是否使用', 20, '', '', 1435316411, 1435925060, 1, 'MyISAM', NULL);
 INSERT INTO `wp_model` VALUES (1426, 'lzwg_coupon', '优惠券', 0, '', 1, '[\"title\",\"money\",\"name\",\"condition\",\"intro\",\"sn_str\",\"img\"]', '1:基础', '', '', '', '', 'title:名称\r\nmoney:减免金额\r\nname:代金券标题\r\ncondition:抵押条件\r\nintro:优惠券简述\r\nsn_str:数量\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, '', '', 1435312925, 1435909008, 1, 'MyISAM', NULL);
-INSERT INTO `wp_model` VALUES (1427, 'lzwg_activities_vote', '投票答题活动', 0, '', 1, '[\"lzwg_id\",\"vote_type\",\"vote_limit\",\"lzwg_type\",\"vote_id\"]', '1:基础', '', '', '', '', 'lzwg_name:活动名称\r\nstart_time|time_format:活动开始时间\r\nend_time|time_format:活动结束时间\r\nlzwg_type|get_name_by_status:活动类型\r\nvote_title:题目\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,tongji&id=[id]|用户参与分析\r\n', 20, 'lzwg_id:活动名称', '', 1435734819, 1435825972, 1, 'MyISAM', 'Draw');
-INSERT INTO `wp_model` VALUES (1428, 'lzwg_activities', '靓妆活动', 0, '', 1, '[\"title\",\"remark\",\"logo_img\",\"start_time\",\"end_time\",\"get_prize_tip\",\"no_prize_tip\",\"lottery_number\",\"get_prize_count\",\"comment_status\"]', '1:基础', '', '', '', '', 'title:活动名称\r\nremark:活动描述\r\nlogo_img|get_img_html:活动LOGO\r\nactivitie_time:活动时间\r\nget_prize_tip:中将提示信息\r\nno_prize_tip:未中将提示信息\r\ncomment_list:评论列表\r\nset_vote:设置投票\r\nset_award:设置奖品\r\nget_prize_list:中奖列表\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, '', '', 1435306468, 1436181872, 1, 'MyISAM', 'Draw');
-INSERT INTO `wp_model` VALUES (1429, 'lottery_prize_list', '抽奖奖品列表', 0, '', 1, '[\"sports_id\",\"award_id\",\"award_num\"]', '1:基础', '', '', '', '', 'sports_id:比赛场次\r\naward_id:奖品名称\r\naward_num:奖品数量\r\nid:编辑:[EDIT]|编辑,[DELETE]|删除,add?sports_id=[sports_id]|添加', 20, '', '', 1432613700, 1432710817, 1, 'MyISAM', 'Draw');
-INSERT INTO `wp_model` VALUES (1438, 'shop_reward_condition', '优惠条件', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1442458767, 1442458767, 1, 'MyISAM', 'ShopReward');
+INSERT INTO `wp_model` VALUES (1427, 'lzwg_activities_vote', '投票答题活动', 0, '', 1, '[\"lzwg_id\",\"vote_type\",\"vote_limit\",\"lzwg_type\",\"vote_id\"]', '1:基础', '', '', '', '', 'lzwg_name:活动名称\r\nstart_time|time_format:活动开始时间\r\nend_time|time_format:活动结束时间\r\nlzwg_type|get_name_by_status:活动类型\r\nvote_title:题目\r\nids:操作:[EDIT]|编辑,[DELETE]|删除,tongji&id=[id]|用户参与分析\r\n', 20, 'lzwg_id:活动名称', '', 1435734819, 1435825972, 1, 'MyISAM', 'draw');
+INSERT INTO `wp_model` VALUES (1428, 'lzwg_activities', '靓妆活动', 0, '', 1, '[\"title\",\"remark\",\"logo_img\",\"start_time\",\"end_time\",\"get_prize_tip\",\"no_prize_tip\",\"lottery_number\",\"get_prize_count\",\"comment_status\"]', '1:基础', '', '', '', '', 'title:活动名称\r\nremark:活动描述\r\nlogo_img|get_img_html:活动LOGO\r\nactivitie_time:活动时间\r\nget_prize_tip:中将提示信息\r\nno_prize_tip:未中将提示信息\r\ncomment_list:评论列表\r\nset_vote:设置投票\r\nset_award:设置奖品\r\nget_prize_list:中奖列表\r\nids:操作:[EDIT]|编辑,[DELETE]|删除', 20, '', '', 1435306468, 1436181872, 1, 'MyISAM', 'draw');
+INSERT INTO `wp_model` VALUES (1429, 'lottery_prize_list', '抽奖奖品列表', 0, '', 1, '[\"sports_id\",\"award_id\",\"award_num\"]', '1:基础', '', '', '', '', 'sports_id:比赛场次\r\naward_id:奖品名称\r\naward_num:奖品数量\r\nid:编辑:[EDIT]|编辑,[DELETE]|删除,add?sports_id=[sports_id]|添加', 20, '', '', 1432613700, 1432710817, 1, 'MyISAM', 'draw');
+INSERT INTO `wp_model` VALUES (1438, 'shop_reward_condition', '优惠条件', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1442458767, 1442458767, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1439, 'shop_cashout_account', '提现账号', 0, '', 1, '', '1:基础', NULL, '', '', '', NULL, 10, '', '', 1442396922, 1442396922, 1, 'MyISAM', 'shop');
-INSERT INTO `wp_model` VALUES (1440, 'shop_reward', '促销活动', 0, '', 1, '[\"title\",\"start_time\",\"end_time\",\"is_mult\",\"is_all_goods\"]', '1:基础', NULL, '', '', '', 'title:活动名称\r\nstart_time:有效期\r\nstatus:活动状态\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', 10, 'title:请输入活动名称搜索', '', 1442457808, 1442544407, 1, 'MyISAM', 'shop_reward');
+INSERT INTO `wp_model` VALUES (1440, 'shop_reward', '促销活动', 0, '', 1, '[\"title\",\"start_time\",\"end_time\",\"is_mult\",\"is_all_goods\"]', '1:基础', NULL, '', '', '', 'title:活动名称\r\nstart_time:有效期\r\nstatus:活动状态\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', 10, 'title:请输入活动名称搜索', '', 1442457808, 1442544407, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1441, 'shop_membership', '商城会员设置', 0, '', 1, '[\"membership\",\"img\",\"condition\"]', '1:基础', NULL, '', '', '', 'img|get_img_html:20%会员图标\r\nmembership:25%会员名\r\ncondition:20%条件（经历值）\r\nid:30%操作:[EDIT]|编辑,[DELETE]|删除', 10, 'membership:请输入会员名', '', 1441787383, 1441857253, 1, 'MyISAM', 'shop');
 INSERT INTO `wp_model` VALUES (1461, 'chat', '客户记录', 0, '', 1, NULL, '1:基础', NULL, '', '', '', NULL, 20, '', '', 0, 0, 0, 'MyISAM', 'core');
 INSERT INTO `wp_model` VALUES (1462, 'stores_user', '用户默认选择的门店ID', 0, '', 1, NULL, '1:基础', NULL, '', '', '', NULL, 20, '', '', 0, 0, 0, 'MyISAM', 'shop');
@@ -2325,10 +2455,10 @@ CREATE TABLE `wp_payment`  (
   `res_data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `is_pay` tinyint(1) NULL DEFAULT 0,
   `after_pay_res` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
+  `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'pbid',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `out_trade_no`(`out_trade_no`, `appid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 684 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_payment_config
@@ -2415,7 +2545,7 @@ CREATE TABLE `wp_payment_set`  (
   `shop_pay_score` int(10) NULL DEFAULT 0 COMMENT '支付返积分',
   `deposit` int(10) NULL DEFAULT 10 COMMENT '支付定金百分比',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_picture
@@ -2434,7 +2564,7 @@ CREATE TABLE `wp_picture`  (
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `status`(`id`, `status`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3116 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_picture_category
@@ -2578,7 +2708,7 @@ CREATE TABLE `wp_public_check`  (
   `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 968 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_public_config
@@ -2591,7 +2721,7 @@ CREATE TABLE `wp_public_config`  (
   `pvalue` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配置值',
   `mtime` int(10) NULL DEFAULT NULL COMMENT '设置时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of wp_public_config
@@ -2636,7 +2766,6 @@ CREATE TABLE `wp_publics`  (
   `uid` int(10) NULL DEFAULT NULL COMMENT '用户ID',
   `public_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众号名称',
   `public_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众号原始id',
-  `wechat` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信号',
   `interface_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接口地址',
   `headface_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众号头像',
   `area` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地区',
@@ -2649,17 +2778,17 @@ CREATE TABLE `wp_publics`  (
   `tips_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '提示关注公众号的文章地址',
   `domain` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义域名',
   `is_bind` tinyint(2) NULL DEFAULT 0 COMMENT '是否为微信开放平台绑定账号',
-  `mch_id` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `partner_key` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `cert_pem` int(11) NULL DEFAULT NULL,
-  `key_pem` int(11) NULL DEFAULT NULL,
-  `authorizer_refresh_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `mch_id` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户号',
+  `partner_key` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '支付密钥',
+  `cert_pem` int(11) NULL DEFAULT NULL COMMENT '证书cert',
+  `key_pem` int(11) NULL DEFAULT NULL COMMENT '证书key',
+  `authorizer_refresh_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'authorizer_refresh_token',
   `check_file` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '微信验证文件',
-  `app_type` tinyint(2) NULL DEFAULT 0,
-  `wpid` int(11) NULL DEFAULT NULL,
+  `app_type` tinyint(2) NULL DEFAULT 0 COMMENT '公众号类型',
+  `wpid` int(11) NULL DEFAULT NULL COMMENT 'wpid',
   `order_payok_messageid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易完成通知的模板ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 80 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_qr_admin
@@ -2673,7 +2802,7 @@ CREATE TABLE `wp_qr_admin`  (
   `qr_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '二维码',
   `material` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '扫码后的回复内容',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_qr_code
@@ -2693,7 +2822,7 @@ CREATE TABLE `wp_qr_code`  (
   `expire_seconds` int(11) NULL DEFAULT 2592000 COMMENT '有效期',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 841 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_real_prize
@@ -2732,6 +2861,81 @@ CREATE TABLE `wp_recharge_log`  (
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for wp_redbag
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_redbag`;
+CREATE TABLE `wp_redbag`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uid` int(10) NULL DEFAULT NULL COMMENT 'uid',
+  `mch_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户号',
+  `sub_mch_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子商户号',
+  `wxappid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众账号appid',
+  `nick_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '提供方名称',
+  `send_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户名称',
+  `total_amount` int(10) NULL DEFAULT 1000 COMMENT '付款金额',
+  `min_value` int(10) NULL DEFAULT 1000 COMMENT '最小红包金额',
+  `max_value` int(10) NULL DEFAULT 1000 COMMENT '最大红包金额',
+  `total_num` int(10) NULL DEFAULT 1 COMMENT '红包发放总人数',
+  `wishing` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '红包祝福语',
+  `act_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '活动名称',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `logo_imgurl` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '商户logo的url',
+  `share_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分享文案',
+  `share_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分享链接',
+  `share_imgurl` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '分享的图片',
+  `collect_count` int(10) NULL DEFAULT 0 COMMENT '领取人数',
+  `collect_amount` int(10) NULL DEFAULT 0 COMMENT '已领取金额',
+  `collect_limit` tinyint(2) NULL DEFAULT 0 COMMENT '每人最多领取次数',
+  `partner_key` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户API密钥',
+  `template` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'default' COMMENT '素材模板',
+  `act_remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '活动备注',
+  `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for wp_redbag_follow
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_redbag_follow`;
+CREATE TABLE `wp_redbag_follow`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `red_bag_id` int(10) NULL DEFAULT NULL COMMENT '红包ID',
+  `follow_id` int(10) NULL DEFAULT NULL COMMENT '粉丝ID',
+  `amount` int(10) NULL DEFAULT 0 COMMENT '领取金额',
+  `cTime` int(10) NULL DEFAULT NULL COMMENT '领取时间',
+  `status` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'SENDING' COMMENT '发放状态',
+  `reason` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '失败原因 ',
+  `Rcv_time` int(10) NULL DEFAULT NULL COMMENT '领取红包的时间 ',
+  `Send_time` int(10) NULL DEFAULT NULL COMMENT '红包发送时间 ',
+  `Refund_time` int(10) NULL DEFAULT NULL COMMENT '红包退款时间',
+  `extra` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '微信返回的数据集',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for wp_redbag_recode
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_redbag_recode`;
+CREATE TABLE `wp_redbag_recode`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `wxappid` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `re_openid` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `total_amount` int(11) NOT NULL,
+  `mch_billno` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `cTime` int(10) NOT NULL,
+  `status` tinyint(2) NULL DEFAULT 1 COMMENT '0 表示已下发 1 表示待下发 2 延时下发 3 下发失败 4 自定义失败原因',
+  `wait_time` int(10) NULL DEFAULT NULL,
+  `more_param` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `log_md5` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `act_id` int(11) NULL DEFAULT NULL,
+  `act_mod` char(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `uid` int(11) NULL DEFAULT 0 COMMENT '用户uid',
+  `wpid` int(11) NULL DEFAULT 0 COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -2797,7 +3001,7 @@ CREATE TABLE `wp_score_exchange_log`  (
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   `score` int(10) NULL DEFAULT 0 COMMENT '兑换积分',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_scratch
@@ -2845,9 +3049,9 @@ CREATE TABLE `wp_seckill`  (
   `type` tinyint(2) NULL DEFAULT 0 COMMENT '显示类型',
   `status` tinyint(2) NULL DEFAULT 0 COMMENT '状态',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
-  `order_limit` smallint(4) UNSIGNED NULL DEFAULT 0,
+  `order_limit` smallint(4) UNSIGNED NULL DEFAULT 0 COMMENT '购买限制',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_seckill_goods
@@ -2855,17 +3059,17 @@ CREATE TABLE `wp_seckill`  (
 DROP TABLE IF EXISTS `wp_seckill_goods`;
 CREATE TABLE `wp_seckill_goods`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品名称',
-  `shop_goods_id` int(10) NULL DEFAULT NULL COMMENT '商品来源',
-  `cover` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '商品封面图',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
+  `shop_goods_id` int(10) NOT NULL COMMENT '商品来源',
+  `cover` int(10) UNSIGNED NOT NULL COMMENT '商品封面图',
   `express` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '邮费',
   `seckill_id` int(10) NULL DEFAULT NULL COMMENT '活动Id',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
-  `send_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `is_all_store` tinyint(1) NULL DEFAULT 0,
-  `visit_count` int(11) NULL DEFAULT 0,
+  `send_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '配置方式',
+  `is_all_store` tinyint(1) NULL DEFAULT 0 COMMENT '是否适用所有门店',
+  `visit_count` int(11) NULL DEFAULT 0 COMMENT '浏览数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_seckill_order
@@ -2884,7 +3088,7 @@ CREATE TABLE `wp_seckill_order`  (
   `is_pay` tinyint(2) NULL DEFAULT 0 COMMENT ' 状态',
   `market_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '原价',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 374 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_servicer
@@ -2898,10 +3102,10 @@ CREATE TABLE `wp_servicer`  (
   `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '授权列表',
   `enable` int(10) NULL DEFAULT 1 COMMENT '是否启用',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
-  `update_at` int(11) NULL DEFAULT 0,
+  `update_at` int(11) NULL DEFAULT 0 COMMENT '更新时间',
   `pbid` int(10) NULL DEFAULT 0 COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_share_log
@@ -2914,7 +3118,7 @@ CREATE TABLE `wp_share_log`  (
   `score` int(10) NULL DEFAULT NULL COMMENT '积分',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop
@@ -2930,7 +3134,7 @@ CREATE TABLE `wp_shop`  (
   `wechat` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信',
   `template` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模板',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '店铺介绍',
-  `wpid` int(11) NULL DEFAULT NULL,
+  `wpid` int(11) NULL DEFAULT NULL COMMENT 'wpid',
   `manager_id` int(10) NULL DEFAULT NULL COMMENT '管理员ID',
   `api_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '快递接口的APPKEY',
   `parent_shop` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分销上级商店',
@@ -2940,7 +3144,7 @@ CREATE TABLE `wp_shop`  (
   `tcp` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '客户协议',
   `order_payok_messageid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易完成通知的模板ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 74 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_address
@@ -2954,10 +3158,10 @@ CREATE TABLE `wp_shop_address`  (
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '城市',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '具体地址',
   `is_use` tinyint(2) NULL DEFAULT 0 COMMENT '是否设置为默认',
-  `address_detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `address_detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细地址',
   `is_del` tinyint(2) NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_attribute
@@ -3001,7 +3205,7 @@ CREATE TABLE `wp_shop_cart`  (
   `cTime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `lock_rid_num` int(10) NULL DEFAULT 0 COMMENT '释放库存数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 425 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_cashout_account
@@ -3043,7 +3247,7 @@ CREATE TABLE `wp_shop_collect`  (
   `goods_id` int(10) NULL DEFAULT NULL COMMENT '商品ID',
   `cTime` int(10) NULL DEFAULT NULL COMMENT '收藏时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 238 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_distribution_profit
@@ -3115,7 +3319,7 @@ CREATE TABLE `wp_shop_goods`  (
   `diy_id` int(10) NULL DEFAULT 0 COMMENT '详情页面DidId',
   `is_delete` int(10) NULL DEFAULT 0 COMMENT '是否删除',
   `is_new` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '新品类型',
-  `can_deposit` tinyint(2) NOT NULL DEFAULT 1 COMMENT '是否支持定金支付',
+  `can_deposit` tinyint(2) NULL DEFAULT 1 COMMENT '是否支持定金支付',
   `reduce_score` int(10) NULL DEFAULT 0 COMMENT '可抵扣积分',
   `distribution_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '分销返佣金额',
   `is_spec` int(10) NULL DEFAULT 0 COMMENT '是否有规格',
@@ -3125,9 +3329,9 @@ CREATE TABLE `wp_shop_goods`  (
   `stores_ids` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自提门店',
   `is_all_store` tinyint(2) NULL DEFAULT 0 COMMENT '店门类型',
   `tab` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '同款标签',
-  `param_temp_id` int(11) NULL DEFAULT NULL,
+  `param_temp_id` int(11) NULL DEFAULT NULL COMMENT '参数模板ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 158 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_goods_category
@@ -3144,7 +3348,7 @@ CREATE TABLE `wp_shop_goods_category`  (
   `is_recommend` tinyint(2) NULL DEFAULT 0 COMMENT '是否推荐',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'Token',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_goods_comment
@@ -3162,7 +3366,7 @@ CREATE TABLE `wp_shop_goods_comment`  (
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   `is_show` int(10) NULL DEFAULT 1 COMMENT '是否显示',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_goods_content
@@ -3174,7 +3378,7 @@ CREATE TABLE `wp_shop_goods_content`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `goods_id`(`goods_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 97 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_goods_score
@@ -3239,11 +3443,11 @@ CREATE TABLE `wp_shop_goods_stock`  (
   `event_type` tinyint(2) NULL DEFAULT 0 COMMENT '商品来源',
   `market_price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '原价',
   `sale_price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '销售价',
-  `shop_goods_id` int(10) NULL DEFAULT NULL,
+  `shop_goods_id` int(10) NULL DEFAULT NULL COMMENT '商城商品',
   `del_at` int(10) NULL DEFAULT 0 COMMENT '删除时间',
   PRIMARY KEY (`stock_id`) USING BTREE,
   INDEX `goods_id`(`goods_id`, `event_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 275 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_membership
@@ -3294,14 +3498,14 @@ CREATE TABLE `wp_shop_order`  (
   `out_trade_no` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '支付的订单号',
   `event_id` int(10) NULL DEFAULT NULL COMMENT '活动ID',
   `is_original` tinyint(2) NULL DEFAULT 0 COMMENT '活动中是否原价购买',
-  `update_at` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,              
+  `update_at`  varchar(50) NULL  COMMENT '更新时间',
   `notice_erp` int(11) NULL DEFAULT 0 COMMENT '为0时不需要推送，大于0时需要推送',
-  `refund` tinyint(1) NULL DEFAULT 0,
-  `refund_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `refund` tinyint(1) NULL DEFAULT 0 COMMENT '退款状态',
+  `refund_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '退款原因',
   `pay_money` decimal(10, 2) NULL DEFAULT NULL COMMENT '实付价格',
   `dec_money` decimal(10, 2) NULL DEFAULT NULL COMMENT '优惠价格',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2298 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_order_goods
@@ -3312,7 +3516,7 @@ CREATE TABLE `wp_shop_order_goods`  (
   `order_id` int(10) NOT NULL COMMENT '订单ID',
   `goods_id` int(10) NOT NULL COMMENT '商品ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 485 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Table structure for wp_shop_order_log
@@ -3326,7 +3530,7 @@ CREATE TABLE `wp_shop_order_log`  (
   `cTime` int(10) NULL DEFAULT NULL COMMENT '时间',
   `extend` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '扩展信息',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1183 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_page
@@ -3344,7 +3548,7 @@ CREATE TABLE `wp_shop_page`  (
   `is_show` tinyint(2) NULL DEFAULT 0 COMMENT '是否显示底部导航',
   `is_index` int(10) NULL DEFAULT 0 COMMENT '设为首页',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 145 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_reward
@@ -3400,7 +3604,7 @@ CREATE TABLE `wp_shop_service`  (
   `to_id` int(10) NULL DEFAULT 0 COMMENT '回复对象',
   `customer` int(10) NULL DEFAULT 0 COMMENT '客服人员',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 466 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_slideshow
@@ -3416,7 +3620,7 @@ CREATE TABLE `wp_shop_slideshow`  (
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   `uid` int(10) NULL DEFAULT NULL COMMENT '用户id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_spec
@@ -3430,7 +3634,7 @@ CREATE TABLE `wp_shop_spec`  (
   `uid` int(10) NULL DEFAULT NULL COMMENT '用户ID',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_spec_option
@@ -3442,7 +3646,7 @@ CREATE TABLE `wp_shop_spec_option`  (
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '规格属性名称',
   `sort` int(10) NULL DEFAULT 0 COMMENT '排序号',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_statistics_follow
@@ -3469,7 +3673,7 @@ CREATE TABLE `wp_shop_track`  (
   `create_at` int(10) NULL DEFAULT NULL COMMENT 'create_at',
   `wpid` int(10) NULL DEFAULT NULL COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5708 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_shop_user_level_link
@@ -3541,7 +3745,7 @@ CREATE TABLE `wp_signin_log`  (
   `uid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户ID',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 868 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_sms
@@ -3558,7 +3762,7 @@ CREATE TABLE `wp_sms`  (
   `plat_type` int(10) NULL DEFAULT NULL COMMENT '平台标识',
   `wpid` int(10) NULL DEFAULT 0 COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_sn_code
@@ -3579,11 +3783,11 @@ CREATE TABLE `wp_sn_code`  (
   `server_addr` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务器IP',
   `admin_uid` int(10) NULL DEFAULT NULL COMMENT '核销管理员ID',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
-  `openid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `openid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'openid',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `id`(`uid`, `target_id`) USING BTREE,
   INDEX `addon`(`target_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 249 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_sport_award
@@ -3621,11 +3825,6 @@ CREATE TABLE `wp_staff_follow_link`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
--- Records of wp_staff_follow_link
--- ----------------------------
-INSERT INTO `wp_staff_follow_link` VALUES (4, 1758, 209, 73, 1533867608);
-
--- ----------------------------
 -- Table structure for wp_stores
 -- ----------------------------
 DROP TABLE IF EXISTS `wp_stores`;
@@ -3644,7 +3843,7 @@ CREATE TABLE `wp_stores`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '确认收款密码',
   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'erp门店图片链接',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_stores_link
@@ -3667,7 +3866,7 @@ CREATE TABLE `wp_stores_user`  (
   `uid` int(10) NULL DEFAULT NULL COMMENT 'uid',
   `store_id` int(10) NULL DEFAULT NULL COMMENT 'store_id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 134 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_system_notice
@@ -3679,7 +3878,7 @@ CREATE TABLE `wp_system_notice`  (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '公告内容',
   `create_time` int(10) NULL DEFAULT NULL COMMENT '发布时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_template_messages
@@ -3698,7 +3897,7 @@ CREATE TABLE `wp_template_messages`  (
   `group_id` int(10) NULL DEFAULT NULL COMMENT '发送分组id',
   `send_count` int(10) NULL DEFAULT 0 COMMENT '发送人数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wp_transfers_recode
@@ -3719,7 +3918,7 @@ CREATE TABLE `wp_transfers_recode`  (
   `act_id` int(11) NULL DEFAULT NULL,
   `act_mod` char(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_update_score_log
@@ -3735,7 +3934,7 @@ CREATE TABLE `wp_update_score_log`  (
   `manager_id` int(10) NULL DEFAULT NULL COMMENT '管理员id',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_update_version
@@ -3759,41 +3958,43 @@ DROP TABLE IF EXISTS `wp_user`;
 CREATE TABLE `wp_user`  (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '用户名',
-  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录密码',
-  `truename` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
-  `mobile` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱地址',
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录密码',
+  `truename` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
+  `mobile` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱地址',
   `sex` tinyint(2) NULL DEFAULT NULL COMMENT '性别',
-  `headimgurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像地址',
-  `city` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '城市',
-  `province` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '省份',
-  `country` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '国家',
+  `headimgurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像地址',
+  `city` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '城市',
+  `province` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省份',
+  `country` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '国家',
   `language` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'zh-cn' COMMENT '语言',
   `score` float NULL DEFAULT 0 COMMENT '积分值',
-  `unionid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信第三方ID',
+  `unionid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信第三方ID',
   `login_count` int(10) NULL DEFAULT 0 COMMENT '登录次数',
-  `reg_ip` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册IP',
+  `reg_ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '注册IP',
   `reg_time` int(10) NULL DEFAULT NULL COMMENT '注册时间',
-  `last_login_ip` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最近登录IP',
+  `last_login_ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '最近登录IP',
   `last_login_time` int(10) NULL DEFAULT NULL COMMENT '最近登录时间',
   `status` tinyint(2) NULL DEFAULT 1 COMMENT '状态',
   `is_init` tinyint(2) NULL DEFAULT 0 COMMENT '初始化状态',
   `is_audit` tinyint(2) NULL DEFAULT 0 COMMENT '审核状态',
   `subscribe_time` int(10) NULL DEFAULT NULL COMMENT '用户关注公众号时间',
-  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信用户备注',
+  `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信用户备注',
   `groupid` int(10) NULL DEFAULT NULL COMMENT '微信端的分组ID',
   `come_from` tinyint(1) NULL DEFAULT 0 COMMENT '来源',
-  `login_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'login_name',
-  `login_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录密码',
+  `login_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'login_name',
+  `login_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录密码',
   `manager_id` int(10) NULL DEFAULT 0 COMMENT '公众号管理员ID',
   `level` tinyint(2) NULL DEFAULT 0 COMMENT '-1:机器人0:粉丝1:超级管理员2:A级管理员\r\n3:B级管理员\r\n4:C级管理员',
   `membership` char(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '会员等级',
-  `bind_openid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '绑定的openid',
+  `bind_openid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '绑定的openid',
   `audit_time` int(10) NULL DEFAULT NULL COMMENT '审核通过时间',
   `grade` int(10) NULL DEFAULT 0 COMMENT '当前用户的等级',
   `wpid` int(11) NULL DEFAULT 0,
+  `tagid_list` varchar(555) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户被打上的标签ID列表',
+  `in_blacklist` tinyint(2) NULL DEFAULT 0 COMMENT '是否拉黑',
   PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11697 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_user_follow
@@ -3819,10 +4020,20 @@ CREATE TABLE `wp_user_tag`  (
   `rule` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所拥有的权限ID，多个用英文逗号隔开',
   `type` tinyint(1) NULL DEFAULT 0 COMMENT '标签（角色）类型，0 粉丝角色 1 运营人员角色',
   `wid` int(10) NULL DEFAULT NULL COMMENT '微信标签id',
-  `wtype` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '公众号类型0.1.2.3',
+  `wtype` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公众号类型0.1.2.3',
   `pbid` int(10) NOT NULL DEFAULT 0 COMMENT '公众号id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of wp_user_tag
+-- ----------------------------
+INSERT INTO `wp_user_tag` VALUES (5, '运营人员', 1487669605, '315,316,317,318,319,310,311,312,313,314,324,328,330,331,332,333,334,287,288,300,301,302,303,304,341,290,291,292,293,294', 1, NULL, '', 1);
+INSERT INTO `wp_user_tag` VALUES (14, '普通订阅号', NULL, '346,365,374,372,347,366,353,356,354,348,349,367', 2, NULL, '0', 1);
+INSERT INTO `wp_user_tag` VALUES (15, '认证订阅号', NULL, '346,365,374,372,362,361,350,380,377,364,347,368,366,353,356,354,348,367,375,379,370,349', 2, NULL, '1', 1);
+INSERT INTO `wp_user_tag` VALUES (16, '普通服务号', NULL, '346,365,374,372,370,347,366,353,356,354,367,348,349', 2, NULL, '2', 1);
+INSERT INTO `wp_user_tag` VALUES (17, '认证服务号', NULL, '353,354,347,346,348,349,350,351,352,355,356,357,358,359,360,361,363,362,364,366,365,367,368,369,371,370,372,373,374,375,376,377,378,379,380', 2, NULL, '3', 1);
+
 
 -- ----------------------------
 -- Table structure for wp_user_tag_link
@@ -3834,7 +4045,7 @@ CREATE TABLE `wp_user_tag_link`  (
   `tag_id` int(10) NOT NULL COMMENT 'tag_id',
   `cTime` int(10) NOT NULL COMMENT '记录时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_visit_log
@@ -3853,7 +4064,7 @@ CREATE TABLE `wp_visit_log`  (
   `referer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'referer',
   `cTime` int(10) NULL DEFAULT NULL COMMENT '时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 60058 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_weisite_category
@@ -3869,7 +4080,7 @@ CREATE TABLE `wp_weisite_category`  (
   `pid` int(10) NULL DEFAULT 0 COMMENT '一级目录',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_weisite_cms
@@ -3877,7 +4088,7 @@ CREATE TABLE `wp_weisite_category`  (
 DROP TABLE IF EXISTS `wp_weisite_cms`;
 CREATE TABLE `wp_weisite_cms`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '关键词',
+  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关键词',
   `keyword_type` tinyint(2) NULL DEFAULT NULL COMMENT '关键词类型',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标题',
   `intro` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '简介',
@@ -3905,7 +4116,7 @@ CREATE TABLE `wp_weisite_footer`  (
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `token`(`pid`, `sort`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_weisite_slideshow
@@ -3920,7 +4131,7 @@ CREATE TABLE `wp_weisite_slideshow`  (
   `sort` int(10) NULL DEFAULT 0 COMMENT '排序',
   `wpid` int(10) NOT NULL DEFAULT 0 COMMENT 'wpid',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for wp_weixin_log
@@ -3960,6 +4171,6 @@ CREATE TABLE `wp_weixin_message`  (
   `type` tinyint(1) NULL DEFAULT 0 COMMENT '消息分类',
   `is_material` int(10) NULL DEFAULT 0 COMMENT '设置为文本素材',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1153 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;

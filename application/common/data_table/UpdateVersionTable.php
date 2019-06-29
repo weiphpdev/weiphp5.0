@@ -19,20 +19,20 @@ class UpdateVersionTable {
     // 列表定义
     public $list_grid = [
       'version' => [
-          'title' => '版本号',
+          'title' => '版本号'
       ],
       'title' => [
-          'title' => '升级包名',
+          'title' => '升级包名'
       ],
       'description' => [
-          'title' => '描述',
+          'title' => '描述'
       ],
       'create_date' => [
           'title' => '创建时间',
-          'function' => 'time_format',
+          'function' => 'time_format'
       ],
       'download_count' => [
-          'title' => '下载统计数',
+          'title' => '下载统计数'
       ],
       'urls' => [
           'title' => '操作',
@@ -40,7 +40,7 @@ class UpdateVersionTable {
           'href' => [
               '0' => [
                   'title' => '编辑',
-                  'url' => '[EDIT]&id=[id]'
+                  'url' => '[EDIT]'
               ],
               '1' => [
                   'title' => '删除',
@@ -54,15 +54,17 @@ class UpdateVersionTable {
     public $fields = [
       'version' => [
           'title' => '版本号',
-          'field' => 'int(10) unsigned NOT NULL ',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'num',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'title' => [
           'title' => '升级包名',
           'field' => 'varchar(50) NOT NULL',
           'type' => 'string',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'description' => [
           'title' => '描述',
@@ -80,12 +82,14 @@ class UpdateVersionTable {
           'title' => '升级包地址',
           'field' => 'varchar(255) NOT NULL',
           'type' => 'textarea',
-          'is_show' => 1
+          'is_show' => 1,
+          'is_must' => 1
       ],
       'download_count' => [
           'title' => '下载统计',
-          'field' => 'int(10) unsigned NULL ',
-          'type' => 'num'
+          'field' => 'int(10) unsigned NULL',
+          'type' => 'num',
+          'value' => 0
       ]
   ];
 }

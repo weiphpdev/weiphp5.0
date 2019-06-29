@@ -23,40 +23,39 @@ class ShopCartTable {
     public $fields = [
       'uid' => [
           'title' => '用户ID',
-          'field' => 'int(10) UNSIGNED NOT NULL',
+          'field' => 'int(10) unsigned NOT NULL',
           'type' => 'num',
           'auto_rule' => 'get_mid',
           'auto_time' => 1,
-          'auto_type' => 'function',
+          'auto_type' => 'function'
       ],
       'wpid' => [
           'title' => 'wpid',
           'type' => 'num',
-          'field' => 'int(10) NULL',
-          'is_show' => 0,
-          'is_must' => 0
+          'field' => 'int(10) NULL'
       ],
       'goods_id' => [
           'title' => '商品id',
           'field' => 'varchar(255) NOT NULL',
-          'type' => 'string',
+          'type' => 'string'
       ],
       'num' => [
           'title' => '数量',
-          'field' => 'int(10) UNSIGNED NULL',
+          'field' => 'int(10) unsigned NULL',
           'type' => 'num',
-          'is_show' => 1,
+          'is_show' => 1
       ],
       'price' => [
           'title' => '单价',
-          'field' => 'varchar(30) NULL',
-          'type' => 'num',
+          'field' => 'decimal(10,2) NULL',
+          'type' => 'num'
       ],
       'goods_type' => [
           'title' => '商品类型',
           'field' => 'tinyint(2) NULL',
           'type' => 'bool',
           'is_show' => 1,
+          'value' => 0
       ],
       'openid' => [
           'title' => 'openid',
@@ -64,23 +63,24 @@ class ShopCartTable {
           'type' => 'string',
           'auto_rule' => 'get_openid',
           'auto_time' => 3,
-          'auto_type' => 'function',
+          'auto_type' => 'function'
       ],
       'spec_option_ids' => [
           'title' => '商品SKU',
           'field' => 'varchar(50) NULL',
-          'type' => 'string',
+          'type' => 'string'
       ],
       'cTime' => [
           'title' => '创建时间',
           'field' => 'int(10) NULL',
-          'type' => 'datetime',
+          'type' => 'datetime'
       ],
       'lock_rid_num' => [
           'title' => '释放库存数',
           'field' => 'int(10) NULL',
           'type' => 'num',
           'is_show' => 1,
+          'value' => 0
       ]
   ];
 }

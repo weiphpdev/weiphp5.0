@@ -37,7 +37,8 @@ class ShopOrderLogTable {
 4:确认已收货
 5:确认已收款
 6:待评价
-7:已评价'
+7:已评价',
+          'value' => 0
       ],
       'remark' => [
           'title' => '备注内容',
