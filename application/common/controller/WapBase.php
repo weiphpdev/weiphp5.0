@@ -77,7 +77,7 @@ class WapBase extends Base
     {
         $pbid = get_pbid();
         if (! $pbid || $pbid == - 1) {
-            $this->error('关键参数缺失');
+            $this->error('先增加公众号', U('weixin/publics/lists'));
         }
         
         $info = get_pbid_appinfo($pbid);

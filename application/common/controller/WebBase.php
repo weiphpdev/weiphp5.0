@@ -41,7 +41,7 @@ class WebBase extends Base
         ];
 
         if (!in_array(MODULE_NAME, $not_need_wpid) && strtolower(CONTROLLER_NAME) != 'publics' && strtolower(CONTROLLER_NAME) != 'adminmaterial' && strtolower(MODULE_NAME) != 'scene' && strtolower(MODULE_NAME . '/' . CONTROLLER_NAME) != 'weixin/notice' && (!defined('WPID') || WPID <= 0)) {
-            $this->error('关键参数缺失');
+            $this->error('先增加公众号', U('weixin/publics/lists'));
         }
 
         $index_3 = strtolower(MODULE_NAME . '/' . CONTROLLER_NAME . '/' . ACTION_NAME);
