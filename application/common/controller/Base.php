@@ -815,7 +815,7 @@ class Base extends Controller
                             // 排除GET里的参数影响到已赋值的参数
                             $url_param = array();
                             foreach ($GLOBALS['get_param'] as $key => $gp) {
-                                if (strpos($href, $key . '=') === false && $key != 'p') {
+                                if (strpos($href, $key . '=') === false && $key != 'page') {
                                     $url_param[$key] = $gp;
                                 }
                             }

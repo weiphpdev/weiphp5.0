@@ -17,3 +17,6 @@ https://www.weiphp.cn/doc/addon_install.html
 
 安装中常见问题：
 https://www.weiphp.cn/doc/common_problem.html
+
+官网交流群：
+

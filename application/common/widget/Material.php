@@ -32,11 +32,6 @@ class Material extends base
         return true;
     }
 
-    /**
-     * 编辑器挂载的后台文档模型文章内容钩子
-     *
-     * table=addons&type=1&value_field=name&title_field=title&order=id desc
-     */
     public function material($data = [])
     {
         // dump($data);

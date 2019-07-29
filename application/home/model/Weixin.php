@@ -324,13 +324,22 @@ class Weixin extends Base
             '[follow]',
             '[website]',
             '[wpid]',
-            '[openid]'
+            '[openid]',
+        	'{@openid}',
+        	'{@nickname}'
         );
+        $nickname='';
+        if (isset($config['description'])){
+        	$uid=get_mid();
+        	$nickname=getUserInfo($uid,'nickname');
+        }
         $replace = array(
             U('weixin/Wap/bind', $param),
             U('wei_site/Wap/index', $param),
             $param['wpid'],
-            $param['openid']
+            $param['openid'],
+        	$param['openid'],
+        	$nickname,
         ); // dump($config);
         isset($config['description']) && $config['description'] = str_replace($sreach, $replace, $config['description']);
 //         dump($config);

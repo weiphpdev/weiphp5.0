@@ -1,8 +1,8 @@
 <?php
 // +----------------------------------------------------------------------
-// | WeiPHP [ 公众号和小程序运营管理系统 ]
+// | WeiPHP [ 移动应用的后端运营管理系统 ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2017 http://www.weiphp.cn All rights reserved.
+// | Copyright (c) 2019 http://www.weiphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Author: 凡星 <weiphp@weiphp.cn> <QQ:203163051>
 // +----------------------------------------------------------------------
@@ -11,27 +11,18 @@ namespace app\home\controller;
 use app\common\controller\Base;
 
 /**
- * 前台首页控制器
- * 主要获取首页聚合数据
+ * 缓存自动更新控制器
+ * 支持File，Memcache，Redis等类型的缓存自动更新功能
  */
 class Canal extends Base
 {
+/**
+接收到的数据格式：
+    {"data":{"addon_status":"","appid":"","area":"","authorizer_refresh_token":"","cert_pem":"","domain":"","encodingaeskey":"","group_id":"0","headface_url":"","id":"45","interface_url":"","is_bind":"0","is_use":"0","key_pem":"","mch_id":"","partner_key":"","public_id":"","public_name":"55555","secret":"","tips_url":"","type":"0","uid":"","wechat":""},"eventType":"INSERT","schemaName":"shengxun","tableName":"wp_publics"}
 
-    function test()
-    {
-        $key = cache_key([
-            'public_id' => 'gh_741263a45132'
-        ], 'publics', 'id');
-        dump($key);
-        $key = cache_key([
-            'id' => '37'
-        ], 'publics');
-        dump($key);
-        
-        dump(keys_list('publics'));
-    }
-
-    // 系统首页
+    {"data":{"addon_status":"","appid":"","area":"","authorizer_refresh_token":"","cert_pem":"","domain":"","encodingaeskey":"","group_id":"0","headface_url":"","id":"45","interface_url":"","is_bind":"0","is_use":"0","key_pem":"","mch_id":"","partner_key":"","public_id":"","public_name":"55555","secret":"","tips_url":"","type":"0","uid":"","wechat":""},"eventType":"DELETE","schemaName":"shengxun","tableName":"wp_publics"}
+**/
+    // 处理入口
     public function index()
     {
         $content = wp_file_get_contents('php://input');
@@ -41,12 +32,8 @@ class Canal extends Base
             // 不是本项目数据库的，直接无视
             exit('-1');
         }
-        file_log($content, 'canal');
+        //file_log($content, 'canal'); //记录文件日志
         
-        // if (($position = strpos($log['tableName'], DB_PREFIX)) !== false) {
-        // $leng = strlen(DB_PREFIX);
-        // $log['tableName'] = substr_replace($log['tableName'], '', $position, $leng);
-        // }
         $tableName = $log['tableName'];
         
         $key_config = keys_list($log['tableName']);
@@ -64,7 +51,7 @@ class Canal extends Base
         
         return $this->success('成功');
     }
-
+    //执行清缓存操作
     function ClearCache($log, $data, $key_config)
     {
         // 先取出新增数据的数据表下的所有key规则，然后根据key规则和增加的数据，逐个生成各个key，然后把这些key的值全部设置为null，相当于清它的缓存。
@@ -78,6 +65,7 @@ class Canal extends Base
             $key = str_replace($search, $replace, $info['key_rule']);
             
             // 还可以额外判断缓存的数据是否被更新过，如果没更新，则可以不清空缓存。
+            $update = true;            
             if ($log['eventType'] == 'UPDATE' && ! empty($info['data_field'])) {
                 $data_field = wp_explode($info['data_field'], ',');
                 
@@ -89,15 +77,9 @@ class Canal extends Base
                         break;
                     }
                 }
-                
+            } 
                 if ($update === true) {
-                    dump('===========$update===========');
-                    dump($key);
-                    S($key, NULL);
-                }
-            } else {
-                dump($key);
-                S($key, NULL);
+                cache($key, NULL);
             }
         }
     }

@@ -4743,8 +4743,12 @@ function hideStr($string, $bengin = 0, $len = 4, $type = 2, $glue = "@")
     }
     return $string;
 }
-
-// cache_key('搜索字段，格式：uid:10,wpid:200 或者：['uid'=>10,'wpid'=>200]','数据表名','缓存字段，可为空，如：id,name','扩展名，可为空')
+/**
+** $map_field string|array 搜索字段，格式：uid:10,wpid:200 或者：['uid'=>10,'wpid'=>200]
+** $table_name string 数据表名
+** $data_field string 缓存字段，可为空，如：id,name
+** $extra string 扩展名，可为空
+**/
 function cache_key($map_field, $table_name, $data_field = '', $extra = '')
 {
     $table_name = parse_name($table_name);
