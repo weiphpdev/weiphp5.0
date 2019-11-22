@@ -16,7 +16,7 @@
     "postcss-pxtorem": "^4.0.1",
     "px2rem-loader": "^0.1.9",
     "qrcodejs2": "^0.0.2",
-    "vant": "^1.5.0",
+    "vant": "^2.1.8",
     "vue": "^2.5.17",
     "vue-barcode": "^1.1.0",
     "vue-router": "^3.0.1",
